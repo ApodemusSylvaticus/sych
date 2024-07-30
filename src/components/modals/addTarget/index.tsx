@@ -4,8 +4,10 @@ import { TextField } from '../../input';
 export const AddTargetModal: React.FC = () => {
   return (
     <BaseModal>
-      <TextField id={'q'} label={'Label'} placeholder={'placeholder'} />
-      <TextField id={'q'} label={'Label'} placeholder={'placeholder'} />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <TextField id={'q'} label={'Label'} />
+        <TextField id={'q'} label={'Label'} />
+      </div>
     </BaseModal>
   );
 };

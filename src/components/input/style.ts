@@ -7,14 +7,13 @@ interface StyledTextFieldProps {
 export const StyledTextField = styled.div<StyledTextFieldProps>`
   position: relative;
   width: 100%;
-  margin-bottom: 16px;
 `;
 
 export const Input = styled.input`
   width: 100%;
-  padding: 16.5px 14px;
+  padding: 16px 14px;
   border: 1px solid #c4c4c4;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 16px;
   outline: none;
   transition: border-color 0.2s;
@@ -25,7 +24,8 @@ export const Input = styled.input`
 
   &:focus + label,
   &:not(:placeholder-shown) + label {
-    transform: translate(14px, -6px) scale(0.75);
+    top: 0;
+    left: 10px;
     background-color: white;
     padding: 0 4px;
     color: #1976d2;

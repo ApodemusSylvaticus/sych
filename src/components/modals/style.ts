@@ -28,4 +28,5 @@ export const ContentContainer = styled.div`
   background: ${(props) => props.theme.colors.primary};
   position: relative;
   z-index: 2;
+  padding: 16px;
 `;
