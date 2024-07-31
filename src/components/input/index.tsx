@@ -11,7 +11,7 @@ export const TextField: React.FC<TextFieldProps> = React.memo(({ id, label, ...p
 
   return (
     <StyledTextField focused={focused}>
-      <Input id={id} placeholder={' '} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} {...props} />
+      <Input id={id} placeholder={''} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} {...props} />
       <Label htmlFor={id} focused={focused}>
         {label}
       </Label>

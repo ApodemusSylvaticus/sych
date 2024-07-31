@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ButtonContainer, Container, Divider } from './style.ts';
 import { usePopupStore } from '../../../store/popup.ts';
+
 export const RClickPopup: React.FC = () => {
   const { isOpen, dXdY, coords } = usePopupStore((state) => ({
     isOpen: state.isOpen,
