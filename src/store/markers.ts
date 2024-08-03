@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { IMarkerEnum, ITarget } from './target.ts';
 
 export interface ICoord {
   lon: number;
@@ -6,20 +7,15 @@ export interface ICoord {
   alt: number;
 }
 
-export enum IMarkerEnum {
-  SELF,
-  TARGET,
-}
-
 export interface IMarker {
   coords: ICoord;
-  type: IMarkerEnum;
+  target: ITarget;
   tags: string[];
   timeStamp: number;
 }
 
 export interface ISelfMarker {
-  type: IMarkerEnum.SELF;
+  target: { value: IMarkerEnum.SELF; src: string };
   coords: ICoord;
 }
 
@@ -41,5 +37,5 @@ export const useMarkerStore = create<MarkersStore>((set) => ({
   },
   allMarkers: [],
   sessionMarkers: [],
-  filteredMarkers: [{ timeStamp: 13123123, coords: { lat: 51.0704152, lon: 14.420122, alt: 248 }, type: IMarkerEnum.TARGET, tags: [] }],
+  filteredMarkers: [{ timeStamp: 13123123, coords: { lat: 51.0704152, lon: 14.420122, alt: 248 }, target: IMarkerEnum.TARGET, tags: [] }],
 }));

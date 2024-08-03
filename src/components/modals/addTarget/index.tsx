@@ -1,7 +1,8 @@
 import { BaseModal } from '../index.tsx';
-import { TextField } from '../../input';
+import { TextArea, TextField } from '../../input';
 import { useModalStore } from '../../../store/modals.ts';
 import React, { useCallback, useEffect, useState } from 'react';
+import { Tags } from './tags';
 
 export const AddTargetModal: React.FC = () => {
   const addNewTargetState = useModalStore((state) => state.addNewTargetState);
@@ -86,11 +87,9 @@ export const AddTargetModal: React.FC = () => {
           <span>Тип цілі</span>
         </div>
 
-        <div style={{ border: '1px solid black', textAlign: 'center' }}>
-          <span>Теги</span>
-        </div>
+        <Tags />
 
-        <TextField id={'lat'} label={'Примітки'} type={'text'} />
+        <TextArea id={'lat'} label={'Примітки'} type={'text'} />
       </div>
     </BaseModal>
   );

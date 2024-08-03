@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Billboard, Entity, Globe, GlobeContextProvider, Layer, Vector, XYZ } from '@openglobus/openglobus-react';
 import './App.css';
 import { utils } from '@openglobus/og';
@@ -10,6 +10,7 @@ import { EventHandlerWrapper } from './wrappers/eventHandlerWrapper';
 import { RClickPopup } from './components/popup/rClick';
 import { BaseModal } from './components/modals';
 import { AddTargetModal } from './components/modals/addTarget';
+import { useTagsStore } from './store/tags.ts';
 
 function toQuadKey(x: number, y: number, z: number): string {
   let index = '';
@@ -43,11 +44,15 @@ function App(): JSX.Element {
     filtered: state.filteredMarkers,
   }));
 
-  console.log([selfMarker, filtered]);
+  const getTagsFromLocalStorage = useTagsStore((state) => state.getTagsFromLocalStorage);
 
   const handleGlobeClick = (event: any) => {
     console.log(event);
   };
+
+  useEffect(() => {
+    getTagsFromLocalStorage();
+  }, []);
 
   return (
     <ThemeWrapper>
