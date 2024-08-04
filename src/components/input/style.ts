@@ -7,6 +7,7 @@ interface StyledTextFieldProps {
 export const StyledTextField = styled.div<StyledTextFieldProps>`
   position: relative;
   width: 100%;
+  display: flex;
 `;
 
 export const InputWrapper = styled.div`

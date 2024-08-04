@@ -3,12 +3,11 @@ import { Billboard, Entity, Globe, GlobeContextProvider, Layer, Vector, XYZ } fr
 import './App.css';
 import { utils } from '@openglobus/og';
 import { MainContainer } from './components/containers/style.ts';
-import { Menu, MenuManipulationButton } from './components/menu';
+import { MenuManipulationButton } from './components/menu';
 import { ThemeWrapper } from './wrappers/theme';
 import { useMarkerStore } from './store/markers.ts';
 import { EventHandlerWrapper } from './wrappers/eventHandlerWrapper';
 import { RClickPopup } from './components/popup/rClick';
-import { BaseModal } from './components/modals';
 import { AddTargetModal } from './components/modals/addTarget';
 import { useTagsStore } from './store/tags.ts';
 
@@ -39,9 +38,10 @@ const args = {
 
 function App(): JSX.Element {
   const [showSat, setShowSat] = useState(false);
-  const { selfMarker, filtered } = useMarkerStore((state) => ({
+  const { selfMarker, filtered, allMarkers } = useMarkerStore((state) => ({
     selfMarker: state.selfMarker,
     filtered: state.filteredMarkers,
+    allMarkers: state.allMarkers,
   }));
 
   const getTagsFromLocalStorage = useTagsStore((state) => state.getTagsFromLocalStorage);
@@ -64,7 +64,7 @@ function App(): JSX.Element {
               {showSat && <XYZ {...args} />}
 
               <Vector name="filtered-markers">
-                {filtered.map((el, index) => (
+                {allMarkers.map((el, index) => (
                   <Entity
                     key={index}
                     name={`entity-${index}`}

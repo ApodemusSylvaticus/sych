@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { Button } from '../targetType/style.ts';
 
 export const Container = styled.div`
   display: flex;
   border-radius: 8px;
   border: 1px solid gray;
-  padding: 12px 4px;
+  padding: 18px 4px 12px;
   flex-direction: column;
   gap: 12px;
   position: relative;
@@ -20,6 +21,7 @@ export const CardName = styled.span`
   font-weight: 500;
   font-size: 18px;
   padding: 0 4px;
+  color: black;
 `;
 
 export const ChosenTagContainer = styled.div`
@@ -43,3 +45,5 @@ export const LastElemWrapper = styled.div`
     margin-right: auto;
   }
 `;
+
+export const SaveButton = styled.button``;

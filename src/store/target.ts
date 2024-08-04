@@ -1,24 +1,21 @@
 import { create } from 'zustand';
 
-export enum IMarkerEnum {
-  SELF,
-  TARGET,
-}
-
 export interface ITarget {
-  value: IMarkerEnum;
+  value: string;
   src: string;
 }
 
 export type ITargetState = {
-  targets: { [K in IMarkerEnum]: ITarget };
+  targets: ITarget[];
 };
 
 const initialState: ITargetState = {
-  targets: {
-    [IMarkerEnum.SELF]: { value: IMarkerEnum.SELF, src: '' },
-    [IMarkerEnum.TARGET]: { value: IMarkerEnum.TARGET, src: '' },
-  },
+  targets: [
+    { src: '', value: 'Enemy' },
+    { src: '', value: 'Enemy-stock' },
+    { src: '', value: 'Enemy-group' },
+    { src: '', value: 'Enemy-artillery' },
+  ],
 };
 
 export const useTargetStore = create<ITargetState>(() => initialState);

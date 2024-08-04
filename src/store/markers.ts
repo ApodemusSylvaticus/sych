@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { IMarkerEnum, ITarget } from './target.ts';
+import { ITarget } from './target.ts';
 
 export interface ICoord {
   lon: number;
@@ -15,7 +15,7 @@ export interface IMarker {
 }
 
 export interface ISelfMarker {
-  target: { value: IMarkerEnum.SELF; src: string };
+  target: { value: 'SELF'; src: string };
   coords: ICoord;
 }
 
@@ -24,6 +24,7 @@ export interface MarkersStore {
   allMarkers: IMarker[];
   sessionMarkers: IMarker[];
   filteredMarkers: IMarker[];
+  addMarker: (marker: IMarker) => void;
 }
 
 export const useMarkerStore = create<MarkersStore>((set) => ({
@@ -33,9 +34,10 @@ export const useMarkerStore = create<MarkersStore>((set) => ({
       lat: 50.07,
       alt: 235,
     },
-    type: IMarkerEnum.SELF,
+    type: 'SELF',
   },
   allMarkers: [],
   sessionMarkers: [],
-  filteredMarkers: [{ timeStamp: 13123123, coords: { lat: 51.0704152, lon: 14.420122, alt: 248 }, target: IMarkerEnum.TARGET, tags: [] }],
+  filteredMarkers: [{ timeStamp: 13123123, coords: { lat: 51.0704152, lon: 14.420122, alt: 248 }, target: 'TARGET', tags: [] }],
+  addMarker: (marker: IMarker) => set((state) => ({ allMarkers: [...state.allMarkers, marker], sessionMarkers: [...state.sessionMarkers, marker] })),
 }));

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ButtonContainer, Container, Divider } from './style.ts';
 import { usePopupStore } from '../../../store/popup.ts';
+import { useModalStore } from '../../../store/modals.ts';
 
 export const RClickPopup: React.FC = () => {
   const { isOpen, dXdY, coords } = usePopupStore((state) => ({
@@ -8,6 +9,7 @@ export const RClickPopup: React.FC = () => {
     coords: state.coords,
     dXdY: state.dXdY,
   }));
+  const openNewTargetModal = useModalStore((state) => state.openNewTargetModal);
 
   const [size, setSize] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -46,7 +48,7 @@ export const RClickPopup: React.FC = () => {
       <Divider />
       <ButtonContainer>
         <button>Aim here</button>
-        <button>Add target</button>
+        <button onClick={() => openNewTargetModal(coords)}>Add target</button>
       </ButtonContainer>
     </Container>
   );

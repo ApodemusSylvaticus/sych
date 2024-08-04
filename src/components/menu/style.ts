@@ -19,8 +19,8 @@ export const Container = styled.div<IMenuButtonContainer>`
 
 export const MenuButtonContainer = styled.div<IMenuButtonContainer>`
   padding: 8px;
-  width: 24px;
-  height: 17px;
+  width: 40px;
+  height: 33px;
   position: absolute;
   z-index: 10;
   top: 8px;

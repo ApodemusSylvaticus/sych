@@ -3,19 +3,34 @@ import { TextArea, TextField } from '../../input';
 import { useModalStore } from '../../../store/modals.ts';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Tags } from './tags';
+import { TargetType } from './targetType';
+import { Button } from '../style.ts';
+import { ITarget } from '../../../store/target.ts';
+import { useMarkerStore } from '../../../store/markers.ts';
+import { usePopupStore } from '../../../store/popup.ts';
 
 export const AddTargetModal: React.FC = () => {
-  const addNewTargetState = useModalStore((state) => state.addNewTargetState);
+  const { addNewTargetState, closeNewTargetModal } = useModalStore((state) => ({
+    addNewTargetState: state.addNewTargetState,
+    closeNewTargetModal: state.closeNewTargetModal,
+  }));
+  const closePopup = usePopupStore((state) => state.closePopup);
+  const addMarker = useMarkerStore((state) => state.addMarker);
 
   const [localLat, setLocalLat] = useState<string>(addNewTargetState.coords.lat.toString());
   const [localLon, setLocalLon] = useState<string>(addNewTargetState.coords.lon.toString());
   const [localAlt, setLocalAlt] = useState<string>(addNewTargetState.coords.alt.toString());
+  const [targetType, setTargetType] = useState<ITarget>({ value: '', src: '' });
+  const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
-    setLocalAlt(addNewTargetState.coords.alt.toString());
-    setLocalLat(addNewTargetState.coords.lat.toString());
-    setLocalLon(addNewTargetState.coords.lon.toString());
-  }, [addNewTargetState.isOpen]);
+    if (addNewTargetState.isOpen) {
+      setLocalAlt(addNewTargetState.coords.alt.toString());
+      setLocalLat(addNewTargetState.coords.lat.toString());
+      setLocalLon(addNewTargetState.coords.lon.toString());
+      return;
+    }
+  }, [addNewTargetState]);
 
   const validateAndSetValue = useCallback((value: string, setter: React.Dispatch<React.SetStateAction<string>>, min: number, max: number) => {
     if (value === '' || value === '-') {
@@ -33,18 +48,15 @@ export const AddTargetModal: React.FC = () => {
     (event: React.ChangeEvent<HTMLInputElement>, setter: React.Dispatch<React.SetStateAction<string>>, min: number, max: number) => {
       let value = event.target.value;
 
-      // Разрешаем только цифры, точку и минус
       const regex = /^-?\d*\.?\d*$/;
       if (!regex.test(value)) {
         return;
       }
 
-      // Заменяем ведущий ноль
       if (value.length > 1 && value[0] === '0' && value[1] !== '.') {
         value = value.slice(1);
       }
 
-      // Обрабатываем случай, когда пользователь пытается ввести точку
       if (value.endsWith('.') && !value.slice(0, -1).includes('.')) {
         setter(value);
         return;
@@ -75,21 +87,28 @@ export const AddTargetModal: React.FC = () => {
     },
     [handleInputChange],
   );
+  const onButtonClick = useCallback(
+    (event: React.MouseEvent<unknown>) => {
+      addMarker({ tags, target: targetType, coords: { lon: +localLon, alt: +localAlt, lat: +localLat }, timeStamp: Date.now() });
+      closeNewTargetModal();
+      closePopup();
+    },
+    [addMarker, tags, targetType, localLon, localAlt, localLat],
+  );
 
   return (
-    <BaseModal>
+    <BaseModal isOpen={addNewTargetState.isOpen}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <TextField id={'lat'} label={'Lat'} value={localLat} onChange={onLatChange} />
         <TextField id={'lon'} label={'Lon'} value={localLon} onChange={onLonChange} />
         <TextField id={'alt'} label={'Alt'} value={localAlt} onChange={onAltChange} />
 
-        <div style={{ border: '1px solid black', textAlign: 'center' }}>
-          <span>Тип цілі</span>
-        </div>
+        <TargetType setTargetType={setTargetType} />
 
-        <Tags />
+        <Tags setTags={setTags} />
 
         <TextArea id={'lat'} label={'Примітки'} type={'text'} />
+        <Button onClick={onButtonClick}>Save</Button>
       </div>
     </BaseModal>
   );

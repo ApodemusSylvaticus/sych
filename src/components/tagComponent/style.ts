@@ -8,6 +8,10 @@ export const Container = styled.div<{ isActive: boolean }>`
   text-align: center;
   cursor: pointer;
   transition: background-color 0.25s linear;
+
+  &:hover {
+    background: ${(props) => (props.isActive ? props.theme.colors.accent : '#8E84A0')};
+  }
 `;
 
 export const Text = styled.span``;

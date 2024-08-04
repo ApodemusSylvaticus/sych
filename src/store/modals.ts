@@ -6,6 +6,7 @@ export interface ModalsState {
     isOpen: boolean;
     coords: ICoord;
   };
+  openNewTargetModal: (coords: ICoord) => void;
   closeNewTargetModal: () => void;
 }
 
@@ -18,6 +19,7 @@ export const useModalStore = create<ModalsState>((set) => ({
     },
     isOpen: false,
   },
+  openNewTargetModal: (coords: ICoord) => set(() => ({ addNewTargetState: { coords, isOpen: true } })),
   closeNewTargetModal: () =>
     set(() => ({
       addNewTargetState: {
