@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ButtonContainer, Container, Divider } from './style.ts';
 import { usePopupStore } from '../../../store/popup.ts';
 import { useModalStore } from '../../../store/modals.ts';
+import { Button } from '../../button/style.ts';
 
 export const RClickPopup: React.FC = () => {
   const { isOpen, dXdY, coords } = usePopupStore((state) => ({
@@ -47,8 +48,8 @@ export const RClickPopup: React.FC = () => {
       <span>alt: {coords.alt}</span>
       <Divider />
       <ButtonContainer>
-        <button>Aim here</button>
-        <button onClick={() => openNewTargetModal(coords)}>Add target</button>
+        <Button>Aim here</Button>
+        <Button onClick={() => openNewTargetModal(coords)}>Add target</Button>
       </ButtonContainer>
     </Container>
   );

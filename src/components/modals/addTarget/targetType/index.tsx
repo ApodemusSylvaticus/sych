@@ -15,7 +15,7 @@ export const TargetType: React.FC<{ setTargetType: (value: ITarget) => void }> =
       <CardName>Target type</CardName>
       <Wrapper>
         {targets.map((el) => (
-          <Button onClick={() => setSelected(el)} isSelected={selected.value === el.value}>
+          <Button onClick={() => setSelected(el)} isActive={selected.value === el.value}>
             {el.value}
           </Button>
         ))}

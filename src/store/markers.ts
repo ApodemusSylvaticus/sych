@@ -24,6 +24,7 @@ export interface MarkersStore {
   allMarkers: IMarker[];
   sessionMarkers: IMarker[];
   filteredMarkers: IMarker[];
+  setFilteredMarkers: (value: IMarker[]) => void;
   addMarker: (marker: IMarker) => void;
 }
 
@@ -40,4 +41,5 @@ export const useMarkerStore = create<MarkersStore>((set) => ({
   sessionMarkers: [],
   filteredMarkers: [{ timeStamp: 13123123, coords: { lat: 51.0704152, lon: 14.420122, alt: 248 }, target: 'TARGET', tags: [] }],
   addMarker: (marker: IMarker) => set((state) => ({ allMarkers: [...state.allMarkers, marker], sessionMarkers: [...state.sessionMarkers, marker] })),
+  setFilteredMarkers: (value: IMarker[]) => set({ filteredMarkers: value }),
 }));

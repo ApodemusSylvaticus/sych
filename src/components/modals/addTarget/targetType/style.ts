@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ClickableTab } from '../../../clickableTab/style.ts';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -6,18 +7,7 @@ export const Wrapper = styled.div`
   gap: 8px;
 `;
 
-export const Button = styled.button<{ isSelected: boolean }>`
-  background: ${(props) => (props.isSelected ? props.theme.colors.accent : props.theme.colors.secondary)};
-  outline: none;
-  border: none;
-  border-radius: 4px;
+export const Button = styled(ClickableTab)`
   padding: 8px 12px;
   font-size: 16px;
-
-  transition: background-color 0.2s linear;
-  cursor: pointer;
-
-  &:hover {
-    background: ${(props) => (props.isSelected ? props.theme.colors.accent : '#8E84A0')};
-  }
 `;

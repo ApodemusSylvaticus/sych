@@ -18,6 +18,7 @@ export const Container = styled.div<IContainer>`
   padding: 1.6rem;
   gap: 0.8rem;
   width: 300px;
+  pointer-events: ${(props) => (props.isVisible ? 'auto' : 'none')};
 
   opacity: ${(props) => (props.isVisible ? 1 : 0)};
   transition: opacity 0.3s linear;
@@ -36,27 +37,7 @@ export const Divider = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   gap: 24px;
-
-  button {
+  & button {
     flex: 1;
-    background-color: ${(props) => props.theme.colors.primary};
-    border: none;
-    border-radius: 4px;
-    color: ${(props) => props.theme.colors.dialogs};
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    padding: 8px 16px;
-    text-transform: uppercase;
-    transition: background-color 0.3s;
-  }
-
-  button:hover {
-    background: ${(props) => props.theme.colors.accent};
-  }
-
-  button:active {
-    background: ${(props) => props.theme.colors.accent};
-    border: none;
   }
 `;

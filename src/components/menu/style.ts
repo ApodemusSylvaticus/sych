@@ -9,12 +9,16 @@ export const Container = styled.div<IMenuButtonContainer>`
   top: 0;
   right: 0;
   display: flex;
-  padding: ${(props) => (props.isActive ? '1.6rem' : '0')};
-  width: ${(props) => (props.isActive ? '12%' : '0')};
+  flex-direction: column;
+  gap: 16px;
+  padding: 49px 8px 16px;
+  width: 340px;
   height: 100%;
   background: ${(props) => props.theme.colors.menuBg};
-  border-left: ${(props) => (props.isActive ? '3px' : '0')} solid ${(props) => props.theme.colors.primary};
-  transition: all 0.3s ease-in;
+  transition: transform 0.3s linear;
+  transform-origin: right center;
+  transform: ${(props) => (props.isActive ? 'translateX(0)' : 'translateX(100%)')};
+  overflow: auto;
 `;
 
 export const MenuButtonContainer = styled.div<IMenuButtonContainer>`

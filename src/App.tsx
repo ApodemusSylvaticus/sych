@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Billboard, Entity, Globe, GlobeContextProvider, Layer, Vector, XYZ } from '@openglobus/openglobus-react';
+import { Billboard, Entity, Globe, GlobeContextProvider, Vector, XYZ } from '@openglobus/openglobus-react';
 import './App.css';
 import { utils } from '@openglobus/og';
 import { MainContainer } from './components/containers/style.ts';
