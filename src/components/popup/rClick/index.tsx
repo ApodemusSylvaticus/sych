@@ -4,12 +4,13 @@ import { usePopupStore } from '../../../store/popup.ts';
 import { useModalStore } from '../../../store/modals.ts';
 import { Button } from '../../button/style.ts';
 
-export const RClickPopup: React.FC = () => {
+export const RClickPopup: React.FC = React.memo(() => {
   const { isOpen, dXdY, coords } = usePopupStore((state) => ({
     isOpen: state.isOpen,
     coords: state.coords,
     dXdY: state.dXdY,
   }));
+  console.log('rerender RClickPopup');
   const openNewTargetModal = useModalStore((state) => state.openNewTargetModal);
 
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -53,4 +54,4 @@ export const RClickPopup: React.FC = () => {
       </ButtonContainer>
     </Container>
   );
-};
+});

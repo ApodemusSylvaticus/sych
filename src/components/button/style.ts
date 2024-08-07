@@ -2,16 +2,17 @@ import styled from 'styled-components';
 
 export const Button = styled.button`
   padding: 8px 16px;
-  background-color: ${(props) => props.theme.colors.primary};
-  border: none;
-  border-radius: 4px;
-  color: #1e1e1e;
+  background-color: rgb(${(props) => props.theme.colors.tabDefault});
+  border: 1px solid rgb(${(props) => props.theme.colors.primary});
+  font-family: Lato-Bold;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
   transition: background-color 0.3s;
+  color: rgb(${(props) => props.theme.colors.primary});
 
   &:hover {
-    background-color: #dfd0fc;
+    background-color: rgb(${(props) => props.theme.colors.tabHover});
   }
 `;

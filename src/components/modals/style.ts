@@ -28,7 +28,7 @@ export const ContentContainer = styled.div`
   width: min(60%, 450px);
   height: 70%;
   border-radius: 16px;
-  background: ${(props) => props.theme.colors.primary};
+  background: rgb(${(props) => props.theme.colors.primary});
   position: relative;
   z-index: 2;
   padding: 16px;

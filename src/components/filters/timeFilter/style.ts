@@ -9,7 +9,7 @@ export const CheckpointContainer = styled.div`
 export const CheckpointLabel = styled.label`
   font-size: 18px;
   line-height: 1.5;
-  color: ${(props) => props.theme.colors.primary};
+  color: rgb(${(props) => props.theme.colors.primary});
   margin-left: 8px;
 `;
 
@@ -24,7 +24,7 @@ export const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
 export const StyledCheckbox = styled.div`
   width: 18px;
   height: 18px;
-  border: 2px solid ${(props) => props.theme.colors.primary};
+  border: 2px solid rgb(${(props) => props.theme.colors.primary});
   border-radius: 2px;
   display: flex;
   align-items: center;

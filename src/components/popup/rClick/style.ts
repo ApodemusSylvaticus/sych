@@ -12,7 +12,7 @@ export const Container = styled.div<IContainer>`
   left: ${(props) => props.x}px;
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => props.theme.colors.dialogs};
+  background-color: rgb(${(props) => props.theme.colors.menuBg});
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1.6rem;
@@ -23,14 +23,14 @@ export const Container = styled.div<IContainer>`
   opacity: ${(props) => (props.isVisible ? 1 : 0)};
   transition: opacity 0.3s linear;
   & span {
-    color: ${(props) => props.theme.colors.primary};
+    color: rgb(${(props) => props.theme.colors.primary});
   }
 `;
 
 export const Divider = styled.div`
   width: 100%;
   height: 2px;
-  background: ${(props) => props.theme.colors.primary};
+  background: rgb(${(props) => props.theme.colors.primary});
   border-radius: 8px;
 `;
 

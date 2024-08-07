@@ -1,16 +1,27 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTargetStore } from '../../../store/target.ts';
 import { ClickableTab } from '../../clickableTab/style.ts';
 import { BaseColumnContainer } from '../../containers/style.ts';
 import { CardContainer } from '../../containers/cardStyle.ts';
 import { Button, CardName, RightSideContainer } from '../style.ts';
+import { useFilterStore } from '../../../store/filter.ts';
 
 export const TypeFilters: React.FC = React.memo(() => {
   const targets = useTargetStore((state) => state.targets);
-
+  const addTypeFilter = useFilterStore((state) => state.addTypeFilter);
   const [chosenTargets, setChosenTargets] = useState(() => new Set(targets.map((t) => t.value)));
+  const [isFilterAvailable, setIsFilterAvailable] = useState<boolean>(false);
 
-  const handleClick = useCallback((el) => {
+  useEffect(() => {
+    if (isFilterAvailable) {
+      const typeFilterArray = Array.from(chosenTargets);
+      addTypeFilter(typeFilterArray);
+    } else {
+      addTypeFilter([]);
+    }
+  }, [addTypeFilter, chosenTargets, isFilterAvailable]);
+
+  const handleClick = useCallback((el: { value: string }) => {
     setChosenTargets((prevChosenTargets) => {
       const newChosenTargets = new Set(prevChosenTargets);
       if (newChosenTargets.has(el.value)) {
@@ -38,7 +49,9 @@ export const TypeFilters: React.FC = React.memo(() => {
       <BaseColumnContainer>
         {memoizedTargets}
         <RightSideContainer>
-          <Button isActive>Enable</Button>
+          <Button onClick={() => setIsFilterAvailable(!isFilterAvailable)} isActive={isFilterAvailable}>
+            {isFilterAvailable ? 'Enable' : 'Disabled'}
+          </Button>
         </RightSideContainer>
       </BaseColumnContainer>
     </CardContainer>

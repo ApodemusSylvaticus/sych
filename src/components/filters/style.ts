@@ -14,10 +14,15 @@ export const RightSideContainer = styled.div`
 `;
 
 export const CardName = styled(CardNameBase)`
-  background-color: ${(props) => props.theme.colors.menuBg};
-  color: ${(props) => props.theme.colors.primary};
+  background-color: rgb(${(props) => props.theme.colors.menuBg});
+  color: rgb(${(props) => props.theme.colors.primary});
+`;
+
+export const MainCardName = styled(CardName)`
+  font-size: 20px;
 `;
 
 export const Button = styled(BaseButton)<IsActive>`
-  background-color: ${(props) => (props.isActive ? 'darkred' : 'green')};
+  border: 1px solid rgb(${(props) => props.theme.colors.primary});
+  background-color: ${(props) => (props.isActive ? `rgb(${props.theme.colors.tabActive})` : `rgb(${props.theme.colors.tabDefault})`)};
 `;

@@ -15,7 +15,7 @@ export const CardName = styled.span`
   position: absolute;
   top: 0;
   left: 8px;
-  background: ${(props) => props.theme.colors.primary};
+  background: rgb(${(props) => props.theme.colors.primary});
   z-index: 2;
   transform: translateY(-55%);
   font-weight: 500;

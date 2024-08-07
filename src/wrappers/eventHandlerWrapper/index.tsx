@@ -17,13 +17,18 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
 
   useEffect(() => {
     if (globe) {
+      console.log('tyt');
       globe.renderer.events.on(
         'lclick',
         (e) => {
+          console.log('trigger');
           closePopup();
           const lonLat = globe.planet.getLonLatFromPixelTerrain(e);
+          console.log(lonLat);
           if (lonLat && globe.planet.terrain) {
             globe.planet.terrain.getHeightAsync(lonLat, (h) => {
+              console.log('trigger2');
+
               openPopup({ dXdY: { x: e.clientX, y: e.clientY }, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: h } });
             });
           }

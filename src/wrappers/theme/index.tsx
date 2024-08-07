@@ -8,7 +8,10 @@ interface ThemeInterface extends DefaultTheme {
     accent: string;
     error: string;
     menuBg: string;
-    dialogs: string;
+
+    tabDefault: string;
+    tabActive: string;
+    tabHover: string;
   };
   fonts: {
     main: string;
@@ -17,12 +20,14 @@ interface ThemeInterface extends DefaultTheme {
 
 const theme: ThemeInterface = {
   colors: {
-    primary: '#FFFFFF',
+    primary: '255, 255, 255',
     secondary: '#B3B3B3',
     accent: '#dfd0fc',
     error: '#CF6679',
-    menuBg: '#121212',
-    dialogs: '#1E1E1E',
+    menuBg: '18, 18, 18',
+    tabActive: '34, 115, 93',
+    tabHover: '27, 84, 69',
+    tabDefault: '70, 69, 69',
   },
   fonts: {
     main: 'Arial, sans-serif',

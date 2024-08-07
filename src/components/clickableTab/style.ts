@@ -12,8 +12,9 @@ export const ClickableTabCss = css`
 
 export const ClickableTab = styled.div<IsActive>`
   ${ClickableTabCss};
-  background: ${(props) => (props.isActive ? props.theme.colors.accent : props.theme.colors.secondary)};
+  background: rgb(${(props) => (props.isActive ? props.theme.colors.tabActive : props.theme.colors.tabDefault)});
+  color: rgb(${(props) => props.theme.colors.primary});
   &:hover {
-    background: ${(props) => (props.isActive ? props.theme.colors.accent : '#8E84A0')};
+    background: rgb(${(props) => props.theme.colors.tabHover});
   }
 `;

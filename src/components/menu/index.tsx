@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { Container, FirstLine, MenuButtonContainer, SecondLine, ThirdLine } from './style.ts';
+import { Container, FirstLine, MenuButtonContainer, SecondLine, SubmitButton, ThirdLine } from './style.ts';
 import { usePopupStore } from '../../store/popup.ts';
 import { Filters } from '../filters';
-import { Button } from '../button/style.ts';
 
 export const Menu: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
   return (
     <Container isActive={isOpen}>
       <div style={{ color: 'white', border: '1px solid white' }}>Language select</div>
       <div style={{ color: 'white', border: '1px solid white' }}>LAYER SELECT</div>
-      <Button>Session submit</Button>
+      <SubmitButton>Submit session</SubmitButton>
       <Filters />
     </Container>
   );

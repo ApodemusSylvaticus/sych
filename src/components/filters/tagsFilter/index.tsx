@@ -1,14 +1,25 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ClickableTab } from '../../clickableTab/style.ts';
-import { BaseColumnContainer, BaseRowContainer, BaseRowContainerWithWrap } from '../../containers/style.ts';
+import { BaseRowContainerWithWrap } from '../../containers/style.ts';
 import { useTagsStore } from '../../../store/tags.ts';
 import { CardContainer } from '../../containers/cardStyle.ts';
 import { Button, CardName, RightSideContainer } from '../style.ts';
+import { useFilterStore } from '../../../store/filter.ts';
 
 export const TagsFilter: React.FC = React.memo(() => {
   const tagsList = useTagsStore((state) => state.tagsList);
+  const addTagFilter = useFilterStore((state) => state.addTagFilter);
 
   const [chosenTargets, setChosenTargets] = useState(tagsList);
+  const [isFilterAvailable, setIsFilterAvailable] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isFilterAvailable) {
+      addTagFilter(chosenTargets);
+    } else {
+      addTagFilter([]);
+    }
+  }, [addTagFilter, chosenTargets, isFilterAvailable]);
 
   const handleClick = useCallback((el) => {
     setChosenTargets((prevChosenTargets) => {
@@ -35,7 +46,9 @@ export const TagsFilter: React.FC = React.memo(() => {
       <CardName>Tags filter</CardName>
       <BaseRowContainerWithWrap>{memoizedTargets}</BaseRowContainerWithWrap>
       <RightSideContainer>
-        <Button isActive>Enable</Button>
+        <Button onClick={() => setIsFilterAvailable(!isFilterAvailable)} isActive={isFilterAvailable}>
+          {isFilterAvailable ? 'Enable' : 'Disabled'}
+        </Button>
       </RightSideContainer>
     </CardContainer>
   );

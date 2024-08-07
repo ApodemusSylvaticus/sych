@@ -39,6 +39,9 @@ export const TimeFilter: React.FC = React.memo(() => {
       </ColumnContainer>
       <RightSideContainer>
         <Button isActive={true}>Enable</Button>
+        {/* <Button onClick={() => setIsFilterAvailable(!isFilterAvailable)} isActive={isFilterAvailable}>*/}
+        {/*  {isFilterAvailable ? 'Enable' : 'Disabled'}*/}
+        {/* </Button>*/}
       </RightSideContainer>
     </CardContainer>
   );

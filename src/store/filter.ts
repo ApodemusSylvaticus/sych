@@ -5,9 +5,9 @@ export interface ModalsState {
     from: number;
     to: number;
   };
-  onlySession: boolean;
   tagFilter: string[];
   typeFilter: string[];
+  onlySession: boolean;
 
   addTimeFilter: (data: { from: number; to: number }) => void;
   addTagFilter: (data: string[]) => void;

@@ -38,11 +38,11 @@ const args = {
 
 function App(): JSX.Element {
   const [showSat, setShowSat] = useState(false);
-  const { selfMarker, filtered, allMarkers } = useMarkerStore((state) => ({
+  const { selfMarker, filtered } = useMarkerStore((state) => ({
     selfMarker: state.selfMarker,
     filtered: state.filteredMarkers,
-    allMarkers: state.allMarkers,
   }));
+  console.log('rerender');
 
   const getTagsFromLocalStorage = useTagsStore((state) => state.getTagsFromLocalStorage);
 
@@ -64,7 +64,7 @@ function App(): JSX.Element {
               {showSat && <XYZ {...args} />}
 
               <Vector name="filtered-markers">
-                {allMarkers.map((el, index) => (
+                {filtered.map((el, index) => (
                   <Entity
                     key={index}
                     name={`entity-${index}`}

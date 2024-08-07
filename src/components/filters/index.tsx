@@ -3,9 +3,41 @@ import { TypeFilters } from './typeFilters';
 import { TagsFilter } from './tagsFilter';
 import { CardContainer } from '../containers/cardStyle.ts';
 import { TimeFilter } from './timeFilter';
-import { CardName, ColumnContainer } from './style.ts';
+import { ColumnContainer, MainCardName } from './style.ts';
 import { useFilterStore } from '../../store/filter.ts';
-import { useMarkerStore } from '../../store/markers.ts';
+import { IMarker, useMarkerStore } from '../../store/markers.ts';
+
+export function filterMarkers(
+  markers: IMarker[],
+  tagFilterArray: string[],
+  typeFilterArray: string[],
+  timeFilter: {
+    from: number;
+    to: number;
+  },
+) {
+  return markers.filter((marker) => {
+    const tagMatch = tagFilterArray.length === 0 || tagFilterArray.some((tag) => marker.tags.includes(tag));
+    if (!tagMatch) {
+      return false;
+    }
+    const typeMatch = typeFilterArray.length === 0 || typeFilterArray.includes(marker.target.value);
+    if (!typeMatch) {
+      return false;
+    }
+
+    let timeMatch = true;
+    if (timeFilter.from !== -1 && timeFilter.to !== -1) {
+      timeMatch = marker.timeStamp >= timeFilter.from && marker.timeStamp <= timeFilter.to;
+    } else if (timeFilter.from !== -1) {
+      timeMatch = marker.timeStamp >= timeFilter.from;
+    } else if (timeFilter.to !== -1) {
+      timeMatch = marker.timeStamp <= timeFilter.to;
+    }
+
+    return timeMatch;
+  });
+}
 
 export const Filters: React.FC = React.memo(() => {
   const { tagFilter, typeFilter, timeFilter, onlySession } = useFilterStore((state) => state);
@@ -16,15 +48,15 @@ export const Filters: React.FC = React.memo(() => {
   }));
 
   useEffect(() => {
-    if (onlySession) {
-      return;
-    }
-    console.log('a');
+    const filtered = onlySession
+      ? filterMarkers(sessionMarkers, tagFilter, typeFilter, timeFilter)
+      : filterMarkers(allMarkers, tagFilter, typeFilter, timeFilter);
+    setFilteredMarkers(filtered);
   }, [tagFilter, typeFilter, timeFilter, onlySession, sessionMarkers, allMarkers, setFilteredMarkers]);
 
   return (
     <CardContainer>
-      <CardName>Filters</CardName>
+      <MainCardName>Filters</MainCardName>
       <ColumnContainer>
         <TypeFilters />
         <TagsFilter />

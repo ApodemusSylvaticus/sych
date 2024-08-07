@@ -1,4 +1,10 @@
 import styled, { css, keyframes } from 'styled-components';
+import { Button } from '../button/style.ts';
+import { ScrollBarCss } from '../scrollbar/style.ts';
+
+export const SubmitButton = styled(Button)`
+  background-color: rgb(${(props) => props.theme.colors.tabActive});
+`;
 
 interface IMenuButtonContainer {
   isActive: boolean;
@@ -14,11 +20,13 @@ export const Container = styled.div<IMenuButtonContainer>`
   padding: 49px 8px 16px;
   width: 340px;
   height: 100%;
-  background: ${(props) => props.theme.colors.menuBg};
+  background: rgb(${(props) => props.theme.colors.menuBg});
   transition: transform 0.3s linear;
   transform-origin: right center;
   transform: ${(props) => (props.isActive ? 'translateX(0)' : 'translateX(100%)')};
   overflow: auto;
+
+  ${ScrollBarCss};
 `;
 
 export const MenuButtonContainer = styled.div<IMenuButtonContainer>`
@@ -28,9 +36,9 @@ export const MenuButtonContainer = styled.div<IMenuButtonContainer>`
   position: absolute;
   z-index: 10;
   top: 8px;
-  right: 8px;
+  right: 16px;
   border-radius: 8px;
-  background: ${(props) => props.theme.colors.menuBg};
+  background: rgb(${(props) => props.theme.colors.menuBg});
   cursor: pointer;
   &:hover div {
     background: ${(props) => props.theme.colors.accent};
@@ -72,7 +80,7 @@ const deactivateAnimation = keyframes`
 `;
 
 const LineBase = styled.div<{ isActive: boolean }>`
-  background: ${(props) => props.theme.colors.primary};
+  background: rgb(${(props) => props.theme.colors.primary});
   height: 3px;
   position: absolute;
   border-radius: 4px;
