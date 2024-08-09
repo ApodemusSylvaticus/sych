@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ButtonContainer, Container, Divider } from './style.ts';
+import { ButtonContainer, Container, Divider, PaddingContainer, Wrapper } from './style.ts';
 import { usePopupStore } from '../../../store/popup.ts';
 import { useModalStore } from '../../../store/modals.ts';
 import { Button } from '../../button/style.ts';
@@ -10,12 +10,12 @@ export const RClickPopup: React.FC = React.memo(() => {
     coords: state.coords,
     dXdY: state.dXdY,
   }));
-  console.log('rerender RClickPopup');
   const openNewTargetModal = useModalStore((state) => state.openNewTargetModal);
 
   const [size, setSize] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [pointerPosition, setPointerPosition] = useState({ x: 0, y: 0, isTopView: false });
 
   useEffect(() => {
     if (containerRef.current) {
@@ -25,33 +25,116 @@ export const RClickPopup: React.FC = React.memo(() => {
   }, [containerRef.current]);
 
   useEffect(() => {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
+    if (dXdY.y - size.height > 5) {
+      // облако сверху
+      if (dXdY.x - size.width / 2 < 0) {
+        // Не хватает места слева
+        console.log('tyt', dXdY, size);
+        setPosition({
+          x: 0,
+          y: dXdY.y - size.height - 5,
+        });
+        setPointerPosition({
+          x: dXdY.x,
+          y: size.height,
+          isTopView: false,
+        });
 
-    let newX = dXdY.x;
-    let newY = dXdY.y;
+        return;
+      }
+      if (window.innerWidth - dXdY.x - size.width / 2 < 0) {
+        // Не хватает места справа
+        setPosition({
+          x: window.innerWidth - size.width,
+          y: dXdY.y - size.height - 5,
+        });
+        setPointerPosition({
+          x: size.width - window.innerWidth + dXdY.x,
+          y: size.height,
+          isTopView: false,
+        });
 
-    if (dXdY.x + size.width > screenWidth) {
-      newX = screenWidth - size.width;
+        return;
+      }
+
+      setPosition({
+        x: dXdY.x - size.width / 2,
+        y: dXdY.y - size.height - 5,
+      });
+      setPointerPosition({
+        x: size.width / 2,
+        y: size.height,
+        isTopView: false,
+      });
+    } else {
+      // облако снизу
+
+      if (dXdY.x - size.width / 2 < 0) {
+        // Не хватает места слева
+
+        setPosition({
+          x: 0,
+          y: dXdY.y + 5,
+        });
+        setPointerPosition({
+          x: dXdY.x,
+          y: -9,
+          isTopView: true,
+        });
+        return;
+      }
+
+      if (window.innerWidth - dXdY.x - size.width / 2 < 0) {
+        // Не хватает места справа
+
+        setPosition({
+          x: window.innerWidth - size.width,
+          y: dXdY.y + 5,
+        });
+        setPointerPosition({
+          x: size.width - window.innerWidth + dXdY.x,
+          y: -9,
+          isTopView: true,
+        });
+        return;
+      }
+
+      setPosition({
+        x: dXdY.x - size.width / 2,
+        y: dXdY.y + 5,
+      });
+      setPointerPosition({
+        x: size.width / 2,
+        y: -9,
+        isTopView: true,
+      });
     }
-
-    if (dXdY.y + size.height > screenHeight) {
-      newY = screenHeight - size.height;
-    }
-
-    setPosition({ x: newX, y: newY });
   }, [dXdY, size]);
 
   return (
-    <Container ref={containerRef} x={position.x} y={position.y} isVisible={isOpen}>
-      <span>lat: {coords.lat}</span>
-      <span>lon: {coords.lon}</span>
-      <span>alt: {coords.alt}</span>
+    <Wrapper
+      maxW={size.width}
+      isTopView={pointerPosition.isTopView}
+      arrowX={pointerPosition.x}
+      arrowY={pointerPosition.y}
+      ref={containerRef}
+      x={position.x}
+      y={position.y}
+      isVisible={isOpen}
+    >
+      <PaddingContainer>
+        <span>Lat: {coords.lat}</span>
+        <span>Lon: {coords.lon}</span>
+        <span>Alt: {coords.alt}</span>
+      </PaddingContainer>
       <Divider />
-      <ButtonContainer>
-        <Button>Aim here</Button>
-        <Button onClick={() => openNewTargetModal(coords)}>Add target</Button>
-      </ButtonContainer>
-    </Container>
+
+      <PaddingContainer>
+        <ButtonContainer>
+          <Button>Aim here</Button>
+          <Button onClick={() => openNewTargetModal(coords)}>Add target</Button>
+        </ButtonContainer>
+      </PaddingContainer>
+    </Wrapper>
   );
 });

@@ -5,14 +5,9 @@
 // source: jon_shared_data_lrf.proto
 
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import {
-  JonGuiDataGpsFixType,
-  jonGuiDataGpsFixTypeFromJSON,
-  jonGuiDataGpsFixTypeToJSON,
-  JonGuiDataMeteo,
-} from "./jon_shared_data_types";
+import Long from 'long';
+import _m0 from 'protobufjs/minimal';
+import { JonGuiDataGpsFixType, jonGuiDataGpsFixTypeFromJSON, jonGuiDataGpsFixTypeToJSON, JonGuiDataMeteo } from './jon_shared_data_types';
 
 export interface JonGuiDataLrf {
   isScanning: boolean;
@@ -46,9 +41,7 @@ export interface JonGuiDataTarget {
   sessionId: number;
   targetId: number;
   /** RGB color representation */
-  targetColor:
-    | RgbColor
-    | undefined;
+  targetColor: RgbColor | undefined;
   /** Tank, soldier... */
   type: number;
 }
@@ -175,12 +168,8 @@ export const JonGuiDataLrf = {
     message.isScanning = object.isScanning ?? false;
     message.isMeasuring = object.isMeasuring ?? false;
     message.measureId = object.measureId ?? 0;
-    message.target = (object.target !== undefined && object.target !== null)
-      ? JonGuiDataTarget.fromPartial(object.target)
-      : undefined;
-    message.meteo = (object.meteo !== undefined && object.meteo !== null)
-      ? JonGuiDataMeteo.fromPartial(object.meteo)
-      : undefined;
+    message.target = object.target !== undefined && object.target !== null ? JonGuiDataTarget.fromPartial(object.target) : undefined;
+    message.meteo = object.meteo !== undefined && object.meteo !== null ? JonGuiDataMeteo.fromPartial(object.meteo) : undefined;
     return message;
   },
 };
@@ -560,9 +549,7 @@ export const JonGuiDataTarget = {
     message.radius = object.radius ?? 0;
     message.sessionId = object.sessionId ?? 0;
     message.targetId = object.targetId ?? 0;
-    message.targetColor = (object.targetColor !== undefined && object.targetColor !== null)
-      ? RgbColor.fromPartial(object.targetColor)
-      : undefined;
+    message.targetColor = object.targetColor !== undefined && object.targetColor !== null ? RgbColor.fromPartial(object.targetColor) : undefined;
     message.type = object.type ?? 0;
     return message;
   },
@@ -659,22 +646,25 @@ export const RgbColor = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function longToNumber(long: Long): number {
   if (long.gt(globalThis.Number.MAX_SAFE_INTEGER)) {
-    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+    throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
   }
   if (long.lt(globalThis.Number.MIN_SAFE_INTEGER)) {
-    throw new globalThis.Error("Value is smaller than Number.MIN_SAFE_INTEGER");
+    throw new globalThis.Error('Value is smaller than Number.MIN_SAFE_INTEGER');
   }
   return long.toNumber();
 }

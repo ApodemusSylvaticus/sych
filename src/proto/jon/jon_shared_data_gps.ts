@@ -5,13 +5,8 @@
 // source: jon_shared_data_gps.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import {
-  JonGuiDataGpsFixType,
-  jonGuiDataGpsFixTypeFromJSON,
-  jonGuiDataGpsFixTypeToJSON,
-  JonGuiDataMeteo,
-} from "./jon_shared_data_types";
+import _m0 from 'protobufjs/minimal';
+import { JonGuiDataGpsFixType, jonGuiDataGpsFixTypeFromJSON, jonGuiDataGpsFixTypeToJSON, JonGuiDataMeteo } from './jon_shared_data_types';
 
 export interface JonGuiDataGps {
   longitude: number;
@@ -226,24 +221,25 @@ export const JonGuiDataGps = {
     message.fixType = object.fixType ?? 0;
     message.useManual = object.useManual ?? false;
     message.radius = object.radius ?? 0;
-    message.meteo = (object.meteo !== undefined && object.meteo !== null)
-      ? JonGuiDataMeteo.fromPartial(object.meteo)
-      : undefined;
+    message.meteo = object.meteo !== undefined && object.meteo !== null ? JonGuiDataMeteo.fromPartial(object.meteo) : undefined;
     return message;
   },
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

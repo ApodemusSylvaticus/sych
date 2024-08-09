@@ -10,6 +10,9 @@ import { EventHandlerWrapper } from './wrappers/eventHandlerWrapper';
 import { RClickPopup } from './components/popup/rClick';
 import { AddTargetModal } from './components/modals/addTarget';
 import { useTagsStore } from './store/tags.ts';
+import { useSettingsStore } from './store/settings.ts';
+import i18n from 'i18next';
+import { Layer } from './components/globus/layer';
 
 function toQuadKey(x: number, y: number, z: number): string {
   let index = '';
@@ -37,12 +40,22 @@ const args = {
 };
 
 function App(): JSX.Element {
+  const { language, getLanguageFromLocalStorage } = useSettingsStore((state) => ({
+    language: state.language,
+    getLanguageFromLocalStorage: state.getLanguageFromLocalStorage,
+  }));
   const [showSat, setShowSat] = useState(false);
   const { selfMarker, filtered } = useMarkerStore((state) => ({
     selfMarker: state.selfMarker,
     filtered: state.filteredMarkers,
   }));
   console.log('rerender');
+
+  useEffect(() => {
+    if (language !== i18n.language) {
+      i18n.changeLanguage(language);
+    }
+  }, [i18n, language]);
 
   const getTagsFromLocalStorage = useTagsStore((state) => state.getTagsFromLocalStorage);
 
@@ -52,6 +65,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     getTagsFromLocalStorage();
+    getLanguageFromLocalStorage();
   }, []);
 
   return (
@@ -60,8 +74,7 @@ function App(): JSX.Element {
         <GlobeContextProvider>
           <EventHandlerWrapper>
             <Globe name="myGlobe" onLdown={handleGlobeClick} onMclick={handleGlobeClick} onMouseMove={handleGlobeClick}>
-              {!showSat && <XYZ name="osm" opacity={1} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />}
-              {showSat && <XYZ {...args} />}
+              <Layer />
 
               <Vector name="filtered-markers">
                 {filtered.map((el, index) => (
@@ -94,18 +107,6 @@ function App(): JSX.Element {
           <MenuManipulationButton />
         </GlobeContextProvider>
 
-        <button
-          style={{
-            position: 'absolute',
-            top: '10px',
-            left: '10px',
-            zIndex: 1000,
-            padding: '10px',
-          }}
-          onClick={() => setShowSat(!showSat)}
-        >
-          Toggle {showSat ? 'OSM' : 'Satellite'}
-        </button>
         <RClickPopup />
         <AddTargetModal />
       </MainContainer>

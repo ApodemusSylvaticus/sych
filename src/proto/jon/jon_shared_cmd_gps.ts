@@ -5,7 +5,7 @@
 // source: jon_shared_cmd_gps.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
+import _m0 from 'protobufjs/minimal';
 
 export interface Root {
   start?: Start | undefined;
@@ -16,14 +16,11 @@ export interface Root {
   getMeteo?: GetMeteo | undefined;
 }
 
-export interface Start {
-}
+export interface Start {}
 
-export interface Stop {
-}
+export interface Stop {}
 
-export interface GetMeteo {
-}
+export interface GetMeteo {}
 
 export interface SetRefreshRate {
   value: number;
@@ -136,12 +133,8 @@ export const Root = {
       start: isSet(object.start) ? Start.fromJSON(object.start) : undefined,
       stop: isSet(object.stop) ? Stop.fromJSON(object.stop) : undefined,
       setRefreshRate: isSet(object.setRefreshRate) ? SetRefreshRate.fromJSON(object.setRefreshRate) : undefined,
-      setManualPosition: isSet(object.setManualPosition)
-        ? SetManualPosition.fromJSON(object.setManualPosition)
-        : undefined,
-      setUseManualPosition: isSet(object.setUseManualPosition)
-        ? SetUseManualPosition.fromJSON(object.setUseManualPosition)
-        : undefined,
+      setManualPosition: isSet(object.setManualPosition) ? SetManualPosition.fromJSON(object.setManualPosition) : undefined,
+      setUseManualPosition: isSet(object.setUseManualPosition) ? SetUseManualPosition.fromJSON(object.setUseManualPosition) : undefined,
       getMeteo: isSet(object.getMeteo) ? GetMeteo.fromJSON(object.getMeteo) : undefined,
     };
   },
@@ -174,20 +167,19 @@ export const Root = {
   },
   fromPartial<I extends Exact<DeepPartial<Root>, I>>(object: I): Root {
     const message = createBaseRoot();
-    message.start = (object.start !== undefined && object.start !== null) ? Start.fromPartial(object.start) : undefined;
-    message.stop = (object.stop !== undefined && object.stop !== null) ? Stop.fromPartial(object.stop) : undefined;
-    message.setRefreshRate = (object.setRefreshRate !== undefined && object.setRefreshRate !== null)
-      ? SetRefreshRate.fromPartial(object.setRefreshRate)
-      : undefined;
-    message.setManualPosition = (object.setManualPosition !== undefined && object.setManualPosition !== null)
-      ? SetManualPosition.fromPartial(object.setManualPosition)
-      : undefined;
-    message.setUseManualPosition = (object.setUseManualPosition !== undefined && object.setUseManualPosition !== null)
-      ? SetUseManualPosition.fromPartial(object.setUseManualPosition)
-      : undefined;
-    message.getMeteo = (object.getMeteo !== undefined && object.getMeteo !== null)
-      ? GetMeteo.fromPartial(object.getMeteo)
-      : undefined;
+    message.start = object.start !== undefined && object.start !== null ? Start.fromPartial(object.start) : undefined;
+    message.stop = object.stop !== undefined && object.stop !== null ? Stop.fromPartial(object.stop) : undefined;
+    message.setRefreshRate =
+      object.setRefreshRate !== undefined && object.setRefreshRate !== null ? SetRefreshRate.fromPartial(object.setRefreshRate) : undefined;
+    message.setManualPosition =
+      object.setManualPosition !== undefined && object.setManualPosition !== null
+        ? SetManualPosition.fromPartial(object.setManualPosition)
+        : undefined;
+    message.setUseManualPosition =
+      object.setUseManualPosition !== undefined && object.setUseManualPosition !== null
+        ? SetUseManualPosition.fromPartial(object.setUseManualPosition)
+        : undefined;
+    message.getMeteo = object.getMeteo !== undefined && object.getMeteo !== null ? GetMeteo.fromPartial(object.getMeteo) : undefined;
     return message;
   },
 };
@@ -526,15 +518,18 @@ export const SetManualPosition = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

@@ -5,12 +5,8 @@
 // source: jon_shared_cmd_lrf.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import {
-  JonGuiDataLrfScanModes,
-  jonGuiDataLrfScanModesFromJSON,
-  jonGuiDataLrfScanModesToJSON,
-} from "./jon_shared_data_types";
+import _m0 from 'protobufjs/minimal';
+import { JonGuiDataLrfScanModes, jonGuiDataLrfScanModesFromJSON, jonGuiDataLrfScanModesToJSON } from './jon_shared_data_types';
 
 export interface Root {
   measure?: Measure | undefined;
@@ -28,45 +24,33 @@ export interface Root {
   getMeteo?: GetMeteo | undefined;
 }
 
-export interface Start {
-}
+export interface Start {}
 
-export interface Stop {
-}
+export interface Stop {}
 
-export interface Measure {
-}
+export interface Measure {}
 
-export interface ScanOn {
-}
+export interface ScanOn {}
 
-export interface ScanOff {
-}
+export interface ScanOff {}
 
-export interface TargetDesignatorOff {
-}
+export interface TargetDesignatorOff {}
 
-export interface TargetDesignatorOnModeA {
-}
+export interface TargetDesignatorOnModeA {}
 
-export interface TargetDesignatorOnModeB {
-}
+export interface TargetDesignatorOnModeB {}
 
-export interface EnableFogMode {
-}
+export interface EnableFogMode {}
 
-export interface DisableFogMode {
-}
+export interface DisableFogMode {}
 
-export interface GetMeteo {
-}
+export interface GetMeteo {}
 
 export interface setScanMode {
   mode: JonGuiDataLrfScanModes;
 }
 
-export interface NewSession {
-}
+export interface NewSession {}
 
 function createBaseRoot(): Root {
   return {
@@ -244,15 +228,9 @@ export const Root = {
       scanOff: isSet(object.scanOff) ? ScanOff.fromJSON(object.scanOff) : undefined,
       start: isSet(object.start) ? Start.fromJSON(object.start) : undefined,
       stop: isSet(object.stop) ? Stop.fromJSON(object.stop) : undefined,
-      targetDesignatorOff: isSet(object.targetDesignatorOff)
-        ? TargetDesignatorOff.fromJSON(object.targetDesignatorOff)
-        : undefined,
-      targetDesignatorOnModeA: isSet(object.targetDesignatorOnModeA)
-        ? TargetDesignatorOnModeA.fromJSON(object.targetDesignatorOnModeA)
-        : undefined,
-      targetDesignatorOnModeB: isSet(object.targetDesignatorOnModeB)
-        ? TargetDesignatorOnModeB.fromJSON(object.targetDesignatorOnModeB)
-        : undefined,
+      targetDesignatorOff: isSet(object.targetDesignatorOff) ? TargetDesignatorOff.fromJSON(object.targetDesignatorOff) : undefined,
+      targetDesignatorOnModeA: isSet(object.targetDesignatorOnModeA) ? TargetDesignatorOnModeA.fromJSON(object.targetDesignatorOnModeA) : undefined,
+      targetDesignatorOnModeB: isSet(object.targetDesignatorOnModeB) ? TargetDesignatorOnModeB.fromJSON(object.targetDesignatorOnModeB) : undefined,
       enableFogMode: isSet(object.enableFogMode) ? EnableFogMode.fromJSON(object.enableFogMode) : undefined,
       disableFogMode: isSet(object.disableFogMode) ? DisableFogMode.fromJSON(object.disableFogMode) : undefined,
       setScanMode: isSet(object.setScanMode) ? setScanMode.fromJSON(object.setScanMode) : undefined,
@@ -310,43 +288,30 @@ export const Root = {
   },
   fromPartial<I extends Exact<DeepPartial<Root>, I>>(object: I): Root {
     const message = createBaseRoot();
-    message.measure = (object.measure !== undefined && object.measure !== null)
-      ? Measure.fromPartial(object.measure)
-      : undefined;
-    message.scanOn = (object.scanOn !== undefined && object.scanOn !== null)
-      ? ScanOn.fromPartial(object.scanOn)
-      : undefined;
-    message.scanOff = (object.scanOff !== undefined && object.scanOff !== null)
-      ? ScanOff.fromPartial(object.scanOff)
-      : undefined;
-    message.start = (object.start !== undefined && object.start !== null) ? Start.fromPartial(object.start) : undefined;
-    message.stop = (object.stop !== undefined && object.stop !== null) ? Stop.fromPartial(object.stop) : undefined;
-    message.targetDesignatorOff = (object.targetDesignatorOff !== undefined && object.targetDesignatorOff !== null)
-      ? TargetDesignatorOff.fromPartial(object.targetDesignatorOff)
-      : undefined;
+    message.measure = object.measure !== undefined && object.measure !== null ? Measure.fromPartial(object.measure) : undefined;
+    message.scanOn = object.scanOn !== undefined && object.scanOn !== null ? ScanOn.fromPartial(object.scanOn) : undefined;
+    message.scanOff = object.scanOff !== undefined && object.scanOff !== null ? ScanOff.fromPartial(object.scanOff) : undefined;
+    message.start = object.start !== undefined && object.start !== null ? Start.fromPartial(object.start) : undefined;
+    message.stop = object.stop !== undefined && object.stop !== null ? Stop.fromPartial(object.stop) : undefined;
+    message.targetDesignatorOff =
+      object.targetDesignatorOff !== undefined && object.targetDesignatorOff !== null
+        ? TargetDesignatorOff.fromPartial(object.targetDesignatorOff)
+        : undefined;
     message.targetDesignatorOnModeA =
-      (object.targetDesignatorOnModeA !== undefined && object.targetDesignatorOnModeA !== null)
+      object.targetDesignatorOnModeA !== undefined && object.targetDesignatorOnModeA !== null
         ? TargetDesignatorOnModeA.fromPartial(object.targetDesignatorOnModeA)
         : undefined;
     message.targetDesignatorOnModeB =
-      (object.targetDesignatorOnModeB !== undefined && object.targetDesignatorOnModeB !== null)
+      object.targetDesignatorOnModeB !== undefined && object.targetDesignatorOnModeB !== null
         ? TargetDesignatorOnModeB.fromPartial(object.targetDesignatorOnModeB)
         : undefined;
-    message.enableFogMode = (object.enableFogMode !== undefined && object.enableFogMode !== null)
-      ? EnableFogMode.fromPartial(object.enableFogMode)
-      : undefined;
-    message.disableFogMode = (object.disableFogMode !== undefined && object.disableFogMode !== null)
-      ? DisableFogMode.fromPartial(object.disableFogMode)
-      : undefined;
-    message.setScanMode = (object.setScanMode !== undefined && object.setScanMode !== null)
-      ? setScanMode.fromPartial(object.setScanMode)
-      : undefined;
-    message.newSession = (object.newSession !== undefined && object.newSession !== null)
-      ? NewSession.fromPartial(object.newSession)
-      : undefined;
-    message.getMeteo = (object.getMeteo !== undefined && object.getMeteo !== null)
-      ? GetMeteo.fromPartial(object.getMeteo)
-      : undefined;
+    message.enableFogMode =
+      object.enableFogMode !== undefined && object.enableFogMode !== null ? EnableFogMode.fromPartial(object.enableFogMode) : undefined;
+    message.disableFogMode =
+      object.disableFogMode !== undefined && object.disableFogMode !== null ? DisableFogMode.fromPartial(object.disableFogMode) : undefined;
+    message.setScanMode = object.setScanMode !== undefined && object.setScanMode !== null ? setScanMode.fromPartial(object.setScanMode) : undefined;
+    message.newSession = object.newSession !== undefined && object.newSession !== null ? NewSession.fromPartial(object.newSession) : undefined;
+    message.getMeteo = object.getMeteo !== undefined && object.getMeteo !== null ? GetMeteo.fromPartial(object.getMeteo) : undefined;
     return message;
   },
 };
@@ -926,15 +891,18 @@ export const NewSession = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

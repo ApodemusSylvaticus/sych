@@ -5,18 +5,18 @@
 // source: jon_shared_cmd.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import { Root as Root4 } from "./jon_shared_cmd_compass";
-import { Root as Root1 } from "./jon_shared_cmd_day_camera";
-import { Root as Root10 } from "./jon_shared_cmd_environment";
-import { Root as Root11 } from "./jon_shared_cmd_geo_test";
-import { Root as Root3 } from "./jon_shared_cmd_gps";
-import { Root as Root2 } from "./jon_shared_cmd_heat_camera";
-import { Root as Root5 } from "./jon_shared_cmd_lrf";
-import { Root as Root6 } from "./jon_shared_cmd_lrf_align";
-import { Root as Root8 } from "./jon_shared_cmd_osd";
-import { Root as Root7 } from "./jon_shared_cmd_rotary";
-import { Root as Root9 } from "./jon_shared_cmd_system";
+import _m0 from 'protobufjs/minimal';
+import { Root as Root4 } from './jon_shared_cmd_compass';
+import { Root as Root1 } from './jon_shared_cmd_day_camera';
+import { Root as Root10 } from './jon_shared_cmd_environment';
+import { Root as Root11 } from './jon_shared_cmd_geo_test';
+import { Root as Root3 } from './jon_shared_cmd_gps';
+import { Root as Root2 } from './jon_shared_cmd_heat_camera';
+import { Root as Root5 } from './jon_shared_cmd_lrf';
+import { Root as Root6 } from './jon_shared_cmd_lrf_align';
+import { Root as Root8 } from './jon_shared_cmd_osd';
+import { Root as Root7 } from './jon_shared_cmd_rotary';
+import { Root as Root9 } from './jon_shared_cmd_system';
 
 export interface Root {
   protocolVersion: number;
@@ -38,14 +38,11 @@ export interface Root {
   geoTest?: Root11 | undefined;
 }
 
-export interface Ping {
-}
+export interface Ping {}
 
-export interface Noop {
-}
+export interface Noop {}
 
-export interface Frozen {
-}
+export interface Frozen {}
 
 function createBaseRoot(): Root {
   return {
@@ -346,38 +343,20 @@ export const Root = {
     message.protocolVersion = object.protocolVersion ?? 0;
     message.sessionId = object.sessionId ?? 0;
     message.important = object.important ?? false;
-    message.dayCamera = (object.dayCamera !== undefined && object.dayCamera !== null)
-      ? Root1.fromPartial(object.dayCamera)
-      : undefined;
-    message.heatCamera = (object.heatCamera !== undefined && object.heatCamera !== null)
-      ? Root2.fromPartial(object.heatCamera)
-      : undefined;
-    message.gps = (object.gps !== undefined && object.gps !== null) ? Root3.fromPartial(object.gps) : undefined;
-    message.compass = (object.compass !== undefined && object.compass !== null)
-      ? Root4.fromPartial(object.compass)
-      : undefined;
-    message.lrf = (object.lrf !== undefined && object.lrf !== null) ? Root5.fromPartial(object.lrf) : undefined;
-    message.lrfCalib = (object.lrfCalib !== undefined && object.lrfCalib !== null)
-      ? Root6.fromPartial(object.lrfCalib)
-      : undefined;
-    message.rotary = (object.rotary !== undefined && object.rotary !== null)
-      ? Root7.fromPartial(object.rotary)
-      : undefined;
-    message.osd = (object.osd !== undefined && object.osd !== null) ? Root8.fromPartial(object.osd) : undefined;
-    message.ping = (object.ping !== undefined && object.ping !== null) ? Ping.fromPartial(object.ping) : undefined;
-    message.noop = (object.noop !== undefined && object.noop !== null) ? Noop.fromPartial(object.noop) : undefined;
-    message.frozen = (object.frozen !== undefined && object.frozen !== null)
-      ? Frozen.fromPartial(object.frozen)
-      : undefined;
-    message.system = (object.system !== undefined && object.system !== null)
-      ? Root9.fromPartial(object.system)
-      : undefined;
-    message.environment = (object.environment !== undefined && object.environment !== null)
-      ? Root10.fromPartial(object.environment)
-      : undefined;
-    message.geoTest = (object.geoTest !== undefined && object.geoTest !== null)
-      ? Root11.fromPartial(object.geoTest)
-      : undefined;
+    message.dayCamera = object.dayCamera !== undefined && object.dayCamera !== null ? Root1.fromPartial(object.dayCamera) : undefined;
+    message.heatCamera = object.heatCamera !== undefined && object.heatCamera !== null ? Root2.fromPartial(object.heatCamera) : undefined;
+    message.gps = object.gps !== undefined && object.gps !== null ? Root3.fromPartial(object.gps) : undefined;
+    message.compass = object.compass !== undefined && object.compass !== null ? Root4.fromPartial(object.compass) : undefined;
+    message.lrf = object.lrf !== undefined && object.lrf !== null ? Root5.fromPartial(object.lrf) : undefined;
+    message.lrfCalib = object.lrfCalib !== undefined && object.lrfCalib !== null ? Root6.fromPartial(object.lrfCalib) : undefined;
+    message.rotary = object.rotary !== undefined && object.rotary !== null ? Root7.fromPartial(object.rotary) : undefined;
+    message.osd = object.osd !== undefined && object.osd !== null ? Root8.fromPartial(object.osd) : undefined;
+    message.ping = object.ping !== undefined && object.ping !== null ? Ping.fromPartial(object.ping) : undefined;
+    message.noop = object.noop !== undefined && object.noop !== null ? Noop.fromPartial(object.noop) : undefined;
+    message.frozen = object.frozen !== undefined && object.frozen !== null ? Frozen.fromPartial(object.frozen) : undefined;
+    message.system = object.system !== undefined && object.system !== null ? Root9.fromPartial(object.system) : undefined;
+    message.environment = object.environment !== undefined && object.environment !== null ? Root10.fromPartial(object.environment) : undefined;
+    message.geoTest = object.geoTest !== undefined && object.geoTest !== null ? Root11.fromPartial(object.geoTest) : undefined;
     return message;
   },
 };
@@ -513,15 +492,18 @@ export const Frozen = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

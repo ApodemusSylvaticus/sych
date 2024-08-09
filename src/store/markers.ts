@@ -35,6 +35,7 @@ export const useMarkerStore = create<MarkersStore>((set) => ({
       lat: 50.07,
       alt: 235,
     },
+
     type: 'SELF',
   },
   allMarkers: [],

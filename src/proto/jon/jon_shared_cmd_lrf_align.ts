@@ -5,7 +5,7 @@
 // source: jon_shared_cmd_lrf_align.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
+import _m0 from 'protobufjs/minimal';
 
 export interface Root {
   day?: Offsets | undefined;
@@ -29,11 +29,9 @@ export interface ShiftOffsetsBy {
   y: number;
 }
 
-export interface ResetOffsets {
-}
+export interface ResetOffsets {}
 
-export interface SaveOffsets {
-}
+export interface SaveOffsets {}
 
 function createBaseRoot(): Root {
   return { day: undefined, heat: undefined };
@@ -103,8 +101,8 @@ export const Root = {
   },
   fromPartial<I extends Exact<DeepPartial<Root>, I>>(object: I): Root {
     const message = createBaseRoot();
-    message.day = (object.day !== undefined && object.day !== null) ? Offsets.fromPartial(object.day) : undefined;
-    message.heat = (object.heat !== undefined && object.heat !== null) ? Offsets.fromPartial(object.heat) : undefined;
+    message.day = object.day !== undefined && object.day !== null ? Offsets.fromPartial(object.day) : undefined;
+    message.heat = object.heat !== undefined && object.heat !== null ? Offsets.fromPartial(object.heat) : undefined;
     return message;
   },
 };
@@ -205,16 +203,10 @@ export const Offsets = {
   },
   fromPartial<I extends Exact<DeepPartial<Offsets>, I>>(object: I): Offsets {
     const message = createBaseOffsets();
-    message.set = (object.set !== undefined && object.set !== null) ? SetOffsets.fromPartial(object.set) : undefined;
-    message.save = (object.save !== undefined && object.save !== null)
-      ? SaveOffsets.fromPartial(object.save)
-      : undefined;
-    message.reset = (object.reset !== undefined && object.reset !== null)
-      ? ResetOffsets.fromPartial(object.reset)
-      : undefined;
-    message.shift = (object.shift !== undefined && object.shift !== null)
-      ? ShiftOffsetsBy.fromPartial(object.shift)
-      : undefined;
+    message.set = object.set !== undefined && object.set !== null ? SetOffsets.fromPartial(object.set) : undefined;
+    message.save = object.save !== undefined && object.save !== null ? SaveOffsets.fromPartial(object.save) : undefined;
+    message.reset = object.reset !== undefined && object.reset !== null ? ResetOffsets.fromPartial(object.reset) : undefined;
+    message.shift = object.shift !== undefined && object.shift !== null ? ShiftOffsetsBy.fromPartial(object.shift) : undefined;
     return message;
   },
 };
@@ -455,15 +447,18 @@ export const SaveOffsets = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

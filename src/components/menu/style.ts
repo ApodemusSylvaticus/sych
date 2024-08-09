@@ -4,6 +4,7 @@ import { ScrollBarCss } from '../scrollbar/style.ts';
 
 export const SubmitButton = styled(Button)`
   background-color: rgb(${(props) => props.theme.colors.tabActive});
+  border-width: 2px;
 `;
 
 interface IMenuButtonContainer {
@@ -41,7 +42,7 @@ export const MenuButtonContainer = styled.div<IMenuButtonContainer>`
   background: rgb(${(props) => props.theme.colors.menuBg});
   cursor: pointer;
   &:hover div {
-    background: ${(props) => props.theme.colors.accent};
+    background: rgba(${(props) => props.theme.colors.primary}, 0.8);
   }
 
   &:hover {

@@ -5,8 +5,8 @@
 // source: jon_shared_data_camera_day.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import { JonGuiDataMeteo } from "./jon_shared_data_types";
+import _m0 from 'protobufjs/minimal';
+import { JonGuiDataMeteo } from './jon_shared_data_types';
 
 export interface JonGuiDataCameraDay {
   focusPos: number;
@@ -204,9 +204,7 @@ export const JonGuiDataCameraDay = {
       recording: isSet(object.recording) ? globalThis.Boolean(object.recording) : false,
       autoIris: isSet(object.autoIris) ? globalThis.Boolean(object.autoIris) : false,
       infraredFilter: isSet(object.infraredFilter) ? globalThis.Boolean(object.infraredFilter) : false,
-      syncZoomToHeatCamera: isSet(object.syncZoomToHeatCamera)
-        ? globalThis.Boolean(object.syncZoomToHeatCamera)
-        : false,
+      syncZoomToHeatCamera: isSet(object.syncZoomToHeatCamera) ? globalThis.Boolean(object.syncZoomToHeatCamera) : false,
       zoomTablePos: isSet(object.zoomTablePos) ? globalThis.Number(object.zoomTablePos) : 0,
       zoomTablePosMax: isSet(object.zoomTablePosMax) ? globalThis.Number(object.zoomTablePosMax) : 0,
       meteo: isSet(object.meteo) ? JonGuiDataMeteo.fromJSON(object.meteo) : undefined,
@@ -274,24 +272,25 @@ export const JonGuiDataCameraDay = {
     message.syncZoomToHeatCamera = object.syncZoomToHeatCamera ?? false;
     message.zoomTablePos = object.zoomTablePos ?? 0;
     message.zoomTablePosMax = object.zoomTablePosMax ?? 0;
-    message.meteo = (object.meteo !== undefined && object.meteo !== null)
-      ? JonGuiDataMeteo.fromPartial(object.meteo)
-      : undefined;
+    message.meteo = object.meteo !== undefined && object.meteo !== null ? JonGuiDataMeteo.fromPartial(object.meteo) : undefined;
     return message;
   },
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

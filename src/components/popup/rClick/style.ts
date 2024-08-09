@@ -1,21 +1,24 @@
 import styled from 'styled-components';
 
-interface IContainer {
+interface IWrapper {
   x: number;
   y: number;
   isVisible: boolean;
+  arrowX: number;
+  arrowY: number;
+  isTopView: boolean;
+  maxW: number;
 }
 
-export const Container = styled.div<IContainer>`
+export const Wrapper = styled.div<IWrapper>`
   position: absolute;
   top: ${(props) => props.y}px;
   left: ${(props) => props.x}px;
   display: flex;
   flex-direction: column;
   background-color: rgb(${(props) => props.theme.colors.menuBg});
-  border-radius: 8px;
+  padding: 1.6rem 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 1.6rem;
   gap: 0.8rem;
   width: 300px;
   pointer-events: ${(props) => (props.isVisible ? 'auto' : 'none')};
@@ -25,12 +28,43 @@ export const Container = styled.div<IContainer>`
   & span {
     color: rgb(${(props) => props.theme.colors.primary});
   }
+
+  border-radius: ${(props) => {
+    if (props.arrowX <= 10) {
+      return props.isTopView ? '0 8px 8px 8px' : '8px 8px 8px 0';
+    }
+    if (props.maxW - props.arrowX <= 10) {
+      return props.isTopView ? '8px 0 8px 8px' : '8px 8px 0 8px';
+    }
+    return '8px 8px 8px 8px';
+  }};
+
+  &::after {
+    content: ' ';
+    position: absolute;
+    top: ${(props) => props.arrowY}px;
+    left: ${(props) => props.arrowX}px;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: ${(props) =>
+      props.isTopView
+        ? `transparent  transparent rgb(${props.theme.colors.menuBg}) transparent`
+        : `rgb(${props.theme.colors.menuBg}) transparent transparent transparent`};
+  }
+`;
+
+export const PaddingContainer = styled.div`
+  padding: 0 1.6rem;
+  gap: 0.8rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Divider = styled.div`
   width: 100%;
   height: 2px;
-  background: rgb(${(props) => props.theme.colors.primary});
+  background: rgb(${(props) => props.theme.colors.tabDefault});
   border-radius: 8px;
 `;
 

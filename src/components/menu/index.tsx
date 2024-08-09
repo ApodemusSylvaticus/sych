@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Container, FirstLine, MenuButtonContainer, SecondLine, SubmitButton, ThirdLine } from './style.ts';
 import { usePopupStore } from '../../store/popup.ts';
 import { Filters } from '../filters';
+import { LanguageSelector, LayerSelector } from './selector';
 
 export const Menu: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
   return (
     <Container isActive={isOpen}>
-      <div style={{ color: 'white', border: '1px solid white' }}>Language select</div>
-      <div style={{ color: 'white', border: '1px solid white' }}>LAYER SELECT</div>
+      <LanguageSelector />
+      <LayerSelector />
       <SubmitButton>Submit session</SubmitButton>
       <Filters />
     </Container>

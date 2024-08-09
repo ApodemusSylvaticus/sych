@@ -21,15 +21,12 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
       globe.renderer.events.on(
         'lclick',
         (e) => {
-          console.log('trigger');
+          const dXdY = { x: e.clientX, y: e.clientY };
           closePopup();
           const lonLat = globe.planet.getLonLatFromPixelTerrain(e);
-          console.log(lonLat);
           if (lonLat && globe.planet.terrain) {
             globe.planet.terrain.getHeightAsync(lonLat, (h) => {
-              console.log('trigger2');
-
-              openPopup({ dXdY: { x: e.clientX, y: e.clientY }, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: h } });
+              openPopup({ dXdY, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: h } });
             });
           }
         },
