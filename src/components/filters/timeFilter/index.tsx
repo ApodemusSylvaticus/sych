@@ -3,12 +3,14 @@ import { CardContainer } from '../../containers/cardStyle.ts';
 import { Button, CardName, ColumnContainer, RightSideContainer } from '../style.ts';
 import { TextField } from '../../input';
 import { CheckMark, CheckpointContainer, CheckpointLabel, HiddenCheckbox, StyledCheckbox } from './style.ts';
+import { useFilterStore } from '../../../store/filter.ts';
 
 export const TimeFilter: React.FC = React.memo(() => {
   const [checked, setChecked] = useState(false);
   const [isFilterAvailable, setIsFilterAvailable] = useState<boolean>(false);
   const [fromDate, setFromDate] = useState<string>('');
   const [toDate, setToDate] = useState<string>('');
+  const addTimeFilter = useFilterStore((state) => state.addTimeFilter);
 
   useEffect(() => {
     const today = new Date();
@@ -21,6 +23,14 @@ export const TimeFilter: React.FC = React.memo(() => {
   const formatDate = (date: Date): string => {
     return date.toISOString().split('T')[0];
   };
+
+  useEffect(() => {
+    if (isFilterAvailable) {
+      addTimeFilter({ from: 0, to: 0 });
+    } else {
+      addTimeFilter({ from: 0, to: 0 });
+    }
+  }, [isFilterAvailable]);
 
   return (
     <CardContainer>

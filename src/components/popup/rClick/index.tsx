@@ -1,14 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ButtonContainer, Container, Divider, PaddingContainer, Wrapper } from './style.ts';
 import { usePopupStore } from '../../../store/popup.ts';
 import { useModalStore } from '../../../store/modals.ts';
 import { Button } from '../../button/style.ts';
+import { useGlobusStore } from '../../../store/globus.ts';
 
 export const RClickPopup: React.FC = React.memo(() => {
-  const { isOpen, dXdY, coords } = usePopupStore((state) => ({
+  const { isOpen, dXdY, coords, closePopup } = usePopupStore((state) => ({
     isOpen: state.isOpen,
     coords: state.coords,
     dXdY: state.dXdY,
+    closePopup: state.closePopup,
   }));
   const openNewTargetModal = useModalStore((state) => state.openNewTargetModal);
 
@@ -16,7 +18,7 @@ export const RClickPopup: React.FC = React.memo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [pointerPosition, setPointerPosition] = useState({ x: 0, y: 0, isTopView: false });
-
+  const setLookOnPosition = useGlobusStore((state) => state.setLookOnPosition);
   useEffect(() => {
     if (containerRef.current) {
       const { width, height } = containerRef.current.getBoundingClientRect();
@@ -111,6 +113,11 @@ export const RClickPopup: React.FC = React.memo(() => {
     }
   }, [dXdY, size]);
 
+  const aimHereAction = useCallback(() => {
+    setLookOnPosition(coords);
+    closePopup();
+  }, [coords, closePopup, setLookOnPosition]);
+
   return (
     <Wrapper
       maxW={size.width}
@@ -131,7 +138,7 @@ export const RClickPopup: React.FC = React.memo(() => {
 
       <PaddingContainer>
         <ButtonContainer>
-          <Button>Aim here</Button>
+          <Button onClick={aimHereAction}>Aim here</Button>
           <Button onClick={() => openNewTargetModal(coords)}>Add target</Button>
         </ButtonContainer>
       </PaddingContainer>
