@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <title>Jettison Map View</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <link href="../styles/globals.css" rel="stylesheet">
+    <link href="../styles/og.css" rel="stylesheet">
+    <script src="../js/map_app.js" type="module"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --golden-ratio: 1.618;
+        }
+
+        .custom-container {
+            display: grid;
+            grid-template-columns: 1fr calc(100% / var(--golden-ratio));
+            grid-template-rows: 100%;
+            height: 100vh;
+        }
+
+        #globus {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+        }
+
+        #targets-menu-container {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+
+        @media (max-width: 768px) {
+            .custom-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: calc(100% / var(--golden-ratio)) 1fr;
+            }
+
+            #globus {
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+            }
+
+            #targets-menu-container {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+            }
+        }
+    </style>
+</head>
+<body class="h-full m-0 p-0 font-sans">
+    <div class="custom-container">
+        <div id="globe" class="bg-gray-100"></div>
+        <div id="targets-menu-container" class="bg-gray-200 p-gr-5 overflow-y-auto"></div>
+    </div>
+</body>
+</html>
