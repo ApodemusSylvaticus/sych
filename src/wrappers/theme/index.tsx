@@ -5,8 +5,7 @@ interface ThemeInterface extends DefaultTheme {
   colors: {
     primary: string;
     secondary: string;
-    accent: string;
-    error: string;
+
     menuBg: string;
 
     tabDefault: string;
@@ -21,9 +20,7 @@ interface ThemeInterface extends DefaultTheme {
 const theme: ThemeInterface = {
   colors: {
     primary: '255, 255, 255',
-    secondary: '#B3B3B3',
-    accent: '#dfd0fc',
-    error: '#CF6679',
+    secondary: '179, 179, 179',
     menuBg: '18, 18, 18',
     tabActive: '34, 115, 93',
     tabHover: '27, 84, 69',

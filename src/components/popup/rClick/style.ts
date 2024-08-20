@@ -20,7 +20,7 @@ export const Wrapper = styled.div<IWrapper>`
   padding: 1.6rem 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   gap: 0.8rem;
-  width: 300px;
+  width: 330px;
   pointer-events: ${(props) => (props.isVisible ? 'auto' : 'none')};
 
   opacity: ${(props) => (props.isVisible ? 1 : 0)};
@@ -54,11 +54,48 @@ export const Wrapper = styled.div<IWrapper>`
   }
 `;
 
+export const CloseButton = styled.div`
+  width: 3.2rem;
+  height: 3.2rem;
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8px;
+
+  transition: background-color 0.2s;
+
+  &:before,
+  &:after {
+    position: absolute;
+    content: '';
+    width: 2.4rem;
+    height: 2px;
+    border-radius: 4px;
+    background-color: rgb(${(props) => props.theme.colors.primary});
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(135deg);
+  }
+
+  &:hover {
+    background-color: rgba(${(props) => props.theme.colors.tabHover}, 0.8);
+  }
+`;
+
 export const PaddingContainer = styled.div`
   padding: 0 1.6rem;
   gap: 0.8rem;
   display: flex;
   flex-direction: column;
+  font-size: 1.6rem;
 `;
 
 export const Divider = styled.div`
@@ -70,7 +107,7 @@ export const Divider = styled.div`
 
 export const ButtonContainer = styled.div`
   display: flex;
-  gap: 24px;
+  gap: 2.4rem;
   & button {
     flex: 1;
   }

@@ -8,43 +8,46 @@ export const StyledTextField = styled.div<StyledTextFieldProps>`
   position: relative;
   width: 100%;
   display: flex;
+  cursor: pointer;
 `;
 
 export const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  gap: 8px;
-  padding: 0 16px 0 0;
-  border: 1px solid #c4c4c4;
+  gap: 0.4rem;
+  padding: 0 0.8rem 0 0;
+  border: 1px solid rgb(${(props) => props.theme.colors.secondary});
   border-radius: 8px;
   transition: border-color 0.2s;
+  cursor: pointer;
 
   &:focus-within {
-    border-color: #1976d2;
+    border-color: rgb(${(props) => props.theme.colors.tabActive});
   }
 `;
 
 export const Input = styled.input`
   width: 100%;
-  padding: 12px 16px;
-  border: 1px solid #c4c4c4;
+  background: none;
+  padding: 1.2rem 1.6rem;
+  border: 1px solid rgb(${(props) => props.theme.colors.secondary});
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 1.6rem;
   outline: none;
   transition: border-color 0.2s;
 
   &:focus {
-    border-color: #1976d2;
+    border-color: rgb(${(props) => props.theme.colors.tabActive});
   }
 
   &:focus + label,
   &:not(:placeholder-shown) + label {
     top: 0;
-    left: 10px;
-    background-color: white;
-    padding: 0 4px;
-    color: #1976d2;
+    left: 1rem;
+    background-color: rgb(${(props) => props.theme.colors.primary});
+    padding: 0 0.4rem;
+    color: rgb(${(props) => props.theme.colors.tabActive});
   }
 `;
 
@@ -55,24 +58,28 @@ export const InputV2 = styled(Input)`
 export const BaseTextArea = styled.textarea`
   resize: none;
   width: 100%;
-  padding: 16px 14px;
-  border: 1px solid #c4c4c4;
+  border: 1px solid rgb(${(props) => props.theme.colors.secondary});
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 1.6rem;
+  padding: 1.2rem 1.6rem;
+  min-height: 4rem;
+  overflow-y: hidden;
+  background: none;
+
   outline: none;
   transition: border-color 0.2s;
 
   &:focus {
-    border-color: #1976d2;
+    border-color: rgb(${(props) => props.theme.colors.tabActive});
   }
 
   &:focus + label,
   &:not(:placeholder-shown) + label {
     top: 0;
-    left: 10px;
-    background-color: white;
-    padding: 0 4px;
-    color: #1976d2;
+    left: 1rem;
+    background-color: rgb(${(props) => props.theme.colors.primary});
+    padding: 0 0.4rem;
+    color: rgb(${(props) => props.theme.colors.tabActive});
   }
 `;
 
@@ -85,32 +92,33 @@ export const Label = styled.label<LabelProps>`
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  padding: 0 14px;
+  padding: 0 1.4rem;
   pointer-events: none;
   transition: 0.2s ease all;
-  color: ${(props) => (props.focused ? '#1976d2' : '#757575')};
-  font-size: 16px;
+  color: rgb(${(props) => (props.focused ? props.theme.colors.tabActive : props.theme.colors.secondary)});
+  font-size: 1.6rem;
 `;
 
 export const Button = styled.button`
-  padding: 6px 12px;
-  color: #1976d2;
+  padding: 0.6rem 0.8rem;
+  color: rgb(${(props) => props.theme.colors.tabActive});
   outline: none;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   background: none;
-  font-size: 14px;
+  font-size: 1.4rem;
   transition: background-color 0.2s;
+  white-space: nowrap;
 
   &:hover {
-    color: #1565c0;
-    background: rgba(25, 118, 210, 0.1);
+    color: rgb(${(props) => props.theme.colors.primary});
+    background: rgb(${(props) => props.theme.colors.tabActive});
   }
 
   &:active {
     outline: none;
-    background: rgba(25, 118, 210, 0.1);
+    background: rgb(${(props) => props.theme.colors.tabActive});
   }
   &:focus {
     outline: none;

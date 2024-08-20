@@ -18,7 +18,8 @@ export const CardName = styled.span`
   z-index: 2;
   transform: translateY(-55%);
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1.8rem;
   padding: 0 4px;
   color: black;
+  font-family: Lato-Bold, system-ui, Avenir, Helvetica, Arial, sans-serif;
 `;

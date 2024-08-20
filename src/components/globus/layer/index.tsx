@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useGlobusStore } from '../../../store/globus.ts';
 import { XYZ } from '@openglobus/openglobus-react';
 import { utils } from '@openglobus/og';
@@ -28,13 +28,19 @@ const satArgs = {
   },
 };
 
+const osmArgs = {
+  name: 'osm',
+  opacity: 1,
+  url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+};
 export const Layer: React.FC = React.memo(() => {
   const activeLayer = useGlobusStore((state) => state.activeLayer);
+  const [key, setKey] = React.useState(1);
 
-  return (
-    <>
-      {activeLayer === 'OSM' && <XYZ name="osm" opacity={1} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />}
-      {activeLayer === 'SAT' && <XYZ {...satArgs} />}
-    </>
-  );
+  const param = useMemo(() => (activeLayer === 'OSM' ? osmArgs : satArgs), [activeLayer]);
+  useEffect(() => {
+    setKey((prev) => prev + 1);
+  }, [activeLayer]);
+
+  return <XYZ key={key} {...param} />;
 });

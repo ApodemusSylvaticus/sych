@@ -7,10 +7,10 @@ export const CheckpointContainer = styled.div`
 `;
 
 export const CheckpointLabel = styled.label`
-  font-size: 18px;
+  font-size: 1.8rem;
   line-height: 1.5;
   color: rgb(${(props) => props.theme.colors.primary});
-  margin-left: 8px;
+  margin-left: 0.8rem;
 `;
 
 export const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
@@ -22,10 +22,10 @@ export const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
 `;
 
 export const StyledCheckbox = styled.div`
-  width: 18px;
-  height: 18px;
+  width: 1.8rem;
+  height: 1.8rem;
   border: 2px solid rgb(${(props) => props.theme.colors.primary});
-  border-radius: 2px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,4 +44,26 @@ export const CheckMark = styled.svg`
   fill: none;
   stroke: white;
   stroke-width: 3px;
+`;
+
+export const ModalContent = styled.div`
+  background: white;
+  z-index: 2;
+  position: relative;
+  padding: 1.6rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+`;
+
+export const DatePickerOverlay = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: transparent;
+  top: 0;
+  left: 0;
+  cursor: pointer;
 `;

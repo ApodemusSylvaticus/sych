@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { ButtonContainer, Container, Divider, PaddingContainer, Wrapper } from './style.ts';
+import { ButtonContainer, CloseButton, Divider, PaddingContainer, Wrapper } from './style.ts';
 import { usePopupStore } from '../../../store/popup.ts';
 import { useModalStore } from '../../../store/modals.ts';
 import { Button } from '../../button/style.ts';
 import { useGlobusStore } from '../../../store/globus.ts';
+import { useTranslation } from 'react-i18next';
 
 export const RClickPopup: React.FC = React.memo(() => {
   const { isOpen, dXdY, coords, closePopup } = usePopupStore((state) => ({
@@ -13,7 +14,7 @@ export const RClickPopup: React.FC = React.memo(() => {
     closePopup: state.closePopup,
   }));
   const openNewTargetModal = useModalStore((state) => state.openNewTargetModal);
-
+  const { t } = useTranslation();
   const [size, setSize] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -37,7 +38,7 @@ export const RClickPopup: React.FC = React.memo(() => {
           y: dXdY.y - size.height - 5,
         });
         setPointerPosition({
-          x: dXdY.x,
+          x: dXdY.x + 2,
           y: size.height,
           isTopView: false,
         });
@@ -51,7 +52,7 @@ export const RClickPopup: React.FC = React.memo(() => {
           y: dXdY.y - size.height - 5,
         });
         setPointerPosition({
-          x: size.width - window.innerWidth + dXdY.x,
+          x: size.width - window.innerWidth + dXdY.x + 2,
           y: size.height,
           isTopView: false,
         });
@@ -64,7 +65,7 @@ export const RClickPopup: React.FC = React.memo(() => {
         y: dXdY.y - size.height - 5,
       });
       setPointerPosition({
-        x: size.width / 2,
+        x: size.width / 2 + 2,
         y: size.height,
         isTopView: false,
       });
@@ -79,7 +80,7 @@ export const RClickPopup: React.FC = React.memo(() => {
           y: dXdY.y + 5,
         });
         setPointerPosition({
-          x: dXdY.x,
+          x: dXdY.x + 2,
           y: -9,
           isTopView: true,
         });
@@ -94,7 +95,7 @@ export const RClickPopup: React.FC = React.memo(() => {
           y: dXdY.y + 5,
         });
         setPointerPosition({
-          x: size.width - window.innerWidth + dXdY.x,
+          x: size.width - window.innerWidth + dXdY.x + 2,
           y: -9,
           isTopView: true,
         });
@@ -106,7 +107,7 @@ export const RClickPopup: React.FC = React.memo(() => {
         y: dXdY.y + 5,
       });
       setPointerPosition({
-        x: size.width / 2,
+        x: size.width / 2 + 2,
         y: -9,
         isTopView: true,
       });
@@ -130,16 +131,23 @@ export const RClickPopup: React.FC = React.memo(() => {
       isVisible={isOpen}
     >
       <PaddingContainer>
-        <span>Lat: {coords.lat}</span>
-        <span>Lon: {coords.lon}</span>
-        <span>Alt: {coords.alt}</span>
+        <CloseButton onClick={closePopup} />
+        <span>
+          {t('default_lat')}: {coords.lat}
+        </span>
+        <span>
+          {t('default_lon')}: {coords.lon}
+        </span>
+        <span>
+          {t('default_alt')}: {coords.alt}
+        </span>
       </PaddingContainer>
       <Divider />
 
       <PaddingContainer>
         <ButtonContainer>
-          <Button onClick={aimHereAction}>Aim here</Button>
-          <Button onClick={() => openNewTargetModal(coords)}>Add target</Button>
+          <Button onClick={aimHereAction}>{t('default_aim_here')}</Button>
+          <Button onClick={() => openNewTargetModal(coords)}>{t('default_add_target')}</Button>
         </ButtonContainer>
       </PaddingContainer>
     </Wrapper>

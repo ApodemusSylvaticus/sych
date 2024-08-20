@@ -5,7 +5,7 @@ export const Container = styled.div`
   border-radius: 8px;
   display: flex;
   border: 2px solid rgb(${(props) => props.theme.colors.primary});
-  background-color: rgb(${(props) => props.theme.colors.menuBg});
+  background-color: rgba(${(props) => props.theme.colors.primary}, 0.2);
   align-items: center;
   & div:first-child {
     border-radius: 6px 0 0 6px;
@@ -25,13 +25,13 @@ export const Divider = styled.div`
 
 export const SelectionButton = styled.div<IsActive>`
   background-color: rgb(${(props) => (props.isActive ? props.theme.colors.tabActive : props.theme.colors.tabDefault)});
-  padding: 8px 0;
+  padding: 0.8rem 0;
   transition: background-color 0.25s linear;
   flex: 1;
   font-family: Lato-Bold, system-ui, Avenir, Helvetica, Arial, sans-serif;
   cursor: pointer;
   color: rgb(${(props) => props.theme.colors.primary});
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 500;
   text-align: center;
 

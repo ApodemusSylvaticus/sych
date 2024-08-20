@@ -11,10 +11,10 @@ export type ITargetState = {
 
 const initialState: ITargetState = {
   targets: [
-    { src: '', value: 'Enemy' },
-    { src: '', value: 'Enemy-stock' },
-    { src: '', value: 'Enemy-group' },
-    { src: '', value: 'Enemy-artillery' },
+    { src: '', value: 'default_enemy' },
+    { src: '', value: 'default_enemy_stock' },
+    { src: '', value: 'default_enemy_group' },
+    { src: '', value: 'default_enemy_artillery' },
   ],
 };
 

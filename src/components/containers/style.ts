@@ -11,13 +11,13 @@ export const MainContainer = styled.div`
 export const BaseColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.8rem;
 `;
 
 export const BaseRowContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: 0.8rem;
 `;
 
 export const BaseRowContainerWithWrap = styled(BaseRowContainer)`

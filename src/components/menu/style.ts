@@ -17,8 +17,8 @@ export const Container = styled.div<IMenuButtonContainer>`
   right: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 49px 8px 16px;
+  gap: 1.6rem;
+  padding: 4.9rem 0.8rem 1.6rem;
   width: 340px;
   height: 100%;
   background: rgb(${(props) => props.theme.colors.menuBg});
@@ -31,13 +31,13 @@ export const Container = styled.div<IMenuButtonContainer>`
 `;
 
 export const MenuButtonContainer = styled.div<IMenuButtonContainer>`
-  padding: 8px;
-  width: 40px;
-  height: 33px;
+  padding: 0.8rem;
+  width: 4rem;
+  height: 3.3rem;
   position: absolute;
   z-index: 10;
-  top: 8px;
-  right: 16px;
+  top: 0.8rem;
+  right: 1.6rem;
   border-radius: 8px;
   background: rgb(${(props) => props.theme.colors.menuBg});
   cursor: pointer;
@@ -52,41 +52,41 @@ export const MenuButtonContainer = styled.div<IMenuButtonContainer>`
 
 const activateAnimation = keyframes`
     0% {
-        top: 8px;
+        top: 0.8rem;
         transform: rotate(0);
     }
     50% {
-        top: 15px;
+        top: 1.5rem;
         transform: rotate(0);
     }
     100% {
-        top: 15px;
+        top: 1.5rem;
         transform: rotate(45deg);
     }
 `;
 
 const deactivateAnimation = keyframes`
     0% {
-        top: 15px;
+        top: 1.5rem;
         transform: rotate(45deg);
     }
     50% {
-        top: 15px;
+        top: 1.5rem;
         transform: rotate(0);
     }
     100% {
-        top: 8px;
+        top: 0.8rem;
         transform: rotate(0);
     }
 `;
 
 const LineBase = styled.div<{ isActive: boolean }>`
   background: rgb(${(props) => props.theme.colors.primary});
-  height: 3px;
+  height: 0.3rem;
   position: absolute;
   border-radius: 4px;
-  width: 24px;
-  left: 8px;
+  width: 2.4rem;
+  left: 0.8rem;
   transition: background ease 0.3s;
 `;
 
@@ -120,7 +120,7 @@ const fadeInAnimation = keyframes`
 `;
 
 export const SecondLine = styled(LineBase)`
-  top: 15px;
+  top: 1.5rem;
   animation: ${({ isActive }) =>
     isActive
       ? css`
@@ -133,30 +133,30 @@ export const SecondLine = styled(LineBase)`
 
 const reverseActivateAnimation = keyframes`
   0% {
-    top: 22px;
+    top: 2.2rem;
     transform: rotate(0);
   }
   50% {
-    top: 15px;
+    top: 1.5rem;
     transform: rotate(0);
   }
   100% {
-    top: 15px;
+    top: 1.5rem;
     transform: rotate(-45deg);
   }
 `;
 
 const reverseDeactivateAnimation = keyframes`
   0% {
-    top: 15px;
+    top: 1.5rem;
     transform: rotate(-45deg);
   }
   50% {
-    top: 15px;
+    top: 1.5rem;
     transform: rotate(0);
   }
   100% {
-    top: 22px;
+    top: 2.2rem;
     transform: rotate(0);
   }
 `;

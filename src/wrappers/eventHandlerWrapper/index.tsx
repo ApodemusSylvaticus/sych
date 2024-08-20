@@ -21,14 +21,26 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
       globe.renderer.events.on(
         'lclick',
         (e) => {
-          const dXdY = { x: e.clientX, y: e.clientY };
           closePopup();
-          const lonLat = globe.planet.getLonLatFromPixelTerrain(e);
-          if (lonLat && globe.planet.terrain) {
-            globe.planet.terrain.getHeightAsync(lonLat, (h) => {
-              openPopup({ dXdY, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: h } });
-            });
+
+          if (e.pickingObject && e.pickingObject.billboard) {
+            return;
           }
+
+          const dXdY = { x: e.clientX, y: e.clientY };
+          const lonLat = globe.planet.getLonLatFromPixelTerrain(e);
+
+          setTimeout(() => {
+            if (lonLat) {
+              openPopup({ dXdY, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: lonLat.height } });
+            }
+          }, 0);
+
+          // if (lonLat && globe.planet.terrain) {
+          //   globe.planet.terrain.getHeightAsync(lonLat, (h) => {
+          //     openPopup({ dXdY, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: h } });
+          //   });
+          // }
         },
         globe.planet,
       );
@@ -38,6 +50,16 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
           closePopup();
         }
       });
+
+      // globe.renderer.events.on('touchstart', touchStart);
+
+      globe.renderer.events.on('touchenter', (e) => {
+        console.log('touchenter', e);
+      });
+
+      // globe.renderer.events.on('touchend', (e) => {
+      //   console.log('e end', e);
+      // });
 
       globe.renderer.events.on('lhold', () => {
         if (isOpenRef.current) {

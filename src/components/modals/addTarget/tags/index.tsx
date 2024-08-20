@@ -3,12 +3,13 @@ import { CardName, ChosenTagContainer, Container, LastElemWrapper, TagsListConta
 import { ChosenTagComponent, TagComponent } from '../../../tagComponent';
 import { useTagsStore } from '../../../../store/tags.ts';
 import { WithButtonInput } from '../../../input/withButtonInput.tsx';
+import { useTranslation } from 'react-i18next';
 
 export const Tags: React.FC<{ setTags: (value: string[]) => void }> = ({ setTags }) => {
   const { tagsList, addTag } = useTagsStore((state) => ({ tagsList: state.tagsList, addTag: state.addTag }));
   const [selectedList, setSelectedList] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
-
+  const { t } = useTranslation();
   useEffect(() => {
     setTags(selectedList);
   }, [selectedList]);
@@ -40,7 +41,7 @@ export const Tags: React.FC<{ setTags: (value: string[]) => void }> = ({ setTags
 
   return (
     <Container>
-      <CardName>Tag section</CardName>
+      <CardName>{t('default_tag_section')}</CardName>
       {selectedList.length > 0 && (
         <ChosenTagContainer>
           {selectedList.map((value, index) => {
@@ -60,8 +61,8 @@ export const Tags: React.FC<{ setTags: (value: string[]) => void }> = ({ setTags
         id={'aasda'}
         value={inputValue}
         onChange={onWithButtonInputChange}
-        buttonLabel={'Add'}
-        label={'Add new tag'}
+        buttonLabel={t('default_add')}
+        label={t('default_add_new_tag')}
         onButtonClick={handleAddValue}
       />
       <TagsListContainer>

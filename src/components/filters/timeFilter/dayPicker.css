@@ -1,0 +1,5 @@
+.rdp-root {
+    --rdp-accent-color: rgb(34, 115, 93);
+    --rdp-accent-background-color: rgba(34, 115, 93, 0.2);
+    --rdp-today-color: rgb(27, 84, 69);
+}

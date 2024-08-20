@@ -5,10 +5,7 @@ declare module 'styled-components' {
     colors: {
       primary: string;
       secondary: string;
-      accent: string;
-      error: string;
       menuBg: string;
-
       tabDefault: string;
       tabActive: string;
       tabHover: string;

@@ -4,16 +4,19 @@ import { useModalStore } from '../../../store/modals.ts';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Tags } from './tags';
 import { TargetType } from './targetType';
-import { Button } from '../style.ts';
+import { SaveButton } from '../style.ts';
 import { ITarget } from '../../../store/target.ts';
 import { useMarkerStore } from '../../../store/markers.ts';
 import { usePopupStore } from '../../../store/popup.ts';
+import { useTranslation } from 'react-i18next';
+import { ColumnContainer } from '../../filters/style.ts';
 
 export const AddTargetModal: React.FC = () => {
   const { addNewTargetState, closeNewTargetModal } = useModalStore((state) => ({
     addNewTargetState: state.addNewTargetState,
     closeNewTargetModal: state.closeNewTargetModal,
   }));
+
   const closePopup = usePopupStore((state) => state.closePopup);
   const addMarker = useMarkerStore((state) => state.addMarker);
 
@@ -21,13 +24,16 @@ export const AddTargetModal: React.FC = () => {
   const [localLon, setLocalLon] = useState<string>(addNewTargetState.coords.lon.toString());
   const [localAlt, setLocalAlt] = useState<string>(addNewTargetState.coords.alt.toString());
   const [targetType, setTargetType] = useState<ITarget>({ value: '', src: '' });
+  const [notes, setNotes] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (addNewTargetState.isOpen) {
       setLocalAlt(addNewTargetState.coords.alt.toString());
       setLocalLat(addNewTargetState.coords.lat.toString());
       setLocalLon(addNewTargetState.coords.lon.toString());
+      setNotes('');
       return;
     }
   }, [addNewTargetState]);
@@ -87,29 +93,26 @@ export const AddTargetModal: React.FC = () => {
     },
     [handleInputChange],
   );
-  const onButtonClick = useCallback(
-    (event: React.MouseEvent<unknown>) => {
-      addMarker({ tags, target: targetType, coords: { lon: +localLon, alt: +localAlt, lat: +localLat }, timeStamp: Date.now() });
-      closeNewTargetModal();
-      closePopup();
-    },
-    [addMarker, tags, targetType, localLon, localAlt, localLat],
-  );
+  const onButtonClick = useCallback(() => {
+    addMarker({ notes, tags, target: targetType, coords: { lon: +localLon, alt: +localAlt, lat: +localLat }, timeStamp: Date.now() });
+    closeNewTargetModal();
+    closePopup();
+  }, [notes, addMarker, tags, targetType, localLon, localAlt, localLat]);
 
   return (
-    <BaseModal isOpen={addNewTargetState.isOpen}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <TextField id={'lat'} label={'Lat'} value={localLat} onChange={onLatChange} />
-        <TextField id={'lon'} label={'Lon'} value={localLon} onChange={onLonChange} />
-        <TextField id={'alt'} label={'Alt'} value={localAlt} onChange={onAltChange} />
+    <BaseModal id={'add_new_target'} closeAction={closeNewTargetModal} isOpen={addNewTargetState.isOpen}>
+      <ColumnContainer>
+        <TextField id={'lat'} label={t('default_lat')} value={localLat} onChange={onLatChange} />
+        <TextField id={'lon'} label={t('default_lon')} value={localLon} onChange={onLonChange} />
+        <TextField id={'alt'} label={t('default_alt')} value={localAlt} onChange={onAltChange} />
 
         <TargetType setTargetType={setTargetType} />
 
         <Tags setTags={setTags} />
 
-        <TextArea id={'lat'} label={'Примітки'} type={'text'} />
-        <Button onClick={onButtonClick}>Save</Button>
-      </div>
+        <TextArea id={'notes'} label={t('default_notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />
+        <SaveButton onClick={onButtonClick}>{t('default_save')}</SaveButton>
+      </ColumnContainer>
     </BaseModal>
   );
 };

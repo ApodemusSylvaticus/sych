@@ -2,9 +2,10 @@ import styled, { css } from 'styled-components';
 import { IsActive } from '../../interface/baseComponentsInterface.ts';
 
 export const ClickableTabCss = css`
-  padding: 6px 12px;
+  padding: 0.6rem 1.2rem;
   border-radius: 4px;
   flex-grow: 1;
+  font-size: 1.6rem;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.25s linear;

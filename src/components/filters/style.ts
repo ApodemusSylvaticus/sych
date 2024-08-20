@@ -5,7 +5,7 @@ import { Button as BaseButton } from '../button/style.ts';
 import { IsActive } from '../../interface/baseComponentsInterface.ts';
 
 export const ColumnContainer = styled(BaseColumnContainer)`
-  gap: 16px;
+  gap: 1.6rem;
 `;
 
 export const RightSideContainer = styled.div`
@@ -19,7 +19,7 @@ export const CardName = styled(CardNameBase)`
 `;
 
 export const MainCardName = styled(CardName)`
-  font-size: 20px;
+  font-size: 2rem;
 `;
 
 export const Button = styled(BaseButton)<IsActive>`
