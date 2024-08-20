@@ -5,16 +5,18 @@ export class GamepadManager {
     public buttonSensitivity: number = 2;
     public buttonThreshold: number = 0.1;
     public axisThreshold: number = 0.25;
-    private queryRate: number = 33;
+    private queryRate: number = 120;
     private loop: number | null = null;
     private prevButtonValues: Map<number, number[]> = new Map();
     private prevAxisValues: Map<number, number[]> = new Map();
     private readonly callback: (event: ButtonChangeEvent | StickChangeEvent) => void;
+    private boundOnGamepadEvent: (event: GamepadEvent) => void;
 
     constructor(callback: (event: ButtonChangeEvent | StickChangeEvent) => void) {
         this.callback = callback;
-        window.addEventListener("gamepadconnected", this.onGamepadEvent.bind(this));
-        window.addEventListener("gamepaddisconnected", this.onGamepadEvent.bind(this));
+        this.boundOnGamepadEvent = this.onGamepadEvent.bind(this);
+        window.addEventListener("gamepadconnected", this.boundOnGamepadEvent);
+        window.addEventListener("gamepaddisconnected", this.boundOnGamepadEvent);
     }
 
     public setQueryRate(rate: number): void {
@@ -102,5 +104,13 @@ export class GamepadManager {
             clearTimeout(this.loop);
             this.loop = null;
         }
+    }
+
+    public destroy(): void {
+        this.stopLoop();
+        window.removeEventListener("gamepadconnected", this.boundOnGamepadEvent);
+        window.removeEventListener("gamepaddisconnected", this.boundOnGamepadEvent);
+        this.prevButtonValues.clear();
+        this.prevAxisValues.clear();
     }
 }

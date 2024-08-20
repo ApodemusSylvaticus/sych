@@ -17,7 +17,7 @@ export class ServerUpdatesComponent extends LitElement {
 
   constructor() {
     super();
-    this.deviceState = new DeviceStateDispatch();
+    this.deviceState = DeviceStateDispatch.getInstance();
     this.initializeSignals();
   }
 
@@ -85,6 +85,5 @@ export class ServerUpdatesComponent extends LitElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.deviceState.destroy();
   }
 }

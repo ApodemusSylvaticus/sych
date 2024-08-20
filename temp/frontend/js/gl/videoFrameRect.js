@@ -38,11 +38,11 @@ export class VideoFrameRect extends Widget {
         this.vertices = new Float32Array([
             bbox[0], bbox[1], 0.0, 0.0, // x, y
             bbox[0] + bbox[2], bbox[1], 1.0, 0.0, // x + width, y
-            bbox[0], bbox[1] + bbox[3], 0.0, 1.0, // x, y + height
+            bbox[0], bbox[1] - bbox[3], 0.0, 1.0, // x, y + height
 
             bbox[0] + bbox[2], bbox[1], 1.0, 0.0, // x + width, y
-            bbox[0], bbox[1] + bbox[3], 0.0, 1.0, // x, y + height
-            bbox[0] + bbox[2], bbox[1] + bbox[3], 1.0, 1.0 // x + width, y + height
+            bbox[0], bbox[1] - bbox[3], 0.0, 1.0, // x, y + height
+            bbox[0] + bbox[2], bbox[1] - bbox[3], 1.0, 1.0 // x + width, y + height
         ]);
     }
 

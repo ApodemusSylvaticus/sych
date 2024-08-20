@@ -25,18 +25,19 @@ class InputDeviceManager {
     private dayCamera: DayCameraControl = new DayCameraControl();
     private lrf: LRFControl = new LRFControl();
     private osd: OSDControl;
+    private day_cam_signal: Signal<JonGuiDataCameraDay | undefined>;
+    private heat_cam_signal: Signal<JonGuiDataCameraHeat | undefined>;
 
     constructor(options: Opts ){
         this.gamepadManager = new GamepadManager(this.handleGamepadEvent.bind(this));
         this.initGamepadManager();
         this.osd = new OSDControl({nextLayout: options.nextLayout});
-        this.rotary = new RotaryControl(options.day_cam_signal, options.heat_cam_signal);
+        this.day_cam_signal = options.day_cam_signal;
+        this.heat_cam_signal = options.heat_cam_signal;
+        this.rotary = new RotaryControl(this.day_cam_signal, this.heat_cam_signal);
     }
 
     private handleGamepadEvent(event: ButtonChangeEvent | StickChangeEvent): void {
-        if (!document.hasFocus()) {
-            return;
-        }
         if (event.type === 'button') {
             this.handleButtonEvent(event);
             this.heatCamera.handleButtonEvent(event);
@@ -53,7 +54,6 @@ class InputDeviceManager {
     private handleStickEvent(event: StickChangeEvent) {
         console.log(`Stick ${event.index} value: ${event.value}`);
         this.rotary.handleStickEvent(event);
-
     }
 
     private handleButtonEvent(event: ButtonChangeEvent) {
@@ -63,6 +63,18 @@ class InputDeviceManager {
 
     private initGamepadManager() {
         this.gamepadManager.setQueryRate(33);
+    }
+
+    destroy() {
+        this.gamepadManager.destroy();
+
+        // Clean up signals
+        if (this.day_cam_signal) {
+            this.day_cam_signal.value = undefined;
+        }
+        if (this.heat_cam_signal) {
+            this.heat_cam_signal.value = undefined;
+        }
     }
 }
 

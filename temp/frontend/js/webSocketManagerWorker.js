@@ -4,11 +4,27 @@ import { WebSocketManager } from './vsocketProxyUtil.js';
 // Object to store WebSocketManager instances
 const webSocketManagers = {};
 
+// Function to clean up and close all WebSocket connections
+function cleanupAndExit() {
+    Object.values(webSocketManagers).forEach(manager => {
+        manager.close();
+    });
+    // TODO: MAKE SURE IT WORKS (IF WE NEED IT WORKING)
+    self.close(); // Close the shared worker
+}
+
 // Listen for messages from the main thread
 self.onconnect = function (e) {
     const port = e.ports[0];
 
     port.addEventListener('message', (event) => {
+        // Check if the message is a stop command
+        if (event.data === 'stop') {
+            port.postMessage({ type: 'info', message: 'Received stop command. Cleaning up and exiting.' });
+            cleanupAndExit();
+            return;
+        }
+
         // Extract configuration from the received message
         const { endpoint, channelNameToWS, channelNameFromWS } = event.data;
 

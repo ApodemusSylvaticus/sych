@@ -53,7 +53,7 @@ export class GeoTestCard extends LitElement {
 
   constructor() {
     super();
-    this.deviceState = new DeviceStateDispatch();
+    this.deviceState = DeviceStateDispatch.getInstance();
     this.initializeFromSignals();
   }
 
@@ -206,7 +206,6 @@ export class GeoTestCard extends LitElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.deviceState.destroy();
   }
 }
 

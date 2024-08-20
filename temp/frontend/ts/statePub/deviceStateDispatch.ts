@@ -13,6 +13,7 @@ import { JonGuiDataLrf } from "../proto/jon/jon_shared_data_lrf";
 import { JonGuiDataSystem } from "../proto/jon/jon_shared_data_system";
 
 export class DeviceStateDispatch {
+  private static instance: DeviceStateDispatch | null = null;
   private readonly channel: BroadcastChannel;
 
   private readonly systemSignal: Signal<JonGuiDataSystem | undefined>;
@@ -27,7 +28,7 @@ export class DeviceStateDispatch {
   private readonly compassCalibrationSignal: Signal<JonGuiDataCompassCalibration | undefined>;
   private readonly environmentSignal: Signal<JonGuiDataEnvironment | undefined>;
 
-  constructor(channelName: string = 'deviceState') {
+  private constructor(channelName: string = 'deviceState') {
     this.channel = new BroadcastChannel(channelName);
     this.channel.onmessage = this.handleBroadcastMessage.bind(this);
 
@@ -42,6 +43,13 @@ export class DeviceStateDispatch {
     this.cameraHeatSignal = signal<JonGuiDataCameraHeat | undefined>(undefined);
     this.compassCalibrationSignal = signal<JonGuiDataCompassCalibration | undefined>(undefined);
     this.environmentSignal = signal<JonGuiDataEnvironment | undefined>(undefined);
+  }
+
+  public static getInstance(channelName: string = 'deviceState'): DeviceStateDispatch {
+    if (!DeviceStateDispatch.instance) {
+      DeviceStateDispatch.instance = new DeviceStateDispatch(channelName);
+    }
+    return DeviceStateDispatch.instance;
   }
 
   private handleBroadcastMessage(event: MessageEvent): void {
@@ -74,11 +82,11 @@ export class DeviceStateDispatch {
     newValue: T | undefined
   ): void {
     if (JSON.stringify(signal.value) !== JSON.stringify(newValue)) {
-      console.log(`Updating ${key} signal:`, newValue);
       signal.value = newValue;
     }
   }
 
+  // Getter methods remain the same
   get system(): Signal<JonGuiDataSystem | undefined> {
     return this.systemSignal;
   }
@@ -103,9 +111,9 @@ export class DeviceStateDispatch {
     return this.rotarySignal;
   }
 
-    get power(): Signal<JonGuiDataPower | undefined> {
-        return this.powerSignal;
-    }
+  get power(): Signal<JonGuiDataPower | undefined> {
+    return this.powerSignal;
+  }
 
   get cameraDay(): Signal<JonGuiDataCameraDay | undefined> {
     return this.cameraDaySignal;
@@ -121,9 +129,5 @@ export class DeviceStateDispatch {
 
   get environment(): Signal<JonGuiDataEnvironment | undefined> {
     return this.environmentSignal;
-  }
-
-  public destroy(): void {
-    this.channel.close();
   }
 }

@@ -24,7 +24,7 @@ function inIndices(value: number): boolean {
 
 class RotaryControl {
     private deadZoneRadius: number = 0.15;
-    private curvatureCoefficient: number = 3.0;
+    private curvatureCoefficient: number = 2.0;
     private baseMaxSpeed = 0.35;
     private bumperValue = 0.0;
     private zoomSpeedCoefficientMin = 0.2;

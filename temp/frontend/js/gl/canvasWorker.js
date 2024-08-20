@@ -1,7 +1,90 @@
 'use strict';
 
-import WebGLRenderer from './webGLRenderer.js';
-import {VideoSubDecoder} from './videoSubDecoder.js';
+import { WebGLRenderer, ChannelType } from './webGLRenderer.js';
+import { VideoSubDecoder } from './videoSubDecoder.js';
+
+/**
+ * @typedef {'videoQuadCreate' | 'videoQuadDestroy' | 'videoQuadUpdate' | 'resize' | 'render'} RendererCommand
+ */
+
+/**
+ * @typedef {Object} QuadProperties
+ * @property {number} x - NDC x-coordinate (-1 to 1)
+ * @property {number} y - NDC y-coordinate (-1 to 1, y is up)
+ * @property {number} width - Width in NDC space (0 to 2)
+ * @property {number} height - Height in NDC space (0 to 2)
+ * @property {number} zIndex - Z-index for rendering order
+ * @property {any} meta - Additional metadata for the quad
+ */
+
+/**
+ * @typedef {Object} VideoQuadCreateMessage
+ * @property {'videoQuadCreate'} type
+ * @property {string} name
+ * @property {ChannelType} channelType
+ * @property {QuadProperties} properties
+ */
+
+/**
+ * @typedef {Object} VideoQuadDestroyMessage
+ * @property {'videoQuadDestroy'} type
+ * @property {string} name
+ */
+
+/**
+ * @typedef {Object} VideoQuadUpdateMessage
+ * @property {'videoQuadUpdate'} type
+ * @property {string} name
+ * @property {QuadProperties} properties
+ */
+
+/**
+ * @typedef {Object} ResizeMessage
+ * @property {'resize'} type
+ * @property {number} width
+ * @property {number} height
+ */
+
+/**
+ * @typedef {Object} RenderMessage
+ * @property {'render'} type
+ */
+
+/**
+ * @typedef {VideoQuadCreateMessage | VideoQuadDestroyMessage | VideoQuadUpdateMessage | ResizeMessage | RenderMessage} RendererMessage
+ */
+
+/**
+ * @typedef {Object} InitMessage
+ * @property {'init'} type
+ * @property {OffscreenCanvas} canvas
+ * @property {VideoDecoderConfig} dayConfig
+ * @property {VideoDecoderConfig} heatConfig
+ */
+
+/**
+ * @typedef {Object} SuspendMessage
+ * @property {'suspend'} type
+ */
+
+/**
+ * @typedef {Object} ResumeMessage
+ * @property {'resume'} type
+ */
+
+/**
+ * @typedef {Object} CleanUpResourcesMessage
+ * @property {'cleanUpResources'} type
+ */
+
+/**
+ * @typedef {Object} AnimationFrameMessage
+ * @property {'animationFrame'} type
+ */
+
+/**
+ * @typedef {InitMessage | SuspendMessage | ResumeMessage | CleanUpResourcesMessage | AnimationFrameMessage | RendererMessage} WorkerMessage
+ */
 
 /**
  * @type {WebGLRenderer|null}
@@ -26,33 +109,32 @@ let workerState = 'stopped';
 
 /**
  * Handles messages received by the worker.
- * @param {MessageEvent} event - The message event received by the worker.
+ * @param {MessageEvent<WorkerMessage>} event - The message event received by the worker.
  */
 onmessage = async function (event) {
     const data = event.data;
 
-    // Check commands against the current state to manage appropriate action
     if (!isCommandValid(data.type)) {
-        console.error(`Invalid command '${data.type}' in state '${workerState}'`);
+        console.warn(`Invalid command '${data.type}' in state '${workerState}'`);
         return;
     }
 
     switch (data.type) {
         case 'init':
-            initializeCanvas(data.canvas, data.dayConfig, data.heatConfig);
+            await initializeCanvas(data.canvas, data.dayConfig, data.heatConfig).catch(handleError);
             workerState = 'running';
             console.log('Worker initialized and now running.');
             break;
         case 'resize':
-            if (renderer) {
-                renderer.resize(data.width, data.height);
-            }
+        case 'videoQuadCreate':
+        case 'videoQuadDestroy':
+        case 'videoQuadUpdate':
+        case 'render':
+            executeRendererCommand(data);
             workerState = 'running';
             break;
         case 'animationFrame':
-            if (renderer) {
-                renderer.render();
-            }
+            executeRendererCommand({ type: 'render' });
             workerState = 'running';
             break;
         case 'suspend':
@@ -71,20 +153,41 @@ onmessage = async function (event) {
             cleanUpResources();
             workerState = 'stopped';
             break;
-        case 'nextLayout':
-            if (renderer) {
-                renderer.NextLayout();
-            }
-            workerState = 'running';
-            break;
-        default:
-            console.error('Unknown message type:', data.type);
     }
 };
 
 /**
+ * Executes a command on the renderer with type checking.
+ * @param {RendererMessage} message - The message containing the command and its parameters.
+ */
+function executeRendererCommand(message) {
+    if (!renderer) {
+        console.error('Renderer not initialized');
+        return;
+    }
+
+    switch (message.type) {
+        case 'videoQuadCreate':
+            renderer.videoQuadCreate(message.name, message.channelType, message.properties);
+            break;
+        case 'videoQuadDestroy':
+            renderer.videoQuadDestroy(message.name);
+            break;
+        case 'videoQuadUpdate':
+            renderer.videoQuadUpdate(message.name, message.properties);
+            break;
+        case 'resize':
+            renderer.resize(message.width, message.height);
+            break;
+        case 'render':
+            renderer.render();
+            break;
+    }
+}
+
+/**
  * Checks if a command is valid based on the current state of the worker.
- * @param {string} commandType - The type of command received.
+ * @param {WorkerMessage['type']} commandType - The type of command received.
  * @return {boolean} - Whether the command is valid for the current state.
  */
 function isCommandValid(commandType) {
@@ -92,26 +195,27 @@ function isCommandValid(commandType) {
         case 'init':
             return workerState === 'stopped';
         case 'suspend':
-        case 'resize':
         case 'animationFrame':
-        case 'nextLayout':
+        case 'videoQuadCreate':
+        case 'videoQuadDestroy':
+        case 'videoQuadUpdate':
+        case 'render':
             return workerState === 'running';
         case 'resume':
             return workerState === 'suspended';
+        case 'resize':
         case 'cleanUpResources':
-            return true; // always allowed to clean up
-        default:
-            return false; // if command is not recognized, it's invalid
+            return true;
     }
 }
 
 /**
  * Initializes the WebGL canvas and sets up renderers and decoders.
- * @param {HTMLCanvasElement} canvas - The canvas element to use for rendering.
+ * @param {OffscreenCanvas} canvas - The canvas element to use for rendering.
  * @param {VideoDecoderConfig} dayConfig - Configuration for the day video decoder.
  * @param {VideoDecoderConfig} heatConfig - Configuration for the heat video decoder.
  */
-function initializeCanvas(canvas, dayConfig, heatConfig) {
+async function initializeCanvas(canvas, dayConfig, heatConfig) {
     if (!canvas) {
         console.error('Canvas not provided to worker.');
         return;
@@ -120,11 +224,9 @@ function initializeCanvas(canvas, dayConfig, heatConfig) {
     canvas.addEventListener('webglcontextlost', handleContextLost, false);
     canvas.addEventListener('webglcontextrestored', () => reinitializeRenderer(canvas, dayConfig, heatConfig), false);
 
-    renderer = new WebGLRenderer({
-        canvas: canvas,
-        dayConfig: dayConfig,
-        heatConfig: heatConfig
-    });
+    renderer = new WebGLRenderer( canvas, dayConfig, heatConfig );
+
+    await renderer.initialize().catch(handleError);
 
     initializeDecoders(dayConfig, heatConfig);
 }
@@ -158,16 +260,12 @@ function handleContextLost(event) {
 
 /**
  * Reinitializes the WebGL renderer after context restoration.
- * @param {HTMLCanvasElement} canvas - The canvas element for rendering.
+ * @param {OffscreenCanvas} canvas - The canvas element for rendering.
  * @param {VideoDecoderConfig} dayConfig - Configuration for the day video decoder.
  * @param {VideoDecoderConfig} heatConfig - Configuration for the heat video decoder.
  */
 function reinitializeRenderer(canvas, dayConfig, heatConfig) {
-    renderer = new WebGLRenderer({
-        canvas: canvas,
-        dayConfig: dayConfig,
-        heatConfig: heatConfig
-    });
+    renderer = new WebGLRenderer( canvas, dayConfig, heatConfig);
     initializeDecoders(dayConfig, heatConfig);
 }
 
@@ -203,6 +301,9 @@ function handleError(error) {
     console.error(error);
 }
 
+/**
+ * Cleans up resources and prepares the worker for termination.
+ */
 function cleanUpResources() {
     console.log('Cleaning up resources...');
     unsubscribeDecoders();
@@ -220,4 +321,7 @@ function cleanUpResources() {
         videoHeatDecoder.destructor();
         videoHeatDecoder = null;
     }
+
+    postMessage({ type: 'destroyed', message: 'All WebSocket connections closed. Exiting.' });
+    self.close();
 }

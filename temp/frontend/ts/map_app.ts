@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //     }
     // }, 300);
 
-    let deviceStateDispatch = new DeviceStateDispatch();
+    let deviceStateDispatch = DeviceStateDispatch.getInstance();
 
     let globeManager = new GlobeManager( deviceStateDispatch, "globe" );
 

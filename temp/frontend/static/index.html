@@ -6,46 +6,32 @@
     <meta charset="utf-8"/>
     <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
     <link href="./styles/globals.css" rel="stylesheet">
+    <script src="./js/app.js" type="module"></script>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body, html {
             width: 100%;
             height: 100%;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             font-size: 100%;
             font-family: Arial, sans-serif;
             line-height: 1.5;
             overflow: hidden;
+        }
+        #stream-gui-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             position: relative;
-        }
-
-        canvas {
-            width: 100vw;
-            height: 100vh;
-            display: block;
-        }
-
-        #engineer-img {
-            position: absolute;
-            display: none;
-            right: 0;
-            bottom: 0;
-            width: 15%;
-            z-index: 1000;
+            contain: strict;
         }
     </style>
-    <script src="./js/app.js" type="module"></script>
 </head>
 <body>
-<canvas id="main-canvas"></canvas>
+<div id="stream-gui-wrapper">
+    <jon-stream-gui></jon-stream-gui>
+</div>
 </body>
 </html>

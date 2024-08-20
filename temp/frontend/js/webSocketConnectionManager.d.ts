@@ -14,6 +14,12 @@ declare class WebSocketConnectionManager {
      * for receiving data from the WebSocket.
      */
     startWebSocketWorker(endpoint: string, channelNameToWS: string, channelNameFromWS: string): void;
+
+    /**
+     * Stops all Shared Workers for WebSocket communication.
+     */
+    stopAllWebSocketWorkers(): void;
+
 }
 
 export {WebSocketConnectionManager};

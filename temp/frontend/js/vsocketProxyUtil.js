@@ -27,6 +27,24 @@ class WebSocketManager {
         this.#connect();
     }
 
+    close() {
+        if (this.#isDisposed) return;
+
+        this.#isDisposed = true;
+        this.#logInfo("Closing WebSocketManager");
+        this.#clearReconnectTimer();
+        this.#safeCloseWebSocket();
+        this.#toWSChannel.close();
+        this.#fromWSChannel.close();
+        this.#messageBuffer = [];
+
+        // Additional cleanup
+        this.#endpoint = null;
+        this.#logError = null;
+        this.#logWarn = null;
+        this.#logInfo = null;
+    }
+
     #connect() {
         if (this.#isDisposed || this.#isConnecting) return;
 
@@ -188,18 +206,6 @@ class WebSocketManager {
         if (this.#messageBuffer.length > 0) {
             this.#logInfo(`${this.#messageBuffer.length} messages still in buffer.`);
         }
-    }
-
-    dispose() {
-        if (this.#isDisposed) return;
-
-        this.#isDisposed = true;
-        this.#logInfo("Disposing WebSocketManager");
-        this.#clearReconnectTimer();
-        this.#safeCloseWebSocket();
-        this.#toWSChannel.close();
-        this.#fromWSChannel.close();
-        this.#messageBuffer = [];
     }
 
     reconnect() {

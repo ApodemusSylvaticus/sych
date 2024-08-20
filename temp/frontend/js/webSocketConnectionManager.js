@@ -9,7 +9,8 @@ class WebSocketConnectionManager {
      * Constructs the WebSocketConnectionManager.
      */
     constructor() {
-        // Initially, no WebSocket connections are started automatically.
+        // Store active workers
+        this.workers = new Map();
     }
 
     /**
@@ -40,6 +41,23 @@ class WebSocketConnectionManager {
         };
 
         worker.port.start();
+
+        // Store the worker with its endpoint as the key
+        this.workers.set(endpoint, worker);
+    }
+
+    /**
+     * Stops all WebSocket workers.
+     * TODO: MAKE SURE IT WORKS (IF WE NEED IT WORKING)
+     */
+    stopAllWebSocketWorkers() {
+        for (const [endpoint, worker] of this.workers) {
+            console.log(`Stopping WebSocket worker for endpoint: ${endpoint}`);
+            worker.port.postMessage({ type: 'stop' });
+            worker.port.close();
+        }
+        this.workers.clear();
+        console.log('All WebSocket workers have been stopped.');
     }
 }
 

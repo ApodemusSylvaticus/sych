@@ -1,5 +1,3 @@
-import { Signal, signal } from '@lit-labs/preact-signals';
-
 export enum Alignment {
   TopLeft = 'top-left',
   Top = 'top',

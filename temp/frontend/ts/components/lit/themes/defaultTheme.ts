@@ -27,6 +27,9 @@ export const twindConfig: Configuration = {
           glow: 'oklch(70% 150 260 / 0.8)',
         },
       },
+      scale: {
+        '97': '0.97',
+      },
     },
   },
 };
@@ -72,7 +75,6 @@ export const buttonActiveBackground = css`
 `;
 
 export const overlayBorder = css`border: 1px solid ${theme('colors.overlay.border')}`;
-
 
 export const buttonShadow = css`
   box-shadow: 0 2px 4px ${theme('colors.overlay.shadow')}, inset 0 1px 0 ${theme('colors.overlay.bg')};

@@ -11,6 +11,8 @@ export class AspectRatioInteractiveElement extends LitElement {
       position: relative;
       width: 100%;
       height: 100%;
+      pointer-events: none;
+      transform: translateZ(0);
     }
     .content-wrapper {
       position: absolute;
@@ -19,11 +21,12 @@ export class AspectRatioInteractiveElement extends LitElement {
       width: 100%;
       height: 100%;
       overflow: hidden;
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
     }
     .slot-wrapper {
       width: 100%;
       height: 100%;
+      pointer-events: none;
     }
     .button-overlay {
       position: absolute;
@@ -69,6 +72,22 @@ export class AspectRatioInteractiveElement extends LitElement {
 
   protected firstUpdated(): void {
     this.updatePositionAndSize();
+
+    // Dispatch the alignment-changed event immediately
+    this.dispatchEvent(new CustomEvent('alignment-changed', {
+      detail: { alignment: this.align },
+      bubbles: true,
+      composed: true
+    }));
+
+    // Use requestAnimationFrame to ensure the event is fired after the first paint
+    requestAnimationFrame(() => {
+      this.dispatchEvent(new CustomEvent('alignment-changed', {
+        detail: { alignment: this.align },
+        bubbles: true,
+        composed: true
+      }));
+    });
   }
 
   protected updated(changedProperties: PropertyValues): void {
@@ -146,24 +165,24 @@ export class AspectRatioInteractiveElement extends LitElement {
       <div class="button-overlay">
         <alignment-button-overlay
           .align=${this.align}
-          @alignment-changed=${this.handleAlignmentChanged}
+          .onAlignmentChange=${this.handleAlignmentChanged}
         ></alignment-button-overlay>
       </div>
     `;
   }
 
-  private handleAlignmentChanged(e: CustomEvent) {
-    this.setAlignment(e.detail.alignment);
-  }
+  private handleAlignmentChanged(newAlignment: Alignment) {
+    if (this.align !== newAlignment) {
+      this.align = newAlignment;
+      this.updatePositionAndSize();
 
-  private setAlignment(newAlignment: Alignment) {
-    this.align = newAlignment;
-    this.updatePositionAndSize();
-    this.dispatchEvent(new CustomEvent('alignment-changed', {
-      detail: { alignment: newAlignment },
-      bubbles: true,
-      composed: true
-    }));
+      // Dispatch a custom event for alignment change
+      this.dispatchEvent(new CustomEvent('alignment-changed', {
+        detail: { alignment: newAlignment },
+        bubbles: true,
+        composed: true
+      }));
+    }
   }
 
   private handlePointerDown(e: PointerEvent) {

@@ -33,6 +33,7 @@ export class AlignmentButtonOverlay extends LitElement {
   ];
 
   @property({ type: String }) align: Alignment = Alignment.Center;
+  @property({ type: Function }) onAlignmentChange: ((alignment: Alignment) => void) | undefined;
   @state() private highlightedAlignment: Alignment = Alignment.Center;
 
   updated(changedProperties: PropertyValues) {
@@ -43,10 +44,7 @@ export class AlignmentButtonOverlay extends LitElement {
 
   render() {
     return html`
-      <div class="${tw(overlayContainerStyles)}"
-           @pointerdown=${this.handlePointerDown}
-           @pointermove=${this.handlePointerMove}
-           @pointerup=${this.handlePointerUp}>
+      <div class="${tw(overlayContainerStyles)}">
         ${this.renderAlignmentButtons()}
       </div>
     `;
@@ -71,7 +69,7 @@ export class AlignmentButtonOverlay extends LitElement {
     `;
 
     const renderButton = (alignment: Alignment, icon: unknown) => html`
-      <button @pointerdown=${() => this.handleAlignment(alignment)}
+      <button @click=${() => this.handleAlignment(alignment)}
               class="${tw`
                 ${buttonBaseStyles}
                 ${buttonHoverStyles}
@@ -112,26 +110,13 @@ export class AlignmentButtonOverlay extends LitElement {
     }
   }
 
-  private handlePointerDown(e: PointerEvent) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
-  private handlePointerMove(e: PointerEvent) {
-    e.preventDefault();
-  }
-
-  private handlePointerUp(e: PointerEvent) {
-    e.preventDefault();
-  }
-
   private handleAlignment(newAlignment: Alignment) {
-    this.highlightedAlignment = newAlignment;
-    this.dispatchEvent(new CustomEvent('alignment-changed', {
-      detail: { alignment: newAlignment },
-      bubbles: true,
-      composed: true
-    }));
+    if (this.align !== newAlignment) {
+      this.highlightedAlignment = newAlignment;
+      if (this.onAlignmentChange) {
+        this.onAlignmentChange(newAlignment);
+      }
+    }
   }
 }
 

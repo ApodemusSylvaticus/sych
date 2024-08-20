@@ -15,7 +15,12 @@ import {
   calculateNewPosition
 } from './ndcHelpers';
 
-export type InteractionMode = 'fixed' | 'draggable' | 'resizable';
+export enum InteractionMode {
+  Fixed = 'fixed',
+  Draggable = 'draggable',
+  Resizable = 'resizable',
+  Alignable = 'alignable'
+}
 
 interface InteractionState {
   isInteracting: boolean;
@@ -34,9 +39,21 @@ const interactiveStyles = {
     ${ActivePanelBaseStyles}
     border-dotted border-4
     ${twCss`border-color: ${theme('colors.panel.bgActive')}`}
-  `,
-  hover: tw`shadow-lg`,
+  `
 };
+
+function debounce<T extends (...args: any[]) => void>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  return (...args: Parameters<T>) => {
+    if (timeout !== null) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
 
 @customElement('panel-element')
 export class PanelElement extends LitElement {
@@ -50,14 +67,13 @@ export class PanelElement extends LitElement {
         left: 0;
         width: 100%;
         height: 100%;
-        pointer-events: none;
         box-sizing: border-box;
         contain: layout size style;
+        transform: translateZ(0);
       }
       .content-wrapper {
         position: absolute;
         overflow: visible;
-        pointer-events: auto;
         display: flex;
         flex-direction: column;
         transform-origin: top left;
@@ -78,7 +94,7 @@ export class PanelElement extends LitElement {
   @property({ type: Number }) ndcWidth = 0.2;
   @property({ type: Number }) ndcHeight = 0.2;
   @property({ type: Number }) zIndex = 0;
-  @property({ type: String }) mode: InteractionMode = 'fixed';
+  @property({ type: String }) mode: InteractionMode = InteractionMode.Fixed;
   @property({ type: Number }) minWidth = 0.0;
   @property({ type: Number }) maxWidth = 2.0;
   @property({ type: Number }) minHeight = 0.0;
@@ -103,17 +119,20 @@ export class PanelElement extends LitElement {
   private initialSize: NDCSize = { width: 0, height: 0 };
   private initialPosition: NDCCoordinate = { x: 0, y: 0 };
 
+  private debouncedHandleBaseResize: () => void;
+  private isInitialSizeSet: boolean = false;
+
   constructor() {
     super();
     this.handleBaseResize = this.handleBaseResize.bind(this);
+    this.debouncedHandleBaseResize = debounce(this.handleBaseResize, 100);
     this.addEventListener('pointerdown', this.handlePointerDown);
   }
 
   connectedCallback(): void {
     super.connectedCallback();
-    this.resizeObserver = new ResizeObserver(this.handleBaseResize);
+    this.resizeObserver = new ResizeObserver(this.handleResizeObserverUpdate);
     this.resizeObserver.observe(this);
-    this.handleBaseResize();
     this.adjustSizeToConstraints();
     this.updateInteractionStyle();
   }
@@ -146,10 +165,20 @@ export class PanelElement extends LitElement {
     super.updated(changedProperties);
   }
 
+  private handleResizeObserverUpdate = (entries: ResizeObserverEntry[]): void => {
+    if (!this.isInitialSizeSet) {
+      this.handleBaseResize();
+      this.isInitialSizeSet = true;
+    } else {
+      this.debouncedHandleBaseResize();
+    }
+  }
+
   private updatePositionAndSize(): void {
     this.ndcSize = { width: this.ndcWidth, height: this.ndcHeight };
     this.ndcPosition = { x: this.ndcX, y: this.ndcY };
     this.updateContentStyles();
+    this.emitPositionUpdate();
   }
 
   private updateContentStyles(): void {
@@ -216,10 +245,20 @@ export class PanelElement extends LitElement {
 
     this.updateContentStyles();
     this.requestUpdate();
+    this.emitPositionUpdate();
+  }
+
+  private emitPositionUpdate(): void {
+    const detail = {
+      position: { ...this.ndcPosition },
+      size: { ...this.ndcSize }
+    };
+    this.dispatchEvent(new CustomEvent('position-update', { detail, bubbles: true, composed: true }));
   }
 
   private updateInteractionStyle(): void {
     this.updateCursorStyle();
+    this.updatePointerEvents();
     this.mainWrapperF.then((el: HTMLDivElement) => {
       this.updateWrapperClasses(el);
     });
@@ -227,27 +266,35 @@ export class PanelElement extends LitElement {
 
   private updateCursorStyle(): void {
     switch (this.mode) {
-      case 'fixed':
+      case InteractionMode.Alignable:
+      case InteractionMode.Fixed:
         this.style.cursor = 'default';
         break;
-      case 'draggable':
+      case InteractionMode.Draggable:
         this.style.cursor = 'pointer';
         break;
-      case 'resizable':
+      case InteractionMode.Resizable:
         this.style.cursor = 'move';
         break;
     }
   }
 
+  private updatePointerEvents(): void {
+    if (this.mode === InteractionMode.Fixed) {
+      this.style.pointerEvents = 'none';
+    } else {
+      this.style.pointerEvents = 'auto';
+    }
+  }
+
   private updateWrapperClasses(wrapper: HTMLDivElement): void {
-    wrapper.classList.remove('interactive-fixed', 'interactive-draggable', 'interactive-resizable');
+    wrapper.classList.remove('interactive-fixed', 'interactive-draggable', 'interactive-resizable', 'interactive-alignable');
     wrapper.classList.add(`interactive-${this.mode}`);
 
     wrapper.className += ' ' + tw`
       ${interactiveStyles.base}
-      ${this.mode === 'draggable' ? interactiveStyles.draggable : ''}
-      ${this.mode === 'resizable' ? interactiveStyles.resizable : ''}
-      hover:${interactiveStyles.hover}
+      ${this.mode === InteractionMode.Draggable ? interactiveStyles.draggable : ''}
+      ${this.mode === InteractionMode.Resizable ? interactiveStyles.resizable : ''}
     `;
   }
 
@@ -263,9 +310,11 @@ export class PanelElement extends LitElement {
   }
 
   private handlePointerDown = (e: PointerEvent): void => {
-    const position = this.clientToNDC(e.clientX, e.clientY);
-    this.startInteraction(position);
-    e.preventDefault();
+    if (this.mode !== InteractionMode.Fixed) {
+      const position = this.clientToNDC(e.clientX, e.clientY);
+      this.startInteraction(position);
+      e.preventDefault();
+    }
   }
 
   private handlePointerMove = (e: PointerEvent): void => {
@@ -278,7 +327,7 @@ export class PanelElement extends LitElement {
   }
 
   private startInteraction(position: NDCCoordinate): void {
-    if (this.mode !== 'fixed') {
+    if (this.mode !== InteractionMode.Fixed && this.mode !== InteractionMode.Alignable) {
       this.interactionState = {
         isInteracting: true,
         startPosition: position,
@@ -287,7 +336,7 @@ export class PanelElement extends LitElement {
       this.initialSize = { ...this.ndcSize };
       this.initialPosition = { ...this.ndcPosition };
 
-      if (this.mode === 'resizable') {
+      if (this.mode === InteractionMode.Resizable) {
         this.resizeQuadrant = determineResizeQuadrant(position, this.ndcPosition, this.ndcSize);
       }
 
@@ -299,9 +348,9 @@ export class PanelElement extends LitElement {
     if (this.interactionState.isInteracting) {
       this.interactionState.currentPosition = position;
 
-      if (this.mode === 'draggable') {
+      if (this.mode === InteractionMode.Draggable) {
         this.handleDrag();
-      } else if (this.mode === 'resizable') {
+      } else if (this.mode === InteractionMode.Resizable) {
         this.handleResize(this.resizeQuadrant);
       }
     }

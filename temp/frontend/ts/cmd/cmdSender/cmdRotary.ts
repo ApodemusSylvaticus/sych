@@ -353,3 +353,15 @@ export function stringToRotaryDirection(value: string): Types.JonGuiDataRotaryDi
             return Types.JonGuiDataRotaryDirection.JON_GUI_DATA_ROTARY_DIRECTION_UNSPECIFIED;
     }
 }
+
+export function RotateToNDC(channel: Types.JonGuiDataVideoChannel, x: number, y: number): void {
+    console.log(`Rotating to NDC ${x}, ${y} on channel ${channel}`);
+    let rotateToNDCMsg = Cmd.RotaryPlatform.RotateToNDC.create({
+        channel,
+        x,
+        y
+    });
+    let rootMsg = CSShared.createRootMessage();
+    rootMsg.rotary = Cmd.RotaryPlatform.Root.create({rotateToNdc: rotateToNDCMsg});
+    CSShared.sendCmdMessage(rootMsg);
+}

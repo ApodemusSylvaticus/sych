@@ -4,16 +4,7 @@ import { Signal, signal } from '@lit-labs/preact-signals';
 import { NDCPosition } from './ndcPosition';
 import { GestureEvent } from './pointerGestureEvents';
 import { PointerGestureRecognizer } from './pointerGestureRecognizer';
-
-export type GestureEventNDC =
-  | { type: 'swipe'; direction: 'up' | 'down' | 'left' | 'right' }
-  | { type: 'panStart'; x: number; y: number; ndcX: number; ndcY: number }
-  | { type: 'panMove'; deltaX: number; deltaY: number; ndcDeltaX: number; ndcDeltaY: number }
-  | { type: 'panStop' }
-  | { type: 'tap'; x: number; y: number; ndcX: number; ndcY: number }
-  | { type: 'doubleTap'; x: number; y: number; ndcX: number; ndcY: number }
-  | { type: 'zoomIn' }
-  | { type: 'zoomOut' };
+import './gestureVisualizerElement';
 
 @customElement('interaction-observer-element')
 export class InteractionObserverElement extends LitElement {
@@ -29,21 +20,16 @@ export class InteractionObserverElement extends LitElement {
       border: 2px solid #ff00ff;
       background-color: rgba(255, 0, 255, 0.1);
       box-sizing: border-box;
+      pointer-events: auto;
     }
   `;
 
-  @property({ type: Number }) moveThreshold = 100;
-  @property({ type: Number }) tapDurationThreshold = 200;
-  @property({ type: Number }) longPressDurationThreshold = 300;
-  @property({ type: Number }) swipeVelocityThreshold = 0.5;
-  @property({ type: Number }) swipeTimeThreshold = 300;
-  @property({ type: Number }) zoomThreshold = 1.1;
   @property({ type: Number }) doubleTapThreshold = 300;
   @property({ type: Boolean }) debugVisible = false;
-  @property({ type: Number }) eventDebounceThreshold = 50; // ms
+  @property({ type: Number }) zoomDebounceTime = 200;
 
   private positionSignal: Signal<NDCPosition | null>;
-  private interactionSignal: Signal<GestureEventNDC | null>;
+  private interactionSignal: Signal<GestureEvent | null>;
   private frameCount: number = 0;
   private animationFrameId: number | null = null;
   private lastPosition: NDCPosition = { x: 0, y: 0, width: 0, height: 0 };
@@ -51,29 +37,32 @@ export class InteractionObserverElement extends LitElement {
   private lastTapTime: number = 0;
   private lastTapPosition: { x: number, y: number } | null = null;
   private tapTimer: number | null = null;
-  private boundHandleWheel: (e: WheelEvent) => void;
-  private lastEventTime: number = 0;
-  private lastEventType: string | null = null;
+  private zoomTimeout: number | null = null;
+  private lastZoomType: 'zoomIn' | 'zoomOut' | null = null;
+  private isZooming = false;
+  private runUpdateLoop = false;
 
   constructor() {
     super();
     this.positionSignal = signal(null);
     this.interactionSignal = signal(null);
-    this.boundHandleWheel = this.handleWheel.bind(this);
   }
 
   connectedCallback(): void {
     super.connectedCallback();
     this.startUpdateLoop();
     this.setupInteractions();
-    this.addEventListener('wheel', this.boundHandleWheel, { passive: false });
+    this.addEventListener('wheel', this.handleWheel);
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
     this.stopUpdateLoop();
     this.teardownInteractions();
-    this.removeEventListener('wheel', this.boundHandleWheel);
+    this.removeEventListener('wheel', this.handleWheel);
+    if (this.zoomTimeout !== null) {
+      clearTimeout(this.zoomTimeout);
+    }
     this.positionSignal.value = null;
     this.interactionSignal.value = null;
   }
@@ -93,24 +82,33 @@ export class InteractionObserverElement extends LitElement {
   }
 
   private startUpdateLoop(): void {
+    this.runUpdateLoop = true;
     const update = () => {
       this.frameCount++;
       if (this.frameCount % 10 === 0) {
-        this.checkAndUpdatePosition();
+        this.checkAndUpdatePosition().finally(() => {
+          if (this.runUpdateLoop) {
+            this.animationFrameId = requestAnimationFrame(update);
+          }
+        });
+      } else {
+        this.animationFrameId = requestAnimationFrame(update);
       }
-      this.animationFrameId = requestAnimationFrame(update);
     };
+
+    // First call
     this.animationFrameId = requestAnimationFrame(update);
   }
 
   private stopUpdateLoop(): void {
+    this.runUpdateLoop = false;
     if (this.animationFrameId !== null) {
       cancelAnimationFrame(this.animationFrameId);
       this.animationFrameId = null;
     }
   }
 
-  private checkAndUpdatePosition(): void {
+  private async checkAndUpdatePosition() {
     const rect = this.getBoundingClientRect();
     const { width: screenWidth, height: screenHeight } = document.documentElement.getBoundingClientRect();
 
@@ -125,6 +123,12 @@ export class InteractionObserverElement extends LitElement {
       this.lastPosition = newPosition;
       this.positionSignal.value = newPosition;
     }
+  }
+
+  firstUpdated(): void {
+    this.checkAndUpdatePosition().catch((error) => {
+        console.error('Error updating position', error);
+    });
   }
 
   private hasPositionChanged(newPosition: NDCPosition): boolean {
@@ -154,13 +158,7 @@ export class InteractionObserverElement extends LitElement {
   private setupInteractions(): void {
     this.gestureRecognizer = new PointerGestureRecognizer(
       this,
-      this.handleGesture.bind(this),
-      this.moveThreshold,
-      this.tapDurationThreshold,
-      this.longPressDurationThreshold,
-      this.swipeVelocityThreshold,
-      this.swipeTimeThreshold,
-      this.zoomThreshold
+      this.handleGesture.bind(this)
     );
   }
 
@@ -172,54 +170,38 @@ export class InteractionObserverElement extends LitElement {
   }
 
   private handleGesture(event: GestureEvent): void {
-    let ndcEvent: GestureEventNDC;
+    let ndcEvent: GestureEvent;
 
     switch (event.type) {
       case 'tap':
         const { ndcX, ndcY } = this.pageToNDC(event.x, event.y);
-        ndcEvent = { type: 'tap', x: event.x, y: event.y, ndcX, ndcY };
+        ndcEvent = { ...event, ndcX, ndcY };
         this.handleTap(ndcEvent);
         break;
       case 'panStart':
         const { ndcX: startNdcX, ndcY: startNdcY } = this.pageToNDC(event.x, event.y);
-        ndcEvent = { type: 'panStart', x: event.x, y: event.y, ndcX: startNdcX, ndcY: startNdcY };
+        ndcEvent = { ...event, ndcX: startNdcX, ndcY: startNdcY };
         this.cancelPotentialDoubleTap();
         this.emitEvent(ndcEvent);
         break;
       case 'panMove':
         const { ndcDeltaX, ndcDeltaY } = this.pixelToNDCDelta(event.deltaX, event.deltaY);
-        ndcEvent = { type: 'panMove', deltaX: event.deltaX, deltaY: event.deltaY, ndcDeltaX, ndcDeltaY };
-        this.cancelPotentialDoubleTap();
-        this.emitEvent(ndcEvent);
-        break;
-      case 'swipe':
-        ndcEvent = { type: 'swipe', direction: event.direction };
+        ndcEvent = { ...event, ndcDeltaX, ndcDeltaY, xDelta: event.deltaX, yDelta: event.deltaY, x: event.x, y: event.y };
         this.cancelPotentialDoubleTap();
         this.emitEvent(ndcEvent);
         break;
       case 'panStop':
-        ndcEvent = { type: 'panStop' };
-        this.cancelPotentialDoubleTap();
-        this.emitEvent(ndcEvent);
-        break;
+      case 'swipe':
       case 'zoomIn':
       case 'zoomOut':
-        ndcEvent = { type: event.type };
+        ndcEvent = event;
         this.cancelPotentialDoubleTap();
         this.emitEvent(ndcEvent);
         break;
     }
   }
 
-  private handleWheel(e: WheelEvent): void {
-    e.preventDefault();
-    const { deltaY } = e;
-    const eventType: 'zoomIn' | 'zoomOut' = deltaY < 0 ? 'zoomIn' : 'zoomOut';
-    const event: GestureEventNDC = { type: eventType };
-    this.emitEvent(event);
-  }
-
-  private handleTap(event: GestureEventNDC & { type: 'tap' }): void {
+  private handleTap(event: GestureEvent & { type: 'tap' }): void {
     const currentTime = Date.now();
 
     if (this.lastTapTime && currentTime - this.lastTapTime < this.doubleTapThreshold &&
@@ -227,14 +209,7 @@ export class InteractionObserverElement extends LitElement {
         Math.abs(this.lastTapPosition.x - event.x) < 10 &&
         Math.abs(this.lastTapPosition.y - event.y) < 10) {
       // Double tap detected
-      const doubleTapEvent: GestureEventNDC = {
-        type: 'doubleTap',
-        x: event.x,
-        y: event.y,
-        ndcX: event.ndcX,
-        ndcY: event.ndcY
-      };
-      this.emitEvent(doubleTapEvent);
+      this.emitEvent({ ...event, type: 'doubleTap' } as GestureEvent);
       this.lastTapTime = 0;
       this.lastTapPosition = null;
       if (this.tapTimer) {
@@ -276,22 +251,41 @@ export class InteractionObserverElement extends LitElement {
     }
   }
 
-  private emitEvent(event: GestureEventNDC): void {
-    const currentTime = Date.now();
-    if (
-      event.type !== this.lastEventType ||
-      currentTime - this.lastEventTime > this.eventDebounceThreshold
-    ) {
-      this.interactionSignal.value = event;
-      this.lastEventTime = currentTime;
-      this.lastEventType = event.type;
+  private handleWheel(event: WheelEvent) {
+    event.preventDefault();
+    const delta = event.deltaY;
+    const zoomType = delta < 0 ? 'zoomIn' : 'zoomOut';
+
+    this.debouncedZoom(zoomType);
+  }
+
+  private debouncedZoom(zoomType: 'zoomIn' | 'zoomOut') {
+    if (this.zoomTimeout !== null) {
+      clearTimeout(this.zoomTimeout);
     }
+
+    if (!this.isZooming || zoomType !== this.lastZoomType) {
+      this.isZooming = true;
+      this.lastZoomType = zoomType;
+      this.emitEvent({ type: zoomType });
+    }
+
+    this.zoomTimeout = window.setTimeout(() => {
+      this.isZooming = false;
+      this.lastZoomType = null;
+      this.zoomTimeout = null;
+    }, this.zoomDebounceTime);
+  }
+
+  private emitEvent(event: GestureEvent): void {
+    this.interactionSignal.value = event;
   }
 
   render() {
     return html`
       <div>
         <slot></slot>
+        <gesture-visualizer-element .interactionSignal="${this.interactionSignal}"></gesture-visualizer-element>
       </div>
     `;
   }
@@ -300,7 +294,7 @@ export class InteractionObserverElement extends LitElement {
     return this.positionSignal;
   }
 
-  get interaction(): Signal<GestureEventNDC | null> {
+  get interaction(): Signal<GestureEvent | null> {
     return this.interactionSignal;
   }
 }
