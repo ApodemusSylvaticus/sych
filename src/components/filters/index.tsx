@@ -3,7 +3,7 @@ import { TypeFilters } from './typeFilters';
 import { TagsFilter } from './tagsFilter';
 import { CardContainer } from '../containers/cardStyle.ts';
 import { TimeFilter } from './timeFilter';
-import { ColumnContainer, MainCardName } from './style.ts';
+import { ColumnContainer, Container, MainCardName } from './style.ts';
 import { useFilterStore } from '../../store/filter.ts';
 import { IMarker, useMarkerStore } from '../../store/markers.ts';
 import { useTranslation } from 'react-i18next';
@@ -91,13 +91,13 @@ export const Filters: React.FC = React.memo(() => {
   ]);
 
   return (
-    <CardContainer>
+    <Container>
       <MainCardName>{t('default_filters')}</MainCardName>
       <ColumnContainer>
         <TypeFilters />
         <TagsFilter />
         <TimeFilter />
       </ColumnContainer>
-    </CardContainer>
+    </Container>
   );
 });

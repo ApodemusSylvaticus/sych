@@ -111,16 +111,22 @@ export const Button = styled.button`
   transition: background-color 0.2s;
   white-space: nowrap;
 
-  &:hover {
-    color: rgb(${(props) => props.theme.colors.primary});
-    background: rgb(${(props) => props.theme.colors.tabActive});
-  }
-
-  &:active {
-    outline: none;
-    background: rgb(${(props) => props.theme.colors.tabActive});
-  }
   &:focus {
     outline: none;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      color: rgb(${(props) => props.theme.colors.primary});
+      background: rgb(${(props) => props.theme.colors.tabActive});
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+      outline: none;
+      color: rgb(${(props) => props.theme.colors.primary});
+      background: rgb(${(props) => props.theme.colors.tabActive});
+    }
   }
 `;

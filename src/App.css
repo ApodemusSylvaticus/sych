@@ -1,6 +1,8 @@
 * {
   box-sizing: border-box;
   font-family: Lato-Regular, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 :root {
@@ -8,11 +10,6 @@
   font-size: 10px;
 }
 
-@media screen and (max-width: 500px) {
-  :root {
-    font-size: 8px;
-  }
-}
 
 
 div#menu.open .og-inner {
@@ -43,35 +40,48 @@ div#menu.open .og-inner {
   align-items: center;
   justify-content: center;
   opacity: var(--conditional-opacity);
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
+
+
+
 }
 
 .og-map-button {
   position: absolute;
-  width: 3.6rem;
-  height: 3.6rem;
-  background: rgb(18, 18, 18);
+  width: 40px;
+  height: 40px;
+  background-color: rgb(18, 18, 18);
   border-radius: 8px;
   opacity: var(--conditional-opacity);
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
+  user-select: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(36, 36, 36);
+  }
+
+  &:active, &:focus {
+    transform: scale(1.1);
+  }
 }
 
 .og-map-button svg {
-  width: 3.6rem;
-  height: 3.6rem;
+  width: 40px;
+  height: 40px;
   fill: rgb(255, 255, 255);
   opacity: var(--conditional-opacity);
   transition: opacity 0.3s ease;
 }
 
 .og-zoomin-button {
-  right: 1.6rem;
-  bottom: 6rem;
+  right: 16px;
+  bottom: 64px;
 }
 
 .og-zoomout-button {
-  right: 1.6rem;
-  bottom: 2rem;
+  right: 16px;
+  bottom: 20px;
 }
 
 ::-webkit-scrollbar {
@@ -95,14 +105,16 @@ div#menu.open .og-inner {
 
 
 .og-coordinates{
+  cursor: pointer;
   position: absolute;
   background: rgb(18, 18, 18);
   color: rgb(255, 255, 255);
   border-radius: 8px;
   display: flex;
   gap: 2px;
-  bottom: 2.2rem;
-  right: 6rem;
+  bottom: 20px;
+  right: 64px;
+  font-size: 1.4rem;
   padding: 0.4rem 0.8rem;
   opacity: var(--conditional-opacity);
   transition: opacity 0.3s ease;
@@ -124,6 +136,7 @@ div#menu.open .og-inner {
   flex-direction: column;
   text-align: center;
   color: rgb(255,255,255);
+  font-size: 1.4rem;
 }
 
 .og-scale-ruler {
@@ -137,6 +150,29 @@ div#menu.open .og-inner {
 
 .og-compass-button{
   position: absolute;
-  bottom: 12rem;
-  right: 1.6rem;
+  bottom: 114px;
+  right: 16px;
 }
+
+
+
+@media screen and (max-width: 500px) {
+  :root {
+    font-size: 9px;
+  }
+
+  .og-scale-container {
+    bottom: 54px;
+    right: 0;
+    left: 0;
+    width: 100% !important;
+    display: flex;
+    align-items: center;
+  }
+
+  .og-scale-ruler{
+    width: 100px;
+  }
+}
+
+

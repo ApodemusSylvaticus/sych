@@ -7,12 +7,15 @@ export const Button = styled.button`
   font-family: Lato-Bold, system-ui, Avenir, Helvetica, Arial, sans-serif;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 1.6rem;
+  font-size: 16px;
   font-weight: 500;
   transition: background-color 0.3s;
   color: rgb(${(props) => props.theme.colors.primary});
+  outline: none;
 
-  &:hover {
-    background-color: rgb(${(props) => props.theme.colors.tabHover});
+  @media (hover: hover) {
+    &:hover {
+      background-color: rgb(${(props) => props.theme.colors.tabHover});
+    }
   }
 `;

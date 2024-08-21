@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Entity, Billboard, Vector, Geometry } from '@openglobus/openglobus-react';
 import { ICoord, useMarkerStore } from '../../store/markers.ts';
 import { useGlobusStore } from '../../store/globus.ts';
 import { useModalStore } from '../../store/modals.ts';
 import { calculateIntermediatePoint } from '../../utils/direction.ts';
 
-export const LineMarker = () => {
+export const LineMarker = React.memo(() => {
   const selfMarker = useMarkerStore((state) => state.selfMarker);
   const [endPoint, setEndPoint] = useState<ICoord>();
   const [rerenderKey, setRerenderKey] = useState(0);
@@ -29,6 +29,13 @@ export const LineMarker = () => {
       <Vector
         name={'SelfMarker'}
         clampToGround={true}
+        onTouchStart={(e) => console.log('ss, ', e)}
+        onTouchMove={(e) => console.log('ss, ', e)}
+        onTouchEnd={(e) => console.log('ss, ', e)}
+        onDoubleTouch={(e) => console.log('ss, ', e)}
+        onMouseMove={(e) => console.log('ss, ', e)}
+        onTouchEnter={(e) => console.log('ss, ', e)}
+        onTouchLeave={(e) => console.log('ss, ', e)}
         onLclick={() => {
           openMarkerInfoModal({
             coords: selfMarker.coords,
@@ -67,4 +74,4 @@ export const LineMarker = () => {
       </Vector>
     </>
   );
-};
+});

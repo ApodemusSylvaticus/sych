@@ -22,6 +22,7 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
         'lclick',
         (e) => {
           closePopup();
+          console.log('lclick', e);
 
           if (e.pickingObject && e.pickingObject.billboard) {
             return;
@@ -53,8 +54,33 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
 
       // globe.renderer.events.on('touchstart', touchStart);
 
-      globe.renderer.events.on('touchenter', (e) => {
-        console.log('touchenter', e);
+      globe.renderer.events.on('touchstart', (e) => {
+        console.log('touchstart', e);
+
+        // const eventSequence = ['mousedown', 'mouseup', 'click'];
+        //
+        // eventSequence.forEach((eventType) => {
+        //   const mouseEvent = new MouseEvent(eventType, {
+        //     view: window,
+        //     bubbles: true,
+        //     cancelable: true,
+        //     clientX: e.clientX,
+        //     clientY: e.clientY,
+        //     button: 0,
+        //     buttons: eventType === 'mousedown' ? 1 : 0,
+        //   });
+        //
+        //   // Отправляем событие на document
+        //   document.getElementById('canvas__globus2__')!.dispatchEvent(mouseEvent);
+        // });
+        const dXdY = { x: e.clientX, y: e.clientY };
+        const lonLat = globe.planet.getLonLatFromPixelTerrain(e);
+        setTimeout(() => {
+          if (lonLat) {
+            openPopup({ dXdY, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: lonLat.height } });
+          }
+        }, 0);
+        console.log(dXdY, lonLat);
       });
 
       // globe.renderer.events.on('touchend', (e) => {

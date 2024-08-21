@@ -18,11 +18,11 @@ export const Container = styled.div<IMenuButtonContainer>`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-  padding: 4.9rem 0.8rem 1.6rem;
+  padding: 49px 8px 16px;
   width: 340px;
   height: 100%;
   background: rgb(${(props) => props.theme.colors.menuBg});
-  transition: transform 0.3s linear;
+  transition: all 0.3s linear;
   transform-origin: right center;
   transform: ${(props) => (props.isActive ? 'translateX(0)' : 'translateX(100%)')};
   overflow: auto;
@@ -31,62 +31,74 @@ export const Container = styled.div<IMenuButtonContainer>`
 `;
 
 export const MenuButtonContainer = styled.div<IMenuButtonContainer>`
-  padding: 0.8rem;
-  width: 4rem;
-  height: 3.3rem;
+  padding: 8px;
+  width: 40px;
+  height: 33px;
   position: absolute;
   z-index: 10;
-  top: 0.8rem;
-  right: 1.6rem;
+  top: 8px;
+  right: 16px;
   border-radius: 8px;
   background: rgb(${(props) => props.theme.colors.menuBg});
   cursor: pointer;
-  &:hover div {
-    background: rgba(${(props) => props.theme.colors.primary}, 0.8);
-  }
 
-  &:hover {
-    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.1);
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.1);
+
+      & div {
+        background: rgba(${(props) => props.theme.colors.primary}, 0.8);
+      }
+    }
+  }
+  @media (hover: none) {
+    &:active {
+      box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.1);
+
+      & div {
+        background: rgba(${(props) => props.theme.colors.primary}, 0.8);
+      }
+    }
   }
 `;
 
 const activateAnimation = keyframes`
     0% {
-        top: 0.8rem;
+        top: 8px;
         transform: rotate(0);
     }
     50% {
-        top: 1.5rem;
+        top: 15px;
         transform: rotate(0);
     }
     100% {
-        top: 1.5rem;
+        top: 15px;
         transform: rotate(45deg);
     }
 `;
 
 const deactivateAnimation = keyframes`
     0% {
-        top: 1.5rem;
+        top: 15px;
         transform: rotate(45deg);
     }
     50% {
-        top: 1.5rem;
+        top: 15px;
         transform: rotate(0);
     }
     100% {
-        top: 0.8rem;
+        top: 8px;
         transform: rotate(0);
     }
 `;
 
 const LineBase = styled.div<{ isActive: boolean }>`
   background: rgb(${(props) => props.theme.colors.primary});
-  height: 0.3rem;
+  height: 3px;
   position: absolute;
   border-radius: 4px;
-  width: 2.4rem;
-  left: 0.8rem;
+  width: 24px;
+  left: 8px;
   transition: background ease 0.3s;
 `;
 
@@ -120,7 +132,7 @@ const fadeInAnimation = keyframes`
 `;
 
 export const SecondLine = styled(LineBase)`
-  top: 1.5rem;
+  top: 15px;
   animation: ${({ isActive }) =>
     isActive
       ? css`
@@ -133,30 +145,30 @@ export const SecondLine = styled(LineBase)`
 
 const reverseActivateAnimation = keyframes`
   0% {
-    top: 2.2rem;
+    top: 22px;
     transform: rotate(0);
   }
   50% {
-    top: 1.5rem;
+    top: 15px;
     transform: rotate(0);
   }
   100% {
-    top: 1.5rem;
+    top: 15px;
     transform: rotate(-45deg);
   }
 `;
 
 const reverseDeactivateAnimation = keyframes`
   0% {
-    top: 1.5rem;
+    top: 15px;
     transform: rotate(-45deg);
   }
   50% {
-    top: 1.5rem;
+    top: 15px;
     transform: rotate(0);
   }
   100% {
-    top: 2.2rem;
+    top: 22px;
     transform: rotate(0);
   }
 `;

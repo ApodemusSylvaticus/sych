@@ -9,13 +9,20 @@ export const ClickableTabCss = css`
   text-align: center;
   cursor: pointer;
   transition: background-color 0.25s linear;
+
+  @media (max-width: 500px) {
+    font-size: 1.8rem;
+  }
 `;
 
 export const ClickableTab = styled.div<IsActive>`
   ${ClickableTabCss};
   background: rgb(${(props) => (props.isActive ? props.theme.colors.tabActive : props.theme.colors.tabDefault)});
   color: rgb(${(props) => props.theme.colors.primary});
-  &:hover {
-    background: rgb(${(props) => props.theme.colors.tabHover});
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: rgb(${(props) => props.theme.colors.tabHover});
+    }
   }
 `;

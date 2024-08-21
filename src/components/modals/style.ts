@@ -26,7 +26,7 @@ export const FullSizeModalContainer = styled.div<{ isOpen: boolean }>`
 `;
 
 export const ContentContainer = styled.div`
-  width: min(60%, 450px);
+  width: min(80%, 450px);
   height: 70%;
   border-radius: 8px;
   background: rgb(${(props) => props.theme.colors.primary});
@@ -40,7 +40,9 @@ export const SaveButton = styled(Button)`
   color: rgb(${(props) => props.theme.colors.primary});
   background: rgb(${(props) => props.theme.colors.tabActive});
 
-  &:hover {
-    background: rgb(${(props) => props.theme.colors.tabHover});
+  @media (hover: hover) {
+    &:hover {
+      background-color: rgb(${(props) => props.theme.colors.tabHover});
+    }
   }
 `;

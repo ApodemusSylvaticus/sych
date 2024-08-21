@@ -35,7 +35,9 @@ export const SelectionButton = styled.div<IsActive>`
   font-weight: 500;
   text-align: center;
 
-  &:hover {
-    background-color: rgb(${(props) => (props.isActive ? props.theme.colors.tabActive : props.theme.colors.tabHover)});
+  @media (hover: hover) {
+    &:hover {
+      background-color: rgb(${(props) => (props.isActive ? props.theme.colors.tabActive : props.theme.colors.tabHover)});
+    }
   }
 `;
