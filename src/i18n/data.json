@@ -30,7 +30,8 @@
       "default_add": "Add",
       "default_notes": "Notes",
       "default_save": "Save",
-      "default_add_new_tag": "Add new tag"
+      "default_add_new_tag": "Add new tag",
+      "default_self": "My location"
     }
   },
   "ua": {
@@ -64,7 +65,8 @@
       "default_add": "Додати",
       "default_notes": "Примітки",
       "default_save": "Зберегти",
-      "default_add_new_tag": "Додати тег"
+      "default_add_new_tag": "Додати тег",
+      "default_self": "Моє місцезнаходження"
     }
   },
   "languageSimbolArray": [
