@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from '../button/style.ts';
 
 export const OpacityFullSizeContainer = styled.div`
   position: absolute;
@@ -10,7 +11,7 @@ export const OpacityFullSizeContainer = styled.div`
 `;
 
 export const FullSizeModalContainer = styled.div<{ isOpen: boolean }>`
-  position: absolute;
+  position: fixed;
   z-index: 150;
   width: 100%;
   height: 100%;
@@ -25,28 +26,23 @@ export const FullSizeModalContainer = styled.div<{ isOpen: boolean }>`
 `;
 
 export const ContentContainer = styled.div`
-  width: min(60%, 450px);
+  width: min(80%, 450px);
   height: 70%;
-  border-radius: 16px;
+  border-radius: 8px;
   background: rgb(${(props) => props.theme.colors.primary});
   position: relative;
   z-index: 2;
-  padding: 16px;
+  padding: 1.6rem;
   overflow: auto;
 `;
 
-export const Button = styled.button`
-  background: ${(props) => props.theme.colors.secondary};
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 12px;
-  font-size: 16px;
+export const SaveButton = styled(Button)`
+  color: rgb(${(props) => props.theme.colors.primary});
+  background: rgb(${(props) => props.theme.colors.tabActive});
 
-  transition: background-color 0.2s linear;
-  cursor: pointer;
-
-  &:hover {
-    background: ${(props) => props.theme.colors.accent};
+  @media (hover: hover) {
+    &:hover {
+      background-color: rgb(${(props) => props.theme.colors.tabHover});
+    }
   }
 `;

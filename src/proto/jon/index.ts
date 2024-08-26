@@ -5,5 +5,5 @@
 
 /* eslint-disable */
 
-export * as ser from "./index.ser";
-export * as cmd from "./index.cmd";
+export * as ser from './index.ser';
+export * as cmd from './index.cmd';

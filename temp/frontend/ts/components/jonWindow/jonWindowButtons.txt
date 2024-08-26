@@ -1,0 +1,87 @@
+<style>
+    .hidden {
+        display: none !important;
+    }
+
+    .window-button:hover {
+        background-color: var(--button-hover-bg);
+    }
+
+    .button-group {
+        display: flex;
+        flex-shrink: 0;
+        margin: var(--margin-sml);
+    }
+
+    .window-button {
+        display: var(--display-inline-flex);
+        align-items: var(--align-items-center);
+        justify-content: center;
+        border-radius: var(--button-radius);
+        font-size: var(--font-size);
+        font-weight: var(--font-weight);
+        height: var(--window-button-height);
+        width: var(--window-button-width);
+        border: var(--border-none);
+        background: var(--background-none);
+        cursor: var(--cursor-pointer);
+    }
+</style>
+
+<div class="button-group">
+    <!-- Minimize Button -->
+    <button id="minimize"
+            class="window-button hidden"
+            onclick="this.getRootNode().host.handleButtonClick('minimize')">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="24"
+             height="24"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             class="h-4 w-4">
+            <path d="M5 12h14"></path>
+        </svg>
+    </button>
+    <!-- Maximize Button -->
+    <button id="maximize"
+            class="window-button"
+            onclick="this.getRootNode().host.handleButtonClick('maximize')">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="24"
+             height="24"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             class="h-4 w-4">
+            <rect width="18"
+                  height="18"
+                  x="3" y="3"
+                  rx="2"></rect>
+        </svg>
+    </button>
+    <!-- Close Button -->
+    <button id="close"
+            class="window-button"
+            onclick="this.getRootNode().host.handleButtonClick('close')">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="24"
+             height="24"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             class="h-4 w-4">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+        </svg>
+    </button>
+</div>

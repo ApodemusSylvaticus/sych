@@ -1,0 +1,73 @@
+<style>
+    .window-container {
+        background-color: var(--bg-color);
+        border-radius: var(--border-radius-top) var(--border-radius-top) var(--border-radius-bottom-left) var(--border-radius-bottom-right);
+        overflow: hidden;
+        resize: both;
+        display: var(--display-flex);
+        flex-direction: column;
+        justify-content: flex-start;
+        min-width: 30rem;
+        min-height: 30rem;
+    }
+
+    .title-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--title-bar-bg);
+        padding: 0 var(--title-bar-padding-left-right);
+        flex-wrap: wrap;
+    }
+
+    .title-bar h3 {
+        flex-grow: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 120px;
+        margin: var(--margin-sml);
+    }
+
+    .title-bar:hover {
+        background-color: var(--title-bar-bg-hover);
+        cursor: var(--cursor-move);
+    }
+
+    .content {
+        padding: var(--content-padding);
+        display: block;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: var(--bg-color);
+        overflow: var(--overflow-auto);
+    }
+
+    .content p {
+        color: var(--text-color);
+        margin: 0;
+    }
+</style>
+
+<div class="window-container">
+    <div id="title-bar"
+         class="title-bar">
+        <h3>
+            <slot name="title">
+                Window Title
+            </slot>
+        </h3>
+        <div slot="buttons">
+            <jon-window-buttons></jon-window-buttons>
+        </div>
+    </div>
+    <div id="content"
+         class="content">
+        <slot name="content">
+            <p>Window content
+                goes
+                here...</p>
+        </slot>
+    </div>
+</div>

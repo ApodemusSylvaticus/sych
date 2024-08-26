@@ -10,6 +10,7 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
     isOpen: state.isOpen,
   }));
   const isOpenRef = useRef<boolean>(false);
+  const touchRefStart = useRef(null);
 
   useEffect(() => {
     isOpenRef.current = isOpen;
@@ -21,22 +22,77 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
       globe.renderer.events.on(
         'lclick',
         (e) => {
-          console.log('trigger');
           closePopup();
-          const lonLat = globe.planet.getLonLatFromPixelTerrain(e);
-          console.log(lonLat);
-          if (lonLat && globe.planet.terrain) {
-            globe.planet.terrain.getHeightAsync(lonLat, (h) => {
-              console.log('trigger2');
+          console.log('lclick', e);
 
-              openPopup({ dXdY: { x: e.clientX, y: e.clientY }, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: h } });
-            });
+          if (e.pickingObject && e.pickingObject.billboard) {
+            return;
           }
+
+          const dXdY = { x: e.clientX, y: e.clientY };
+          const lonLat = globe.planet.getLonLatFromPixelTerrain(e);
+
+          setTimeout(() => {
+            if (lonLat) {
+              openPopup({ dXdY, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: lonLat.height } });
+            }
+          }, 0);
+
+          // if (lonLat && globe.planet.terrain) {
+          //   globe.planet.terrain.getHeightAsync(lonLat, (h) => {
+          //     openPopup({ dXdY, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: h } });
+          //   });
+          // }
         },
         globe.planet,
       );
 
       globe.renderer.events.on('mousewheel', () => {
+        if (isOpenRef.current) {
+          closePopup();
+        }
+      });
+
+      // globe.renderer.events.on('touchstart', touchStart);
+
+      globe.renderer.events.on('touchstart', (e) => {
+        console.log('touchstart', e);
+
+        // const eventSequence = ['mousedown', 'mouseup', 'click'];
+        //
+        // eventSequence.forEach((eventType) => {
+        //   const mouseEvent = new MouseEvent(eventType, {
+        //     view: window,
+        //     bubbles: true,
+        //     cancelable: true,
+        //     clientX: e.clientX,
+        //     clientY: e.clientY,
+        //     button: 0,
+        //     buttons: eventType === 'mousedown' ? 1 : 0,
+        //   });
+        //
+        //   // Отправляем событие на document
+        //   document.getElementById('canvas__globus2__')!.dispatchEvent(mouseEvent);
+        // });
+        touchRefStart.current = { x: e.clientX, y: e.clientY };
+      });
+
+      globe.renderer.events.on('touchend', (e) => {
+        console.log('touchend', e);
+        const prevDxDy = touchRefStart.current;
+        const dXdY = { x: e.clientX, y: e.clientY };
+        if (Math.abs(prevDxDy.x - dXdY.x) <= 5 && Math.abs(prevDxDy.y - dXdY.y) <= 5) {
+          const lonLat = globe.planet.getLonLatFromPixelTerrain(e);
+          setTimeout(() => {
+            if (lonLat) {
+              openPopup({ dXdY, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: lonLat.height } });
+            }
+          }, 0);
+        }
+      });
+
+      globe.renderer.events.on('touchmove', (e) => {
+        console.log('touchmove', e);
         if (isOpenRef.current) {
           closePopup();
         }

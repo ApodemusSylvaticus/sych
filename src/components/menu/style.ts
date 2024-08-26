@@ -4,6 +4,7 @@ import { ScrollBarCss } from '../scrollbar/style.ts';
 
 export const SubmitButton = styled(Button)`
   background-color: rgb(${(props) => props.theme.colors.tabActive});
+  border-width: 2px;
 `;
 
 interface IMenuButtonContainer {
@@ -16,12 +17,12 @@ export const Container = styled.div<IMenuButtonContainer>`
   right: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1.6rem;
   padding: 49px 8px 16px;
   width: 340px;
   height: 100%;
   background: rgb(${(props) => props.theme.colors.menuBg});
-  transition: transform 0.3s linear;
+  transition: all 0.3s linear;
   transform-origin: right center;
   transform: ${(props) => (props.isActive ? 'translateX(0)' : 'translateX(100%)')};
   overflow: auto;
@@ -40,12 +41,24 @@ export const MenuButtonContainer = styled.div<IMenuButtonContainer>`
   border-radius: 8px;
   background: rgb(${(props) => props.theme.colors.menuBg});
   cursor: pointer;
-  &:hover div {
-    background: ${(props) => props.theme.colors.accent};
-  }
 
-  &:hover {
-    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.1);
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.1);
+
+      & div {
+        background: rgba(${(props) => props.theme.colors.primary}, 0.8);
+      }
+    }
+  }
+  @media (hover: none) {
+    &:active {
+      box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.1);
+
+      & div {
+        background: rgba(${(props) => props.theme.colors.primary}, 0.8);
+      }
+    }
   }
 `;
 

@@ -1,0 +1,31 @@
+.rdp-root {
+    --rdp-accent-color: rgb(34, 115, 93);
+    --rdp-accent-background-color: rgba(34, 115, 93, 0.2);
+    --rdp-today-color: rgb(27, 84, 69);
+    --rdp-font-family: Lato-Regular, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --rdp-day-width: 3.5rem;
+    --rdp-day-height: 3.5rem;
+    --rdp-nav_button-width: 3.5rem;
+    --rdp-nav_button-height: 3.5rem;
+
+
+    .rdp-day {
+        font-size: 1.8rem;
+        color: rgb(18, 18,18);
+    }
+    .rdp-month_caption{
+        color: rgb(18, 18,18);
+        font-size: 2.2rem;
+        --rdp-font-family: Lato-Bold, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+    }
+    .rdp-weekdays{
+        color: rgb(18, 18,18);
+        font-size: 1.8rem;
+    }
+
+    .rdp-today{
+        color: #CF6679;
+    }
+
+}

@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 import { BaseColumnContainer } from '../containers/style.ts';
-import { CardName as CardNameBase } from '../containers/cardStyle.ts';
+import { CardContainer, CardName as CardNameBase } from '../containers/cardStyle.ts';
 import { Button as BaseButton } from '../button/style.ts';
 import { IsActive } from '../../interface/baseComponentsInterface.ts';
 
 export const ColumnContainer = styled(BaseColumnContainer)`
-  gap: 16px;
+  gap: 1.6rem;
+`;
+
+export const Container = styled(CardContainer)`
+  margin-top: 4px;
 `;
 
 export const RightSideContainer = styled.div`
@@ -19,7 +23,7 @@ export const CardName = styled(CardNameBase)`
 `;
 
 export const MainCardName = styled(CardName)`
-  font-size: 20px;
+  font-size: 2.2rem;
 `;
 
 export const Button = styled(BaseButton)<IsActive>`

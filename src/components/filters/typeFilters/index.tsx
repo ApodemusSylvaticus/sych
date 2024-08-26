@@ -5,21 +5,22 @@ import { BaseColumnContainer } from '../../containers/style.ts';
 import { CardContainer } from '../../containers/cardStyle.ts';
 import { Button, CardName, RightSideContainer } from '../style.ts';
 import { useFilterStore } from '../../../store/filter.ts';
+import { useTranslation } from 'react-i18next';
 
 export const TypeFilters: React.FC = React.memo(() => {
   const targets = useTargetStore((state) => state.targets);
-  const addTypeFilter = useFilterStore((state) => state.addTypeFilter);
+  const { addTypeFilter, switchTypeFilter, isTypeFilterEnabled } = useFilterStore((state) => ({
+    addTypeFilter: state.addTypeFilter,
+    switchTypeFilter: state.switchTypeFilter,
+    isTypeFilterEnabled: state.isTypeFilterEnabled,
+  }));
   const [chosenTargets, setChosenTargets] = useState(() => new Set(targets.map((t) => t.value)));
-  const [isFilterAvailable, setIsFilterAvailable] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
-    if (isFilterAvailable) {
-      const typeFilterArray = Array.from(chosenTargets);
-      addTypeFilter(typeFilterArray);
-    } else {
-      addTypeFilter([]);
-    }
-  }, [addTypeFilter, chosenTargets, isFilterAvailable]);
+    const typeFilterArray = Array.from(chosenTargets);
+    addTypeFilter(typeFilterArray);
+  }, [addTypeFilter, chosenTargets]);
 
   const handleClick = useCallback((el: { value: string }) => {
     setChosenTargets((prevChosenTargets) => {
@@ -37,20 +38,20 @@ export const TypeFilters: React.FC = React.memo(() => {
     () =>
       targets.map((el) => (
         <ClickableTab key={el.value} onClick={() => handleClick(el)} isActive={chosenTargets.has(el.value)}>
-          {el.value}
+          {t(el.value)}
         </ClickableTab>
       )),
-    [targets, chosenTargets, handleClick],
+    [t, targets, chosenTargets, handleClick],
   );
 
   return (
     <CardContainer>
-      <CardName>Type filter</CardName>
+      <CardName>{t('default_type_filter')}</CardName>
       <BaseColumnContainer>
         {memoizedTargets}
         <RightSideContainer>
-          <Button onClick={() => setIsFilterAvailable(!isFilterAvailable)} isActive={isFilterAvailable}>
-            {isFilterAvailable ? 'Enable' : 'Disabled'}
+          <Button onClick={switchTypeFilter} isActive={isTypeFilterEnabled}>
+            {isTypeFilterEnabled ? t('default_enabled') : t('default_disabled')}
           </Button>
         </RightSideContainer>
       </BaseColumnContainer>

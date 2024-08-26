@@ -5,18 +5,18 @@
 // source: jon_shared_data.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import { JonGuiDataCameraDay } from "./jon_shared_data_camera_day";
-import { JonGuiDataCameraHeat } from "./jon_shared_data_camera_heat";
-import { JonGuiDataCompass } from "./jon_shared_data_compass";
-import { JonGuiDataCompassCalibration } from "./jon_shared_data_compass_calibration";
-import { JonGuiDataEnvironment } from "./jon_shared_data_environment";
-import { JonGuiDataGps } from "./jon_shared_data_gps";
-import { JonGuiDataLrf } from "./jon_shared_data_lrf";
-import { JonGuiDataRotary } from "./jon_shared_data_rotary";
-import { JonGuiDataSystem } from "./jon_shared_data_system";
-import { JonGuiDataTime } from "./jon_shared_data_time";
-import { JonGuiDataMeteo } from "./jon_shared_data_types";
+import _m0 from 'protobufjs/minimal';
+import { JonGuiDataCameraDay } from './jon_shared_data_camera_day';
+import { JonGuiDataCameraHeat } from './jon_shared_data_camera_heat';
+import { JonGuiDataCompass } from './jon_shared_data_compass';
+import { JonGuiDataCompassCalibration } from './jon_shared_data_compass_calibration';
+import { JonGuiDataEnvironment } from './jon_shared_data_environment';
+import { JonGuiDataGps } from './jon_shared_data_gps';
+import { JonGuiDataLrf } from './jon_shared_data_lrf';
+import { JonGuiDataRotary } from './jon_shared_data_rotary';
+import { JonGuiDataSystem } from './jon_shared_data_system';
+import { JonGuiDataTime } from './jon_shared_data_time';
+import { JonGuiDataMeteo } from './jon_shared_data_types';
 
 /** Root message */
 export interface JonGUIState {
@@ -217,9 +217,7 @@ export const JonGUIState = {
       rotary: isSet(object.rotary) ? JonGuiDataRotary.fromJSON(object.rotary) : undefined,
       cameraDay: isSet(object.cameraDay) ? JonGuiDataCameraDay.fromJSON(object.cameraDay) : undefined,
       cameraHeat: isSet(object.cameraHeat) ? JonGuiDataCameraHeat.fromJSON(object.cameraHeat) : undefined,
-      compassCalibration: isSet(object.compassCalibration)
-        ? JonGuiDataCompassCalibration.fromJSON(object.compassCalibration)
-        : undefined,
+      compassCalibration: isSet(object.compassCalibration) ? JonGuiDataCompassCalibration.fromJSON(object.compassCalibration) : undefined,
       environment: isSet(object.environment) ? JonGuiDataEnvironment.fromJSON(object.environment) : undefined,
     };
   },
@@ -274,53 +272,43 @@ export const JonGUIState = {
   fromPartial<I extends Exact<DeepPartial<JonGUIState>, I>>(object: I): JonGUIState {
     const message = createBaseJonGUIState();
     message.protocolVersion = object.protocolVersion ?? 0;
-    message.system = (object.system !== undefined && object.system !== null)
-      ? JonGuiDataSystem.fromPartial(object.system)
-      : undefined;
-    message.meteoInternal = (object.meteoInternal !== undefined && object.meteoInternal !== null)
-      ? JonGuiDataMeteo.fromPartial(object.meteoInternal)
-      : undefined;
-    message.meteoExternal = (object.meteoExternal !== undefined && object.meteoExternal !== null)
-      ? JonGuiDataMeteo.fromPartial(object.meteoExternal)
-      : undefined;
-    message.lrf = (object.lrf !== undefined && object.lrf !== null) ? JonGuiDataLrf.fromPartial(object.lrf) : undefined;
-    message.time = (object.time !== undefined && object.time !== null)
-      ? JonGuiDataTime.fromPartial(object.time)
-      : undefined;
-    message.gps = (object.gps !== undefined && object.gps !== null) ? JonGuiDataGps.fromPartial(object.gps) : undefined;
-    message.compass = (object.compass !== undefined && object.compass !== null)
-      ? JonGuiDataCompass.fromPartial(object.compass)
-      : undefined;
-    message.rotary = (object.rotary !== undefined && object.rotary !== null)
-      ? JonGuiDataRotary.fromPartial(object.rotary)
-      : undefined;
-    message.cameraDay = (object.cameraDay !== undefined && object.cameraDay !== null)
-      ? JonGuiDataCameraDay.fromPartial(object.cameraDay)
-      : undefined;
-    message.cameraHeat = (object.cameraHeat !== undefined && object.cameraHeat !== null)
-      ? JonGuiDataCameraHeat.fromPartial(object.cameraHeat)
-      : undefined;
-    message.compassCalibration = (object.compassCalibration !== undefined && object.compassCalibration !== null)
-      ? JonGuiDataCompassCalibration.fromPartial(object.compassCalibration)
-      : undefined;
-    message.environment = (object.environment !== undefined && object.environment !== null)
-      ? JonGuiDataEnvironment.fromPartial(object.environment)
-      : undefined;
+    message.system = object.system !== undefined && object.system !== null ? JonGuiDataSystem.fromPartial(object.system) : undefined;
+    message.meteoInternal =
+      object.meteoInternal !== undefined && object.meteoInternal !== null ? JonGuiDataMeteo.fromPartial(object.meteoInternal) : undefined;
+    message.meteoExternal =
+      object.meteoExternal !== undefined && object.meteoExternal !== null ? JonGuiDataMeteo.fromPartial(object.meteoExternal) : undefined;
+    message.lrf = object.lrf !== undefined && object.lrf !== null ? JonGuiDataLrf.fromPartial(object.lrf) : undefined;
+    message.time = object.time !== undefined && object.time !== null ? JonGuiDataTime.fromPartial(object.time) : undefined;
+    message.gps = object.gps !== undefined && object.gps !== null ? JonGuiDataGps.fromPartial(object.gps) : undefined;
+    message.compass = object.compass !== undefined && object.compass !== null ? JonGuiDataCompass.fromPartial(object.compass) : undefined;
+    message.rotary = object.rotary !== undefined && object.rotary !== null ? JonGuiDataRotary.fromPartial(object.rotary) : undefined;
+    message.cameraDay = object.cameraDay !== undefined && object.cameraDay !== null ? JonGuiDataCameraDay.fromPartial(object.cameraDay) : undefined;
+    message.cameraHeat =
+      object.cameraHeat !== undefined && object.cameraHeat !== null ? JonGuiDataCameraHeat.fromPartial(object.cameraHeat) : undefined;
+    message.compassCalibration =
+      object.compassCalibration !== undefined && object.compassCalibration !== null
+        ? JonGuiDataCompassCalibration.fromPartial(object.compassCalibration)
+        : undefined;
+    message.environment =
+      object.environment !== undefined && object.environment !== null ? JonGuiDataEnvironment.fromPartial(object.environment) : undefined;
     return message;
   },
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

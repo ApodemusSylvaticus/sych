@@ -5,7 +5,7 @@
 // source: jon_shared_cmd_rotary.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
+import _m0 from 'protobufjs/minimal';
 import {
   JonGuiDataRotaryDirection,
   jonGuiDataRotaryDirectionFromJSON,
@@ -13,7 +13,7 @@ import {
   JonGuiDataRotaryMode,
   jonGuiDataRotaryModeFromJSON,
   jonGuiDataRotaryModeToJSON,
-} from "./jon_shared_data_types";
+} from './jon_shared_data_types';
 
 export interface Root {
   start?: Start | undefined;
@@ -103,8 +103,7 @@ export interface SetPlatformBank {
   value: number;
 }
 
-export interface GetMeteo {
-}
+export interface GetMeteo {}
 
 export interface Azimuth {
   setValue?: SetAzimuthValue | undefined;
@@ -115,20 +114,15 @@ export interface Azimuth {
   halt?: HaltAzimuth | undefined;
 }
 
-export interface Start {
-}
+export interface Start {}
 
-export interface Stop {
-}
+export interface Stop {}
 
-export interface Halt {
-}
+export interface Halt {}
 
-export interface HaltAzimuth {
-}
+export interface HaltAzimuth {}
 
-export interface HaltElevation {
-}
+export interface HaltElevation {}
 
 export interface Elevation {
   setValue?: SetElevationValue | undefined;
@@ -196,8 +190,7 @@ export const Root = {
       Halt.encode(message.halt, writer.uint32(58).fork()).ldelim();
     }
     if (message.setCalculateBasePositionFromCompass !== undefined) {
-      SetCalculateBasePositionFromCompass.encode(message.setCalculateBasePositionFromCompass, writer.uint32(66).fork())
-        .ldelim();
+      SetCalculateBasePositionFromCompass.encode(message.setCalculateBasePositionFromCompass, writer.uint32(66).fork()).ldelim();
     }
     if (message.rotateToGps !== undefined) {
       RotateToGPS.encode(message.rotateToGps, writer.uint32(74).fork()).ldelim();
@@ -275,10 +268,7 @@ export const Root = {
             break;
           }
 
-          message.setCalculateBasePositionFromCompass = SetCalculateBasePositionFromCompass.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.setCalculateBasePositionFromCompass = SetCalculateBasePositionFromCompass.decode(reader, reader.uint32());
           continue;
         case 9:
           if (tag !== 74) {
@@ -322,12 +312,8 @@ export const Root = {
       start: isSet(object.start) ? Start.fromJSON(object.start) : undefined,
       stop: isSet(object.stop) ? Stop.fromJSON(object.stop) : undefined,
       axis: isSet(object.axis) ? Axis.fromJSON(object.axis) : undefined,
-      setPlatformAzimuth: isSet(object.setPlatformAzimuth)
-        ? SetPlatformAzimuth.fromJSON(object.setPlatformAzimuth)
-        : undefined,
-      setPlatformElevation: isSet(object.setPlatformElevation)
-        ? SetPlatformElevation.fromJSON(object.setPlatformElevation)
-        : undefined,
+      setPlatformAzimuth: isSet(object.setPlatformAzimuth) ? SetPlatformAzimuth.fromJSON(object.setPlatformAzimuth) : undefined,
+      setPlatformElevation: isSet(object.setPlatformElevation) ? SetPlatformElevation.fromJSON(object.setPlatformElevation) : undefined,
       setPlatformBank: isSet(object.setPlatformBank) ? SetPlatformBank.fromJSON(object.setPlatformBank) : undefined,
       halt: isSet(object.halt) ? Halt.fromJSON(object.halt) : undefined,
       setCalculateBasePositionFromCompass: isSet(object.setCalculateBasePositionFromCompass)
@@ -364,9 +350,7 @@ export const Root = {
       obj.halt = Halt.toJSON(message.halt);
     }
     if (message.setCalculateBasePositionFromCompass !== undefined) {
-      obj.setCalculateBasePositionFromCompass = SetCalculateBasePositionFromCompass.toJSON(
-        message.setCalculateBasePositionFromCompass,
-      );
+      obj.setCalculateBasePositionFromCompass = SetCalculateBasePositionFromCompass.toJSON(message.setCalculateBasePositionFromCompass);
     }
     if (message.rotateToGps !== undefined) {
       obj.rotateToGps = RotateToGPS.toJSON(message.rotateToGps);
@@ -388,35 +372,29 @@ export const Root = {
   },
   fromPartial<I extends Exact<DeepPartial<Root>, I>>(object: I): Root {
     const message = createBaseRoot();
-    message.start = (object.start !== undefined && object.start !== null) ? Start.fromPartial(object.start) : undefined;
-    message.stop = (object.stop !== undefined && object.stop !== null) ? Stop.fromPartial(object.stop) : undefined;
-    message.axis = (object.axis !== undefined && object.axis !== null) ? Axis.fromPartial(object.axis) : undefined;
-    message.setPlatformAzimuth = (object.setPlatformAzimuth !== undefined && object.setPlatformAzimuth !== null)
-      ? SetPlatformAzimuth.fromPartial(object.setPlatformAzimuth)
-      : undefined;
-    message.setPlatformElevation = (object.setPlatformElevation !== undefined && object.setPlatformElevation !== null)
-      ? SetPlatformElevation.fromPartial(object.setPlatformElevation)
-      : undefined;
-    message.setPlatformBank = (object.setPlatformBank !== undefined && object.setPlatformBank !== null)
-      ? SetPlatformBank.fromPartial(object.setPlatformBank)
-      : undefined;
-    message.halt = (object.halt !== undefined && object.halt !== null) ? Halt.fromPartial(object.halt) : undefined;
+    message.start = object.start !== undefined && object.start !== null ? Start.fromPartial(object.start) : undefined;
+    message.stop = object.stop !== undefined && object.stop !== null ? Stop.fromPartial(object.stop) : undefined;
+    message.axis = object.axis !== undefined && object.axis !== null ? Axis.fromPartial(object.axis) : undefined;
+    message.setPlatformAzimuth =
+      object.setPlatformAzimuth !== undefined && object.setPlatformAzimuth !== null
+        ? SetPlatformAzimuth.fromPartial(object.setPlatformAzimuth)
+        : undefined;
+    message.setPlatformElevation =
+      object.setPlatformElevation !== undefined && object.setPlatformElevation !== null
+        ? SetPlatformElevation.fromPartial(object.setPlatformElevation)
+        : undefined;
+    message.setPlatformBank =
+      object.setPlatformBank !== undefined && object.setPlatformBank !== null ? SetPlatformBank.fromPartial(object.setPlatformBank) : undefined;
+    message.halt = object.halt !== undefined && object.halt !== null ? Halt.fromPartial(object.halt) : undefined;
     message.setCalculateBasePositionFromCompass =
-      (object.setCalculateBasePositionFromCompass !== undefined && object.setCalculateBasePositionFromCompass !== null)
+      object.setCalculateBasePositionFromCompass !== undefined && object.setCalculateBasePositionFromCompass !== null
         ? SetCalculateBasePositionFromCompass.fromPartial(object.setCalculateBasePositionFromCompass)
         : undefined;
-    message.rotateToGps = (object.rotateToGps !== undefined && object.rotateToGps !== null)
-      ? RotateToGPS.fromPartial(object.rotateToGps)
-      : undefined;
-    message.setOriginGps = (object.setOriginGps !== undefined && object.setOriginGps !== null)
-      ? SetOriginGPS.fromPartial(object.setOriginGps)
-      : undefined;
-    message.getMeteo = (object.getMeteo !== undefined && object.getMeteo !== null)
-      ? GetMeteo.fromPartial(object.getMeteo)
-      : undefined;
-    message.setMode = (object.setMode !== undefined && object.setMode !== null)
-      ? SetMode.fromPartial(object.setMode)
-      : undefined;
+    message.rotateToGps = object.rotateToGps !== undefined && object.rotateToGps !== null ? RotateToGPS.fromPartial(object.rotateToGps) : undefined;
+    message.setOriginGps =
+      object.setOriginGps !== undefined && object.setOriginGps !== null ? SetOriginGPS.fromPartial(object.setOriginGps) : undefined;
+    message.getMeteo = object.getMeteo !== undefined && object.getMeteo !== null ? GetMeteo.fromPartial(object.getMeteo) : undefined;
+    message.setMode = object.setMode !== undefined && object.setMode !== null ? SetMode.fromPartial(object.setMode) : undefined;
     return message;
   },
 };
@@ -489,12 +467,8 @@ export const Axis = {
   },
   fromPartial<I extends Exact<DeepPartial<Axis>, I>>(object: I): Axis {
     const message = createBaseAxis();
-    message.azimuth = (object.azimuth !== undefined && object.azimuth !== null)
-      ? Azimuth.fromPartial(object.azimuth)
-      : undefined;
-    message.elevation = (object.elevation !== undefined && object.elevation !== null)
-      ? Elevation.fromPartial(object.elevation)
-      : undefined;
+    message.azimuth = object.azimuth !== undefined && object.azimuth !== null ? Azimuth.fromPartial(object.azimuth) : undefined;
+    message.elevation = object.elevation !== undefined && object.elevation !== null ? Elevation.fromPartial(object.elevation) : undefined;
     return message;
   },
 };
@@ -1669,24 +1643,13 @@ export const Azimuth = {
   },
   fromPartial<I extends Exact<DeepPartial<Azimuth>, I>>(object: I): Azimuth {
     const message = createBaseAzimuth();
-    message.setValue = (object.setValue !== undefined && object.setValue !== null)
-      ? SetAzimuthValue.fromPartial(object.setValue)
-      : undefined;
-    message.rotateTo = (object.rotateTo !== undefined && object.rotateTo !== null)
-      ? RotateAzimuthTo.fromPartial(object.rotateTo)
-      : undefined;
-    message.rotate = (object.rotate !== undefined && object.rotate !== null)
-      ? RotateAzimuth.fromPartial(object.rotate)
-      : undefined;
-    message.relative = (object.relative !== undefined && object.relative !== null)
-      ? RotateAzimuthRelative.fromPartial(object.relative)
-      : undefined;
-    message.relativeSet = (object.relativeSet !== undefined && object.relativeSet !== null)
-      ? RotateAzimuthRelativeSet.fromPartial(object.relativeSet)
-      : undefined;
-    message.halt = (object.halt !== undefined && object.halt !== null)
-      ? HaltAzimuth.fromPartial(object.halt)
-      : undefined;
+    message.setValue = object.setValue !== undefined && object.setValue !== null ? SetAzimuthValue.fromPartial(object.setValue) : undefined;
+    message.rotateTo = object.rotateTo !== undefined && object.rotateTo !== null ? RotateAzimuthTo.fromPartial(object.rotateTo) : undefined;
+    message.rotate = object.rotate !== undefined && object.rotate !== null ? RotateAzimuth.fromPartial(object.rotate) : undefined;
+    message.relative = object.relative !== undefined && object.relative !== null ? RotateAzimuthRelative.fromPartial(object.relative) : undefined;
+    message.relativeSet =
+      object.relativeSet !== undefined && object.relativeSet !== null ? RotateAzimuthRelativeSet.fromPartial(object.relativeSet) : undefined;
+    message.halt = object.halt !== undefined && object.halt !== null ? HaltAzimuth.fromPartial(object.halt) : undefined;
     return message;
   },
 };
@@ -2037,24 +2000,13 @@ export const Elevation = {
   },
   fromPartial<I extends Exact<DeepPartial<Elevation>, I>>(object: I): Elevation {
     const message = createBaseElevation();
-    message.setValue = (object.setValue !== undefined && object.setValue !== null)
-      ? SetElevationValue.fromPartial(object.setValue)
-      : undefined;
-    message.rotateTo = (object.rotateTo !== undefined && object.rotateTo !== null)
-      ? RotateElevationTo.fromPartial(object.rotateTo)
-      : undefined;
-    message.rotate = (object.rotate !== undefined && object.rotate !== null)
-      ? RotateElevation.fromPartial(object.rotate)
-      : undefined;
-    message.relative = (object.relative !== undefined && object.relative !== null)
-      ? RotateElevationRelative.fromPartial(object.relative)
-      : undefined;
-    message.relativeSet = (object.relativeSet !== undefined && object.relativeSet !== null)
-      ? RotateElevationRelativeSet.fromPartial(object.relativeSet)
-      : undefined;
-    message.halt = (object.halt !== undefined && object.halt !== null)
-      ? HaltElevation.fromPartial(object.halt)
-      : undefined;
+    message.setValue = object.setValue !== undefined && object.setValue !== null ? SetElevationValue.fromPartial(object.setValue) : undefined;
+    message.rotateTo = object.rotateTo !== undefined && object.rotateTo !== null ? RotateElevationTo.fromPartial(object.rotateTo) : undefined;
+    message.rotate = object.rotate !== undefined && object.rotate !== null ? RotateElevation.fromPartial(object.rotate) : undefined;
+    message.relative = object.relative !== undefined && object.relative !== null ? RotateElevationRelative.fromPartial(object.relative) : undefined;
+    message.relativeSet =
+      object.relativeSet !== undefined && object.relativeSet !== null ? RotateElevationRelativeSet.fromPartial(object.relativeSet) : undefined;
+    message.halt = object.halt !== undefined && object.halt !== null ? HaltElevation.fromPartial(object.halt) : undefined;
     return message;
   },
 };
@@ -2106,14 +2058,10 @@ export const SetCalculateBasePositionFromCompass = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<SetCalculateBasePositionFromCompass>, I>>(
-    base?: I,
-  ): SetCalculateBasePositionFromCompass {
+  create<I extends Exact<DeepPartial<SetCalculateBasePositionFromCompass>, I>>(base?: I): SetCalculateBasePositionFromCompass {
     return SetCalculateBasePositionFromCompass.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<SetCalculateBasePositionFromCompass>, I>>(
-    object: I,
-  ): SetCalculateBasePositionFromCompass {
+  fromPartial<I extends Exact<DeepPartial<SetCalculateBasePositionFromCompass>, I>>(object: I): SetCalculateBasePositionFromCompass {
     const message = createBaseSetCalculateBasePositionFromCompass();
     message.flag = object.flag ?? false;
     return message;
@@ -2300,15 +2248,18 @@ export const SetOriginGPS = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

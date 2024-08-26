@@ -5,7 +5,7 @@
 // source: jon_shared_cmd_system.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
+import _m0 from 'protobufjs/minimal';
 
 export interface Root {
   startAll?: StartALl | undefined;
@@ -14,17 +14,13 @@ export interface Root {
   powerOff?: PowerOff | undefined;
 }
 
-export interface StartALl {
-}
+export interface StartALl {}
 
-export interface StopALl {
-}
+export interface StopALl {}
 
-export interface Reboot {
-}
+export interface Reboot {}
 
-export interface PowerOff {
-}
+export interface PowerOff {}
 
 function createBaseRoot(): Root {
   return { startAll: undefined, stopAll: undefined, reboot: undefined, powerOff: undefined };
@@ -122,18 +118,10 @@ export const Root = {
   },
   fromPartial<I extends Exact<DeepPartial<Root>, I>>(object: I): Root {
     const message = createBaseRoot();
-    message.startAll = (object.startAll !== undefined && object.startAll !== null)
-      ? StartALl.fromPartial(object.startAll)
-      : undefined;
-    message.stopAll = (object.stopAll !== undefined && object.stopAll !== null)
-      ? StopALl.fromPartial(object.stopAll)
-      : undefined;
-    message.reboot = (object.reboot !== undefined && object.reboot !== null)
-      ? Reboot.fromPartial(object.reboot)
-      : undefined;
-    message.powerOff = (object.powerOff !== undefined && object.powerOff !== null)
-      ? PowerOff.fromPartial(object.powerOff)
-      : undefined;
+    message.startAll = object.startAll !== undefined && object.startAll !== null ? StartALl.fromPartial(object.startAll) : undefined;
+    message.stopAll = object.stopAll !== undefined && object.stopAll !== null ? StopALl.fromPartial(object.stopAll) : undefined;
+    message.reboot = object.reboot !== undefined && object.reboot !== null ? Reboot.fromPartial(object.reboot) : undefined;
+    message.powerOff = object.powerOff !== undefined && object.powerOff !== null ? PowerOff.fromPartial(object.powerOff) : undefined;
     return message;
   },
 };
@@ -312,15 +300,18 @@ export const PowerOff = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

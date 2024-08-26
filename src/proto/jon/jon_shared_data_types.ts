@@ -5,7 +5,7 @@
 // source: jon_shared_data_types.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
+import _m0 from 'protobufjs/minimal';
 
 export enum JonGuiDataVideoChannelHeatFilters {
   JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_UNSPECIFIED = 0,
@@ -18,19 +18,19 @@ export enum JonGuiDataVideoChannelHeatFilters {
 export function jonGuiDataVideoChannelHeatFiltersFromJSON(object: any): JonGuiDataVideoChannelHeatFilters {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_UNSPECIFIED":
+    case 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_UNSPECIFIED':
       return JonGuiDataVideoChannelHeatFilters.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_HOT_WHITE":
+    case 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_HOT_WHITE':
       return JonGuiDataVideoChannelHeatFilters.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_HOT_WHITE;
     case 2:
-    case "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_HOT_BLACK":
+    case 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_HOT_BLACK':
       return JonGuiDataVideoChannelHeatFilters.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_HOT_BLACK;
     case 3:
-    case "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_SEPIA":
+    case 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_SEPIA':
       return JonGuiDataVideoChannelHeatFilters.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_SEPIA;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataVideoChannelHeatFilters.UNRECOGNIZED;
   }
@@ -39,16 +39,16 @@ export function jonGuiDataVideoChannelHeatFiltersFromJSON(object: any): JonGuiDa
 export function jonGuiDataVideoChannelHeatFiltersToJSON(object: JonGuiDataVideoChannelHeatFilters): string {
   switch (object) {
     case JonGuiDataVideoChannelHeatFilters.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_UNSPECIFIED:
-      return "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_UNSPECIFIED";
+      return 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_UNSPECIFIED';
     case JonGuiDataVideoChannelHeatFilters.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_HOT_WHITE:
-      return "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_HOT_WHITE";
+      return 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_HOT_WHITE';
     case JonGuiDataVideoChannelHeatFilters.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_HOT_BLACK:
-      return "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_HOT_BLACK";
+      return 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_HOT_BLACK';
     case JonGuiDataVideoChannelHeatFilters.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_SEPIA:
-      return "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_SEPIA";
+      return 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_FILTER_SEPIA';
     case JonGuiDataVideoChannelHeatFilters.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -63,19 +63,19 @@ export enum JonGuiDataVideoChannelHeatAGCModes {
 export function jonGuiDataVideoChannelHeatAGCModesFromJSON(object: any): JonGuiDataVideoChannelHeatAGCModes {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_UNSPECIFIED":
+    case 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_UNSPECIFIED':
       return JonGuiDataVideoChannelHeatAGCModes.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_1":
+    case 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_1':
       return JonGuiDataVideoChannelHeatAGCModes.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_1;
     case 2:
-    case "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_2":
+    case 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_2':
       return JonGuiDataVideoChannelHeatAGCModes.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_2;
     case 3:
-    case "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_3":
+    case 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_3':
       return JonGuiDataVideoChannelHeatAGCModes.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_3;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataVideoChannelHeatAGCModes.UNRECOGNIZED;
   }
@@ -84,16 +84,16 @@ export function jonGuiDataVideoChannelHeatAGCModesFromJSON(object: any): JonGuiD
 export function jonGuiDataVideoChannelHeatAGCModesToJSON(object: JonGuiDataVideoChannelHeatAGCModes): string {
   switch (object) {
     case JonGuiDataVideoChannelHeatAGCModes.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_UNSPECIFIED:
-      return "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_UNSPECIFIED";
+      return 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_UNSPECIFIED';
     case JonGuiDataVideoChannelHeatAGCModes.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_1:
-      return "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_1";
+      return 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_1';
     case JonGuiDataVideoChannelHeatAGCModes.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_2:
-      return "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_2";
+      return 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_2';
     case JonGuiDataVideoChannelHeatAGCModes.JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_3:
-      return "JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_3";
+      return 'JON_GUI_DATA_VIDEO_CHANNEL_HEAT_AGC_MODE_3';
     case JonGuiDataVideoChannelHeatAGCModes.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -108,19 +108,19 @@ export enum JonGuiDataGpsUnits {
 export function jonGuiDataGpsUnitsFromJSON(object: any): JonGuiDataGpsUnits {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_GPS_UNITS_UNSPECIFIED":
+    case 'JON_GUI_DATA_GPS_UNITS_UNSPECIFIED':
       return JonGuiDataGpsUnits.JON_GUI_DATA_GPS_UNITS_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_GPS_UNITS_DECIMAL_DEGREES":
+    case 'JON_GUI_DATA_GPS_UNITS_DECIMAL_DEGREES':
       return JonGuiDataGpsUnits.JON_GUI_DATA_GPS_UNITS_DECIMAL_DEGREES;
     case 2:
-    case "JON_GUI_DATA_GPS_UNITS_DEGREES_MINUTES_SECONDS":
+    case 'JON_GUI_DATA_GPS_UNITS_DEGREES_MINUTES_SECONDS':
       return JonGuiDataGpsUnits.JON_GUI_DATA_GPS_UNITS_DEGREES_MINUTES_SECONDS;
     case 3:
-    case "JON_GUI_DATA_GPS_UNITS_DEGREES_DECIMAL_MINUTES":
+    case 'JON_GUI_DATA_GPS_UNITS_DEGREES_DECIMAL_MINUTES':
       return JonGuiDataGpsUnits.JON_GUI_DATA_GPS_UNITS_DEGREES_DECIMAL_MINUTES;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataGpsUnits.UNRECOGNIZED;
   }
@@ -129,16 +129,16 @@ export function jonGuiDataGpsUnitsFromJSON(object: any): JonGuiDataGpsUnits {
 export function jonGuiDataGpsUnitsToJSON(object: JonGuiDataGpsUnits): string {
   switch (object) {
     case JonGuiDataGpsUnits.JON_GUI_DATA_GPS_UNITS_UNSPECIFIED:
-      return "JON_GUI_DATA_GPS_UNITS_UNSPECIFIED";
+      return 'JON_GUI_DATA_GPS_UNITS_UNSPECIFIED';
     case JonGuiDataGpsUnits.JON_GUI_DATA_GPS_UNITS_DECIMAL_DEGREES:
-      return "JON_GUI_DATA_GPS_UNITS_DECIMAL_DEGREES";
+      return 'JON_GUI_DATA_GPS_UNITS_DECIMAL_DEGREES';
     case JonGuiDataGpsUnits.JON_GUI_DATA_GPS_UNITS_DEGREES_MINUTES_SECONDS:
-      return "JON_GUI_DATA_GPS_UNITS_DEGREES_MINUTES_SECONDS";
+      return 'JON_GUI_DATA_GPS_UNITS_DEGREES_MINUTES_SECONDS';
     case JonGuiDataGpsUnits.JON_GUI_DATA_GPS_UNITS_DEGREES_DECIMAL_MINUTES:
-      return "JON_GUI_DATA_GPS_UNITS_DEGREES_DECIMAL_MINUTES";
+      return 'JON_GUI_DATA_GPS_UNITS_DEGREES_DECIMAL_MINUTES';
     case JonGuiDataGpsUnits.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -155,25 +155,25 @@ export enum JonGuiDataGpsFixType {
 export function jonGuiDataGpsFixTypeFromJSON(object: any): JonGuiDataGpsFixType {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_GPS_FIX_TYPE_UNSPECIFIED":
+    case 'JON_GUI_DATA_GPS_FIX_TYPE_UNSPECIFIED':
       return JonGuiDataGpsFixType.JON_GUI_DATA_GPS_FIX_TYPE_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_GPS_FIX_TYPE_NONE":
+    case 'JON_GUI_DATA_GPS_FIX_TYPE_NONE':
       return JonGuiDataGpsFixType.JON_GUI_DATA_GPS_FIX_TYPE_NONE;
     case 2:
-    case "JON_GUI_DATA_GPS_FIX_TYPE_1D":
+    case 'JON_GUI_DATA_GPS_FIX_TYPE_1D':
       return JonGuiDataGpsFixType.JON_GUI_DATA_GPS_FIX_TYPE_1D;
     case 3:
-    case "JON_GUI_DATA_GPS_FIX_TYPE_2D":
+    case 'JON_GUI_DATA_GPS_FIX_TYPE_2D':
       return JonGuiDataGpsFixType.JON_GUI_DATA_GPS_FIX_TYPE_2D;
     case 4:
-    case "JON_GUI_DATA_GPS_FIX_TYPE_3D":
+    case 'JON_GUI_DATA_GPS_FIX_TYPE_3D':
       return JonGuiDataGpsFixType.JON_GUI_DATA_GPS_FIX_TYPE_3D;
     case 5:
-    case "JON_GUI_DATA_GPS_FIX_TYPE_MANUAL":
+    case 'JON_GUI_DATA_GPS_FIX_TYPE_MANUAL':
       return JonGuiDataGpsFixType.JON_GUI_DATA_GPS_FIX_TYPE_MANUAL;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataGpsFixType.UNRECOGNIZED;
   }
@@ -182,20 +182,20 @@ export function jonGuiDataGpsFixTypeFromJSON(object: any): JonGuiDataGpsFixType 
 export function jonGuiDataGpsFixTypeToJSON(object: JonGuiDataGpsFixType): string {
   switch (object) {
     case JonGuiDataGpsFixType.JON_GUI_DATA_GPS_FIX_TYPE_UNSPECIFIED:
-      return "JON_GUI_DATA_GPS_FIX_TYPE_UNSPECIFIED";
+      return 'JON_GUI_DATA_GPS_FIX_TYPE_UNSPECIFIED';
     case JonGuiDataGpsFixType.JON_GUI_DATA_GPS_FIX_TYPE_NONE:
-      return "JON_GUI_DATA_GPS_FIX_TYPE_NONE";
+      return 'JON_GUI_DATA_GPS_FIX_TYPE_NONE';
     case JonGuiDataGpsFixType.JON_GUI_DATA_GPS_FIX_TYPE_1D:
-      return "JON_GUI_DATA_GPS_FIX_TYPE_1D";
+      return 'JON_GUI_DATA_GPS_FIX_TYPE_1D';
     case JonGuiDataGpsFixType.JON_GUI_DATA_GPS_FIX_TYPE_2D:
-      return "JON_GUI_DATA_GPS_FIX_TYPE_2D";
+      return 'JON_GUI_DATA_GPS_FIX_TYPE_2D';
     case JonGuiDataGpsFixType.JON_GUI_DATA_GPS_FIX_TYPE_3D:
-      return "JON_GUI_DATA_GPS_FIX_TYPE_3D";
+      return 'JON_GUI_DATA_GPS_FIX_TYPE_3D';
     case JonGuiDataGpsFixType.JON_GUI_DATA_GPS_FIX_TYPE_MANUAL:
-      return "JON_GUI_DATA_GPS_FIX_TYPE_MANUAL";
+      return 'JON_GUI_DATA_GPS_FIX_TYPE_MANUAL';
     case JonGuiDataGpsFixType.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -211,22 +211,22 @@ export enum JonGuiDataCompassUnits {
 export function jonGuiDataCompassUnitsFromJSON(object: any): JonGuiDataCompassUnits {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_COMPASS_UNITS_UNSPECIFIED":
+    case 'JON_GUI_DATA_COMPASS_UNITS_UNSPECIFIED':
       return JonGuiDataCompassUnits.JON_GUI_DATA_COMPASS_UNITS_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_COMPASS_UNITS_DEGREES":
+    case 'JON_GUI_DATA_COMPASS_UNITS_DEGREES':
       return JonGuiDataCompassUnits.JON_GUI_DATA_COMPASS_UNITS_DEGREES;
     case 2:
-    case "JON_GUI_DATA_COMPASS_UNITS_MILS":
+    case 'JON_GUI_DATA_COMPASS_UNITS_MILS':
       return JonGuiDataCompassUnits.JON_GUI_DATA_COMPASS_UNITS_MILS;
     case 3:
-    case "JON_GUI_DATA_COMPASS_UNITS_GRAD":
+    case 'JON_GUI_DATA_COMPASS_UNITS_GRAD':
       return JonGuiDataCompassUnits.JON_GUI_DATA_COMPASS_UNITS_GRAD;
     case 4:
-    case "JON_GUI_DATA_COMPASS_UNITS_MRAD":
+    case 'JON_GUI_DATA_COMPASS_UNITS_MRAD':
       return JonGuiDataCompassUnits.JON_GUI_DATA_COMPASS_UNITS_MRAD;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataCompassUnits.UNRECOGNIZED;
   }
@@ -235,18 +235,18 @@ export function jonGuiDataCompassUnitsFromJSON(object: any): JonGuiDataCompassUn
 export function jonGuiDataCompassUnitsToJSON(object: JonGuiDataCompassUnits): string {
   switch (object) {
     case JonGuiDataCompassUnits.JON_GUI_DATA_COMPASS_UNITS_UNSPECIFIED:
-      return "JON_GUI_DATA_COMPASS_UNITS_UNSPECIFIED";
+      return 'JON_GUI_DATA_COMPASS_UNITS_UNSPECIFIED';
     case JonGuiDataCompassUnits.JON_GUI_DATA_COMPASS_UNITS_DEGREES:
-      return "JON_GUI_DATA_COMPASS_UNITS_DEGREES";
+      return 'JON_GUI_DATA_COMPASS_UNITS_DEGREES';
     case JonGuiDataCompassUnits.JON_GUI_DATA_COMPASS_UNITS_MILS:
-      return "JON_GUI_DATA_COMPASS_UNITS_MILS";
+      return 'JON_GUI_DATA_COMPASS_UNITS_MILS';
     case JonGuiDataCompassUnits.JON_GUI_DATA_COMPASS_UNITS_GRAD:
-      return "JON_GUI_DATA_COMPASS_UNITS_GRAD";
+      return 'JON_GUI_DATA_COMPASS_UNITS_GRAD';
     case JonGuiDataCompassUnits.JON_GUI_DATA_COMPASS_UNITS_MRAD:
-      return "JON_GUI_DATA_COMPASS_UNITS_MRAD";
+      return 'JON_GUI_DATA_COMPASS_UNITS_MRAD';
     case JonGuiDataCompassUnits.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -268,40 +268,40 @@ export enum JonGuiDataAccumulatorStateIdx {
 export function jonGuiDataAccumulatorStateIdxFromJSON(object: any): JonGuiDataAccumulatorStateIdx {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_ACCUMULATOR_STATE_UNSPECIFIED":
+    case 'JON_GUI_DATA_ACCUMULATOR_STATE_UNSPECIFIED':
       return JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_ACCUMULATOR_STATE_UNKNOWN":
+    case 'JON_GUI_DATA_ACCUMULATOR_STATE_UNKNOWN':
       return JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_UNKNOWN;
     case 2:
-    case "JON_GUI_DATA_ACCUMULATOR_STATE_EMPTY":
+    case 'JON_GUI_DATA_ACCUMULATOR_STATE_EMPTY':
       return JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_EMPTY;
     case 3:
-    case "JON_GUI_DATA_ACCUMULATOR_STATE_1":
+    case 'JON_GUI_DATA_ACCUMULATOR_STATE_1':
       return JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_1;
     case 4:
-    case "JON_GUI_DATA_ACCUMULATOR_STATE_2":
+    case 'JON_GUI_DATA_ACCUMULATOR_STATE_2':
       return JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_2;
     case 5:
-    case "JON_GUI_DATA_ACCUMULATOR_STATE_3":
+    case 'JON_GUI_DATA_ACCUMULATOR_STATE_3':
       return JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_3;
     case 6:
-    case "JON_GUI_DATA_ACCUMULATOR_STATE_4":
+    case 'JON_GUI_DATA_ACCUMULATOR_STATE_4':
       return JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_4;
     case 7:
-    case "JON_GUI_DATA_ACCUMULATOR_STATE_5":
+    case 'JON_GUI_DATA_ACCUMULATOR_STATE_5':
       return JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_5;
     case 8:
-    case "JON_GUI_DATA_ACCUMULATOR_STATE_6":
+    case 'JON_GUI_DATA_ACCUMULATOR_STATE_6':
       return JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_6;
     case 9:
-    case "JON_GUI_DATA_ACCUMULATOR_STATE_FULL":
+    case 'JON_GUI_DATA_ACCUMULATOR_STATE_FULL':
       return JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_FULL;
     case 10:
-    case "JON_GUI_DATA_ACCUMULATOR_STATE_CHARGING":
+    case 'JON_GUI_DATA_ACCUMULATOR_STATE_CHARGING':
       return JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_CHARGING;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataAccumulatorStateIdx.UNRECOGNIZED;
   }
@@ -310,30 +310,30 @@ export function jonGuiDataAccumulatorStateIdxFromJSON(object: any): JonGuiDataAc
 export function jonGuiDataAccumulatorStateIdxToJSON(object: JonGuiDataAccumulatorStateIdx): string {
   switch (object) {
     case JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_UNSPECIFIED:
-      return "JON_GUI_DATA_ACCUMULATOR_STATE_UNSPECIFIED";
+      return 'JON_GUI_DATA_ACCUMULATOR_STATE_UNSPECIFIED';
     case JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_UNKNOWN:
-      return "JON_GUI_DATA_ACCUMULATOR_STATE_UNKNOWN";
+      return 'JON_GUI_DATA_ACCUMULATOR_STATE_UNKNOWN';
     case JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_EMPTY:
-      return "JON_GUI_DATA_ACCUMULATOR_STATE_EMPTY";
+      return 'JON_GUI_DATA_ACCUMULATOR_STATE_EMPTY';
     case JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_1:
-      return "JON_GUI_DATA_ACCUMULATOR_STATE_1";
+      return 'JON_GUI_DATA_ACCUMULATOR_STATE_1';
     case JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_2:
-      return "JON_GUI_DATA_ACCUMULATOR_STATE_2";
+      return 'JON_GUI_DATA_ACCUMULATOR_STATE_2';
     case JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_3:
-      return "JON_GUI_DATA_ACCUMULATOR_STATE_3";
+      return 'JON_GUI_DATA_ACCUMULATOR_STATE_3';
     case JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_4:
-      return "JON_GUI_DATA_ACCUMULATOR_STATE_4";
+      return 'JON_GUI_DATA_ACCUMULATOR_STATE_4';
     case JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_5:
-      return "JON_GUI_DATA_ACCUMULATOR_STATE_5";
+      return 'JON_GUI_DATA_ACCUMULATOR_STATE_5';
     case JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_6:
-      return "JON_GUI_DATA_ACCUMULATOR_STATE_6";
+      return 'JON_GUI_DATA_ACCUMULATOR_STATE_6';
     case JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_FULL:
-      return "JON_GUI_DATA_ACCUMULATOR_STATE_FULL";
+      return 'JON_GUI_DATA_ACCUMULATOR_STATE_FULL';
     case JonGuiDataAccumulatorStateIdx.JON_GUI_DATA_ACCUMULATOR_STATE_CHARGING:
-      return "JON_GUI_DATA_ACCUMULATOR_STATE_CHARGING";
+      return 'JON_GUI_DATA_ACCUMULATOR_STATE_CHARGING';
     case JonGuiDataAccumulatorStateIdx.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -347,16 +347,16 @@ export enum JonGuiDataTimeFormats {
 export function jonGuiDataTimeFormatsFromJSON(object: any): JonGuiDataTimeFormats {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_TIME_FORMAT_UNSPECIFIED":
+    case 'JON_GUI_DATA_TIME_FORMAT_UNSPECIFIED':
       return JonGuiDataTimeFormats.JON_GUI_DATA_TIME_FORMAT_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_TIME_FORMAT_H_M_S":
+    case 'JON_GUI_DATA_TIME_FORMAT_H_M_S':
       return JonGuiDataTimeFormats.JON_GUI_DATA_TIME_FORMAT_H_M_S;
     case 2:
-    case "JON_GUI_DATA_TIME_FORMAT_Y_m_D_H_M_S":
+    case 'JON_GUI_DATA_TIME_FORMAT_Y_m_D_H_M_S':
       return JonGuiDataTimeFormats.JON_GUI_DATA_TIME_FORMAT_Y_m_D_H_M_S;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataTimeFormats.UNRECOGNIZED;
   }
@@ -365,14 +365,14 @@ export function jonGuiDataTimeFormatsFromJSON(object: any): JonGuiDataTimeFormat
 export function jonGuiDataTimeFormatsToJSON(object: JonGuiDataTimeFormats): string {
   switch (object) {
     case JonGuiDataTimeFormats.JON_GUI_DATA_TIME_FORMAT_UNSPECIFIED:
-      return "JON_GUI_DATA_TIME_FORMAT_UNSPECIFIED";
+      return 'JON_GUI_DATA_TIME_FORMAT_UNSPECIFIED';
     case JonGuiDataTimeFormats.JON_GUI_DATA_TIME_FORMAT_H_M_S:
-      return "JON_GUI_DATA_TIME_FORMAT_H_M_S";
+      return 'JON_GUI_DATA_TIME_FORMAT_H_M_S';
     case JonGuiDataTimeFormats.JON_GUI_DATA_TIME_FORMAT_Y_m_D_H_M_S:
-      return "JON_GUI_DATA_TIME_FORMAT_Y_m_D_H_M_S";
+      return 'JON_GUI_DATA_TIME_FORMAT_Y_m_D_H_M_S';
     case JonGuiDataTimeFormats.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -386,16 +386,16 @@ export enum JonGuiDataRotaryDirection {
 export function jonGuiDataRotaryDirectionFromJSON(object: any): JonGuiDataRotaryDirection {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_ROTARY_DIRECTION_UNSPECIFIED":
+    case 'JON_GUI_DATA_ROTARY_DIRECTION_UNSPECIFIED':
       return JonGuiDataRotaryDirection.JON_GUI_DATA_ROTARY_DIRECTION_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_ROTARY_DIRECTION_CLOCKWISE":
+    case 'JON_GUI_DATA_ROTARY_DIRECTION_CLOCKWISE':
       return JonGuiDataRotaryDirection.JON_GUI_DATA_ROTARY_DIRECTION_CLOCKWISE;
     case 2:
-    case "JON_GUI_DATA_ROTARY_DIRECTION_COUNTER_CLOCKWISE":
+    case 'JON_GUI_DATA_ROTARY_DIRECTION_COUNTER_CLOCKWISE':
       return JonGuiDataRotaryDirection.JON_GUI_DATA_ROTARY_DIRECTION_COUNTER_CLOCKWISE;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataRotaryDirection.UNRECOGNIZED;
   }
@@ -404,14 +404,14 @@ export function jonGuiDataRotaryDirectionFromJSON(object: any): JonGuiDataRotary
 export function jonGuiDataRotaryDirectionToJSON(object: JonGuiDataRotaryDirection): string {
   switch (object) {
     case JonGuiDataRotaryDirection.JON_GUI_DATA_ROTARY_DIRECTION_UNSPECIFIED:
-      return "JON_GUI_DATA_ROTARY_DIRECTION_UNSPECIFIED";
+      return 'JON_GUI_DATA_ROTARY_DIRECTION_UNSPECIFIED';
     case JonGuiDataRotaryDirection.JON_GUI_DATA_ROTARY_DIRECTION_CLOCKWISE:
-      return "JON_GUI_DATA_ROTARY_DIRECTION_CLOCKWISE";
+      return 'JON_GUI_DATA_ROTARY_DIRECTION_CLOCKWISE';
     case JonGuiDataRotaryDirection.JON_GUI_DATA_ROTARY_DIRECTION_COUNTER_CLOCKWISE:
-      return "JON_GUI_DATA_ROTARY_DIRECTION_COUNTER_CLOCKWISE";
+      return 'JON_GUI_DATA_ROTARY_DIRECTION_COUNTER_CLOCKWISE';
     case JonGuiDataRotaryDirection.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -429,28 +429,28 @@ export enum JonGuiDataLrfScanModes {
 export function jonGuiDataLrfScanModesFromJSON(object: any): JonGuiDataLrfScanModes {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_LRF_SCAN_MODE_UNSPECIFIED":
+    case 'JON_GUI_DATA_LRF_SCAN_MODE_UNSPECIFIED':
       return JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_LRF_SCAN_MODE_1_HZ_CONTINUOUS":
+    case 'JON_GUI_DATA_LRF_SCAN_MODE_1_HZ_CONTINUOUS':
       return JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_1_HZ_CONTINUOUS;
     case 2:
-    case "JON_GUI_DATA_LRF_SCAN_MODE_4_HZ_CONTINUOUS":
+    case 'JON_GUI_DATA_LRF_SCAN_MODE_4_HZ_CONTINUOUS':
       return JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_4_HZ_CONTINUOUS;
     case 3:
-    case "JON_GUI_DATA_LRF_SCAN_MODE_10_HZ_CONTINUOUS":
+    case 'JON_GUI_DATA_LRF_SCAN_MODE_10_HZ_CONTINUOUS':
       return JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_10_HZ_CONTINUOUS;
     case 4:
-    case "JON_GUI_DATA_LRF_SCAN_MODE_20_HZ_CONTINUOUS":
+    case 'JON_GUI_DATA_LRF_SCAN_MODE_20_HZ_CONTINUOUS':
       return JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_20_HZ_CONTINUOUS;
     case 5:
-    case "JON_GUI_DATA_LRF_SCAN_MODE_100_HZ_CONTINUOUS":
+    case 'JON_GUI_DATA_LRF_SCAN_MODE_100_HZ_CONTINUOUS':
       return JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_100_HZ_CONTINUOUS;
     case 6:
-    case "JON_GUI_DATA_LRF_SCAN_MODE_200_HZ_CONTINUOUS":
+    case 'JON_GUI_DATA_LRF_SCAN_MODE_200_HZ_CONTINUOUS':
       return JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_200_HZ_CONTINUOUS;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataLrfScanModes.UNRECOGNIZED;
   }
@@ -459,22 +459,22 @@ export function jonGuiDataLrfScanModesFromJSON(object: any): JonGuiDataLrfScanMo
 export function jonGuiDataLrfScanModesToJSON(object: JonGuiDataLrfScanModes): string {
   switch (object) {
     case JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_UNSPECIFIED:
-      return "JON_GUI_DATA_LRF_SCAN_MODE_UNSPECIFIED";
+      return 'JON_GUI_DATA_LRF_SCAN_MODE_UNSPECIFIED';
     case JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_1_HZ_CONTINUOUS:
-      return "JON_GUI_DATA_LRF_SCAN_MODE_1_HZ_CONTINUOUS";
+      return 'JON_GUI_DATA_LRF_SCAN_MODE_1_HZ_CONTINUOUS';
     case JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_4_HZ_CONTINUOUS:
-      return "JON_GUI_DATA_LRF_SCAN_MODE_4_HZ_CONTINUOUS";
+      return 'JON_GUI_DATA_LRF_SCAN_MODE_4_HZ_CONTINUOUS';
     case JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_10_HZ_CONTINUOUS:
-      return "JON_GUI_DATA_LRF_SCAN_MODE_10_HZ_CONTINUOUS";
+      return 'JON_GUI_DATA_LRF_SCAN_MODE_10_HZ_CONTINUOUS';
     case JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_20_HZ_CONTINUOUS:
-      return "JON_GUI_DATA_LRF_SCAN_MODE_20_HZ_CONTINUOUS";
+      return 'JON_GUI_DATA_LRF_SCAN_MODE_20_HZ_CONTINUOUS';
     case JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_100_HZ_CONTINUOUS:
-      return "JON_GUI_DATA_LRF_SCAN_MODE_100_HZ_CONTINUOUS";
+      return 'JON_GUI_DATA_LRF_SCAN_MODE_100_HZ_CONTINUOUS';
     case JonGuiDataLrfScanModes.JON_GUI_DATA_LRF_SCAN_MODE_200_HZ_CONTINUOUS:
-      return "JON_GUI_DATA_LRF_SCAN_MODE_200_HZ_CONTINUOUS";
+      return 'JON_GUI_DATA_LRF_SCAN_MODE_200_HZ_CONTINUOUS';
     case JonGuiDataLrfScanModes.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -491,25 +491,25 @@ export enum JonGuiDataCompassCalibrateStatus {
 export function jonGuiDataCompassCalibrateStatusFromJSON(object: any): JonGuiDataCompassCalibrateStatus {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_UNSPECIFIED":
+    case 'JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_UNSPECIFIED':
       return JonGuiDataCompassCalibrateStatus.JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_NOT_CALIBRATING":
+    case 'JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_NOT_CALIBRATING':
       return JonGuiDataCompassCalibrateStatus.JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_NOT_CALIBRATING;
     case 2:
-    case "JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_CALIBRATING_SHORT":
+    case 'JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_CALIBRATING_SHORT':
       return JonGuiDataCompassCalibrateStatus.JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_CALIBRATING_SHORT;
     case 3:
-    case "JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_CALIBRATING_LONG":
+    case 'JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_CALIBRATING_LONG':
       return JonGuiDataCompassCalibrateStatus.JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_CALIBRATING_LONG;
     case 4:
-    case "JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_FINISHED":
+    case 'JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_FINISHED':
       return JonGuiDataCompassCalibrateStatus.JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_FINISHED;
     case 5:
-    case "JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_ERROR":
+    case 'JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_ERROR':
       return JonGuiDataCompassCalibrateStatus.JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_ERROR;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataCompassCalibrateStatus.UNRECOGNIZED;
   }
@@ -518,20 +518,20 @@ export function jonGuiDataCompassCalibrateStatusFromJSON(object: any): JonGuiDat
 export function jonGuiDataCompassCalibrateStatusToJSON(object: JonGuiDataCompassCalibrateStatus): string {
   switch (object) {
     case JonGuiDataCompassCalibrateStatus.JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_UNSPECIFIED:
-      return "JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_UNSPECIFIED";
+      return 'JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_UNSPECIFIED';
     case JonGuiDataCompassCalibrateStatus.JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_NOT_CALIBRATING:
-      return "JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_NOT_CALIBRATING";
+      return 'JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_NOT_CALIBRATING';
     case JonGuiDataCompassCalibrateStatus.JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_CALIBRATING_SHORT:
-      return "JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_CALIBRATING_SHORT";
+      return 'JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_CALIBRATING_SHORT';
     case JonGuiDataCompassCalibrateStatus.JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_CALIBRATING_LONG:
-      return "JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_CALIBRATING_LONG";
+      return 'JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_CALIBRATING_LONG';
     case JonGuiDataCompassCalibrateStatus.JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_FINISHED:
-      return "JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_FINISHED";
+      return 'JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_FINISHED';
     case JonGuiDataCompassCalibrateStatus.JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_ERROR:
-      return "JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_ERROR";
+      return 'JON_GUI_DATA_COMPASS_CALIBRATE_STATUS_ERROR';
     case JonGuiDataCompassCalibrateStatus.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -547,22 +547,22 @@ export enum JonGuiDataEnvironmentWeatherCondition {
 export function jonGuiDataEnvironmentWeatherConditionFromJSON(object: any): JonGuiDataEnvironmentWeatherCondition {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_ENVIRONMENT_WEATHER_UNSPECIFIED":
+    case 'JON_GUI_DATA_ENVIRONMENT_WEATHER_UNSPECIFIED':
       return JonGuiDataEnvironmentWeatherCondition.JON_GUI_DATA_ENVIRONMENT_WEATHER_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_ENVIRONMENT_WEATHER_CLEAR":
+    case 'JON_GUI_DATA_ENVIRONMENT_WEATHER_CLEAR':
       return JonGuiDataEnvironmentWeatherCondition.JON_GUI_DATA_ENVIRONMENT_WEATHER_CLEAR;
     case 2:
-    case "JON_GUI_DATA_ENVIRONMENT_WEATHER_CLOUDY":
+    case 'JON_GUI_DATA_ENVIRONMENT_WEATHER_CLOUDY':
       return JonGuiDataEnvironmentWeatherCondition.JON_GUI_DATA_ENVIRONMENT_WEATHER_CLOUDY;
     case 3:
-    case "JON_GUI_DATA_ENVIRONMENT_WEATHER_FOGGY":
+    case 'JON_GUI_DATA_ENVIRONMENT_WEATHER_FOGGY':
       return JonGuiDataEnvironmentWeatherCondition.JON_GUI_DATA_ENVIRONMENT_WEATHER_FOGGY;
     case 4:
-    case "JON_GUI_DATA_ENVIRONMENT_WEATHER_HAZY":
+    case 'JON_GUI_DATA_ENVIRONMENT_WEATHER_HAZY':
       return JonGuiDataEnvironmentWeatherCondition.JON_GUI_DATA_ENVIRONMENT_WEATHER_HAZY;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataEnvironmentWeatherCondition.UNRECOGNIZED;
   }
@@ -571,18 +571,18 @@ export function jonGuiDataEnvironmentWeatherConditionFromJSON(object: any): JonG
 export function jonGuiDataEnvironmentWeatherConditionToJSON(object: JonGuiDataEnvironmentWeatherCondition): string {
   switch (object) {
     case JonGuiDataEnvironmentWeatherCondition.JON_GUI_DATA_ENVIRONMENT_WEATHER_UNSPECIFIED:
-      return "JON_GUI_DATA_ENVIRONMENT_WEATHER_UNSPECIFIED";
+      return 'JON_GUI_DATA_ENVIRONMENT_WEATHER_UNSPECIFIED';
     case JonGuiDataEnvironmentWeatherCondition.JON_GUI_DATA_ENVIRONMENT_WEATHER_CLEAR:
-      return "JON_GUI_DATA_ENVIRONMENT_WEATHER_CLEAR";
+      return 'JON_GUI_DATA_ENVIRONMENT_WEATHER_CLEAR';
     case JonGuiDataEnvironmentWeatherCondition.JON_GUI_DATA_ENVIRONMENT_WEATHER_CLOUDY:
-      return "JON_GUI_DATA_ENVIRONMENT_WEATHER_CLOUDY";
+      return 'JON_GUI_DATA_ENVIRONMENT_WEATHER_CLOUDY';
     case JonGuiDataEnvironmentWeatherCondition.JON_GUI_DATA_ENVIRONMENT_WEATHER_FOGGY:
-      return "JON_GUI_DATA_ENVIRONMENT_WEATHER_FOGGY";
+      return 'JON_GUI_DATA_ENVIRONMENT_WEATHER_FOGGY';
     case JonGuiDataEnvironmentWeatherCondition.JON_GUI_DATA_ENVIRONMENT_WEATHER_HAZY:
-      return "JON_GUI_DATA_ENVIRONMENT_WEATHER_HAZY";
+      return 'JON_GUI_DATA_ENVIRONMENT_WEATHER_HAZY';
     case JonGuiDataEnvironmentWeatherCondition.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -598,22 +598,22 @@ export enum JonGuiDataEnvironmentLightingCondition {
 export function jonGuiDataEnvironmentLightingConditionFromJSON(object: any): JonGuiDataEnvironmentLightingCondition {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHTING_UNSPECIFIED":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHTING_UNSPECIFIED':
       return JonGuiDataEnvironmentLightingCondition.JON_GUI_DATA_ENVIRONMENT_LIGHTING_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHTING_DAY":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHTING_DAY':
       return JonGuiDataEnvironmentLightingCondition.JON_GUI_DATA_ENVIRONMENT_LIGHTING_DAY;
     case 2:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHTING_NIGHT":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHTING_NIGHT':
       return JonGuiDataEnvironmentLightingCondition.JON_GUI_DATA_ENVIRONMENT_LIGHTING_NIGHT;
     case 3:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHTING_DUSK":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHTING_DUSK':
       return JonGuiDataEnvironmentLightingCondition.JON_GUI_DATA_ENVIRONMENT_LIGHTING_DUSK;
     case 4:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHTING_DAWN":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHTING_DAWN':
       return JonGuiDataEnvironmentLightingCondition.JON_GUI_DATA_ENVIRONMENT_LIGHTING_DAWN;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataEnvironmentLightingCondition.UNRECOGNIZED;
   }
@@ -622,18 +622,18 @@ export function jonGuiDataEnvironmentLightingConditionFromJSON(object: any): Jon
 export function jonGuiDataEnvironmentLightingConditionToJSON(object: JonGuiDataEnvironmentLightingCondition): string {
   switch (object) {
     case JonGuiDataEnvironmentLightingCondition.JON_GUI_DATA_ENVIRONMENT_LIGHTING_UNSPECIFIED:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHTING_UNSPECIFIED";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHTING_UNSPECIFIED';
     case JonGuiDataEnvironmentLightingCondition.JON_GUI_DATA_ENVIRONMENT_LIGHTING_DAY:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHTING_DAY";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHTING_DAY';
     case JonGuiDataEnvironmentLightingCondition.JON_GUI_DATA_ENVIRONMENT_LIGHTING_NIGHT:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHTING_NIGHT";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHTING_NIGHT';
     case JonGuiDataEnvironmentLightingCondition.JON_GUI_DATA_ENVIRONMENT_LIGHTING_DUSK:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHTING_DUSK";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHTING_DUSK';
     case JonGuiDataEnvironmentLightingCondition.JON_GUI_DATA_ENVIRONMENT_LIGHTING_DAWN:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHTING_DAWN";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHTING_DAWN';
     case JonGuiDataEnvironmentLightingCondition.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -649,22 +649,22 @@ export enum JonGuiDataEnvironmentPrecipitationType {
 export function jonGuiDataEnvironmentPrecipitationTypeFromJSON(object: any): JonGuiDataEnvironmentPrecipitationType {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_ENVIRONMENT_PRECIP_UNSPECIFIED":
+    case 'JON_GUI_DATA_ENVIRONMENT_PRECIP_UNSPECIFIED':
       return JonGuiDataEnvironmentPrecipitationType.JON_GUI_DATA_ENVIRONMENT_PRECIP_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_ENVIRONMENT_PRECIP_NONE":
+    case 'JON_GUI_DATA_ENVIRONMENT_PRECIP_NONE':
       return JonGuiDataEnvironmentPrecipitationType.JON_GUI_DATA_ENVIRONMENT_PRECIP_NONE;
     case 2:
-    case "JON_GUI_DATA_ENVIRONMENT_PRECIP_RAIN":
+    case 'JON_GUI_DATA_ENVIRONMENT_PRECIP_RAIN':
       return JonGuiDataEnvironmentPrecipitationType.JON_GUI_DATA_ENVIRONMENT_PRECIP_RAIN;
     case 3:
-    case "JON_GUI_DATA_ENVIRONMENT_PRECIP_SNOW":
+    case 'JON_GUI_DATA_ENVIRONMENT_PRECIP_SNOW':
       return JonGuiDataEnvironmentPrecipitationType.JON_GUI_DATA_ENVIRONMENT_PRECIP_SNOW;
     case 4:
-    case "JON_GUI_DATA_ENVIRONMENT_PRECIP_SLEET":
+    case 'JON_GUI_DATA_ENVIRONMENT_PRECIP_SLEET':
       return JonGuiDataEnvironmentPrecipitationType.JON_GUI_DATA_ENVIRONMENT_PRECIP_SLEET;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataEnvironmentPrecipitationType.UNRECOGNIZED;
   }
@@ -673,18 +673,18 @@ export function jonGuiDataEnvironmentPrecipitationTypeFromJSON(object: any): Jon
 export function jonGuiDataEnvironmentPrecipitationTypeToJSON(object: JonGuiDataEnvironmentPrecipitationType): string {
   switch (object) {
     case JonGuiDataEnvironmentPrecipitationType.JON_GUI_DATA_ENVIRONMENT_PRECIP_UNSPECIFIED:
-      return "JON_GUI_DATA_ENVIRONMENT_PRECIP_UNSPECIFIED";
+      return 'JON_GUI_DATA_ENVIRONMENT_PRECIP_UNSPECIFIED';
     case JonGuiDataEnvironmentPrecipitationType.JON_GUI_DATA_ENVIRONMENT_PRECIP_NONE:
-      return "JON_GUI_DATA_ENVIRONMENT_PRECIP_NONE";
+      return 'JON_GUI_DATA_ENVIRONMENT_PRECIP_NONE';
     case JonGuiDataEnvironmentPrecipitationType.JON_GUI_DATA_ENVIRONMENT_PRECIP_RAIN:
-      return "JON_GUI_DATA_ENVIRONMENT_PRECIP_RAIN";
+      return 'JON_GUI_DATA_ENVIRONMENT_PRECIP_RAIN';
     case JonGuiDataEnvironmentPrecipitationType.JON_GUI_DATA_ENVIRONMENT_PRECIP_SNOW:
-      return "JON_GUI_DATA_ENVIRONMENT_PRECIP_SNOW";
+      return 'JON_GUI_DATA_ENVIRONMENT_PRECIP_SNOW';
     case JonGuiDataEnvironmentPrecipitationType.JON_GUI_DATA_ENVIRONMENT_PRECIP_SLEET:
-      return "JON_GUI_DATA_ENVIRONMENT_PRECIP_SLEET";
+      return 'JON_GUI_DATA_ENVIRONMENT_PRECIP_SLEET';
     case JonGuiDataEnvironmentPrecipitationType.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -700,22 +700,22 @@ export enum JonGuiDataEnvironmentGroundCondition {
 export function jonGuiDataEnvironmentGroundConditionFromJSON(object: any): JonGuiDataEnvironmentGroundCondition {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_ENVIRONMENT_GROUND_UNSPECIFIED":
+    case 'JON_GUI_DATA_ENVIRONMENT_GROUND_UNSPECIFIED':
       return JonGuiDataEnvironmentGroundCondition.JON_GUI_DATA_ENVIRONMENT_GROUND_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_ENVIRONMENT_GROUND_DRY":
+    case 'JON_GUI_DATA_ENVIRONMENT_GROUND_DRY':
       return JonGuiDataEnvironmentGroundCondition.JON_GUI_DATA_ENVIRONMENT_GROUND_DRY;
     case 2:
-    case "JON_GUI_DATA_ENVIRONMENT_GROUND_WET":
+    case 'JON_GUI_DATA_ENVIRONMENT_GROUND_WET':
       return JonGuiDataEnvironmentGroundCondition.JON_GUI_DATA_ENVIRONMENT_GROUND_WET;
     case 3:
-    case "JON_GUI_DATA_ENVIRONMENT_GROUND_SNOWY":
+    case 'JON_GUI_DATA_ENVIRONMENT_GROUND_SNOWY':
       return JonGuiDataEnvironmentGroundCondition.JON_GUI_DATA_ENVIRONMENT_GROUND_SNOWY;
     case 4:
-    case "JON_GUI_DATA_ENVIRONMENT_GROUND_ICY":
+    case 'JON_GUI_DATA_ENVIRONMENT_GROUND_ICY':
       return JonGuiDataEnvironmentGroundCondition.JON_GUI_DATA_ENVIRONMENT_GROUND_ICY;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataEnvironmentGroundCondition.UNRECOGNIZED;
   }
@@ -724,18 +724,18 @@ export function jonGuiDataEnvironmentGroundConditionFromJSON(object: any): JonGu
 export function jonGuiDataEnvironmentGroundConditionToJSON(object: JonGuiDataEnvironmentGroundCondition): string {
   switch (object) {
     case JonGuiDataEnvironmentGroundCondition.JON_GUI_DATA_ENVIRONMENT_GROUND_UNSPECIFIED:
-      return "JON_GUI_DATA_ENVIRONMENT_GROUND_UNSPECIFIED";
+      return 'JON_GUI_DATA_ENVIRONMENT_GROUND_UNSPECIFIED';
     case JonGuiDataEnvironmentGroundCondition.JON_GUI_DATA_ENVIRONMENT_GROUND_DRY:
-      return "JON_GUI_DATA_ENVIRONMENT_GROUND_DRY";
+      return 'JON_GUI_DATA_ENVIRONMENT_GROUND_DRY';
     case JonGuiDataEnvironmentGroundCondition.JON_GUI_DATA_ENVIRONMENT_GROUND_WET:
-      return "JON_GUI_DATA_ENVIRONMENT_GROUND_WET";
+      return 'JON_GUI_DATA_ENVIRONMENT_GROUND_WET';
     case JonGuiDataEnvironmentGroundCondition.JON_GUI_DATA_ENVIRONMENT_GROUND_SNOWY:
-      return "JON_GUI_DATA_ENVIRONMENT_GROUND_SNOWY";
+      return 'JON_GUI_DATA_ENVIRONMENT_GROUND_SNOWY';
     case JonGuiDataEnvironmentGroundCondition.JON_GUI_DATA_ENVIRONMENT_GROUND_ICY:
-      return "JON_GUI_DATA_ENVIRONMENT_GROUND_ICY";
+      return 'JON_GUI_DATA_ENVIRONMENT_GROUND_ICY';
     case JonGuiDataEnvironmentGroundCondition.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -751,22 +751,22 @@ export enum JonGuiDataEnvironmentOpticalVisibility {
 export function jonGuiDataEnvironmentOpticalVisibilityFromJSON(object: any): JonGuiDataEnvironmentOpticalVisibility {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_UNSPECIFIED":
+    case 'JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_UNSPECIFIED':
       return JonGuiDataEnvironmentOpticalVisibility.JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_HIGH_CONTRAST":
+    case 'JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_HIGH_CONTRAST':
       return JonGuiDataEnvironmentOpticalVisibility.JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_HIGH_CONTRAST;
     case 2:
-    case "JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_LOW_CONTRAST":
+    case 'JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_LOW_CONTRAST':
       return JonGuiDataEnvironmentOpticalVisibility.JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_LOW_CONTRAST;
     case 3:
-    case "JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_GLARE":
+    case 'JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_GLARE':
       return JonGuiDataEnvironmentOpticalVisibility.JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_GLARE;
     case 4:
-    case "JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_SHADOW":
+    case 'JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_SHADOW':
       return JonGuiDataEnvironmentOpticalVisibility.JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_SHADOW;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataEnvironmentOpticalVisibility.UNRECOGNIZED;
   }
@@ -775,18 +775,18 @@ export function jonGuiDataEnvironmentOpticalVisibilityFromJSON(object: any): Jon
 export function jonGuiDataEnvironmentOpticalVisibilityToJSON(object: JonGuiDataEnvironmentOpticalVisibility): string {
   switch (object) {
     case JonGuiDataEnvironmentOpticalVisibility.JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_UNSPECIFIED:
-      return "JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_UNSPECIFIED";
+      return 'JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_UNSPECIFIED';
     case JonGuiDataEnvironmentOpticalVisibility.JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_HIGH_CONTRAST:
-      return "JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_HIGH_CONTRAST";
+      return 'JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_HIGH_CONTRAST';
     case JonGuiDataEnvironmentOpticalVisibility.JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_LOW_CONTRAST:
-      return "JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_LOW_CONTRAST";
+      return 'JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_LOW_CONTRAST';
     case JonGuiDataEnvironmentOpticalVisibility.JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_GLARE:
-      return "JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_GLARE";
+      return 'JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_GLARE';
     case JonGuiDataEnvironmentOpticalVisibility.JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_SHADOW:
-      return "JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_SHADOW";
+      return 'JON_GUI_DATA_ENVIRONMENT_OPTICAL_VISIBILITY_SHADOW';
     case JonGuiDataEnvironmentOpticalVisibility.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -802,22 +802,22 @@ export enum JonGuiDataEnvironmentThermalCondition {
 export function jonGuiDataEnvironmentThermalConditionFromJSON(object: any): JonGuiDataEnvironmentThermalCondition {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_ENVIRONMENT_THERMAL_UNSPECIFIED":
+    case 'JON_GUI_DATA_ENVIRONMENT_THERMAL_UNSPECIFIED':
       return JonGuiDataEnvironmentThermalCondition.JON_GUI_DATA_ENVIRONMENT_THERMAL_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_ENVIRONMENT_THERMAL_HIGH_HEAT_CONTRAST":
+    case 'JON_GUI_DATA_ENVIRONMENT_THERMAL_HIGH_HEAT_CONTRAST':
       return JonGuiDataEnvironmentThermalCondition.JON_GUI_DATA_ENVIRONMENT_THERMAL_HIGH_HEAT_CONTRAST;
     case 2:
-    case "JON_GUI_DATA_ENVIRONMENT_THERMAL_LOW_HEAT_CONTRAST":
+    case 'JON_GUI_DATA_ENVIRONMENT_THERMAL_LOW_HEAT_CONTRAST':
       return JonGuiDataEnvironmentThermalCondition.JON_GUI_DATA_ENVIRONMENT_THERMAL_LOW_HEAT_CONTRAST;
     case 3:
-    case "JON_GUI_DATA_ENVIRONMENT_THERMAL_AMBIENT_WARM":
+    case 'JON_GUI_DATA_ENVIRONMENT_THERMAL_AMBIENT_WARM':
       return JonGuiDataEnvironmentThermalCondition.JON_GUI_DATA_ENVIRONMENT_THERMAL_AMBIENT_WARM;
     case 4:
-    case "JON_GUI_DATA_ENVIRONMENT_THERMAL_AMBIENT_COLD":
+    case 'JON_GUI_DATA_ENVIRONMENT_THERMAL_AMBIENT_COLD':
       return JonGuiDataEnvironmentThermalCondition.JON_GUI_DATA_ENVIRONMENT_THERMAL_AMBIENT_COLD;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataEnvironmentThermalCondition.UNRECOGNIZED;
   }
@@ -826,18 +826,18 @@ export function jonGuiDataEnvironmentThermalConditionFromJSON(object: any): JonG
 export function jonGuiDataEnvironmentThermalConditionToJSON(object: JonGuiDataEnvironmentThermalCondition): string {
   switch (object) {
     case JonGuiDataEnvironmentThermalCondition.JON_GUI_DATA_ENVIRONMENT_THERMAL_UNSPECIFIED:
-      return "JON_GUI_DATA_ENVIRONMENT_THERMAL_UNSPECIFIED";
+      return 'JON_GUI_DATA_ENVIRONMENT_THERMAL_UNSPECIFIED';
     case JonGuiDataEnvironmentThermalCondition.JON_GUI_DATA_ENVIRONMENT_THERMAL_HIGH_HEAT_CONTRAST:
-      return "JON_GUI_DATA_ENVIRONMENT_THERMAL_HIGH_HEAT_CONTRAST";
+      return 'JON_GUI_DATA_ENVIRONMENT_THERMAL_HIGH_HEAT_CONTRAST';
     case JonGuiDataEnvironmentThermalCondition.JON_GUI_DATA_ENVIRONMENT_THERMAL_LOW_HEAT_CONTRAST:
-      return "JON_GUI_DATA_ENVIRONMENT_THERMAL_LOW_HEAT_CONTRAST";
+      return 'JON_GUI_DATA_ENVIRONMENT_THERMAL_LOW_HEAT_CONTRAST';
     case JonGuiDataEnvironmentThermalCondition.JON_GUI_DATA_ENVIRONMENT_THERMAL_AMBIENT_WARM:
-      return "JON_GUI_DATA_ENVIRONMENT_THERMAL_AMBIENT_WARM";
+      return 'JON_GUI_DATA_ENVIRONMENT_THERMAL_AMBIENT_WARM';
     case JonGuiDataEnvironmentThermalCondition.JON_GUI_DATA_ENVIRONMENT_THERMAL_AMBIENT_COLD:
-      return "JON_GUI_DATA_ENVIRONMENT_THERMAL_AMBIENT_COLD";
+      return 'JON_GUI_DATA_ENVIRONMENT_THERMAL_AMBIENT_COLD';
     case JonGuiDataEnvironmentThermalCondition.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -854,25 +854,25 @@ export enum JonGuiDataEnvironmentNetworkStatus {
 export function jonGuiDataEnvironmentNetworkStatusFromJSON(object: any): JonGuiDataEnvironmentNetworkStatus {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_ENVIRONMENT_NETWORK_UNSPECIFIED":
+    case 'JON_GUI_DATA_ENVIRONMENT_NETWORK_UNSPECIFIED':
       return JonGuiDataEnvironmentNetworkStatus.JON_GUI_DATA_ENVIRONMENT_NETWORK_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_ENVIRONMENT_NETWORK_DISCONNECTED":
+    case 'JON_GUI_DATA_ENVIRONMENT_NETWORK_DISCONNECTED':
       return JonGuiDataEnvironmentNetworkStatus.JON_GUI_DATA_ENVIRONMENT_NETWORK_DISCONNECTED;
     case 2:
-    case "JON_GUI_DATA_ENVIRONMENT_NETWORK_FLAKY":
+    case 'JON_GUI_DATA_ENVIRONMENT_NETWORK_FLAKY':
       return JonGuiDataEnvironmentNetworkStatus.JON_GUI_DATA_ENVIRONMENT_NETWORK_FLAKY;
     case 3:
-    case "JON_GUI_DATA_ENVIRONMENT_NETWORK_LOW_BANDWIDTH":
+    case 'JON_GUI_DATA_ENVIRONMENT_NETWORK_LOW_BANDWIDTH':
       return JonGuiDataEnvironmentNetworkStatus.JON_GUI_DATA_ENVIRONMENT_NETWORK_LOW_BANDWIDTH;
     case 4:
-    case "JON_GUI_DATA_ENVIRONMENT_NETWORK_MEDIUM_BANDWIDTH":
+    case 'JON_GUI_DATA_ENVIRONMENT_NETWORK_MEDIUM_BANDWIDTH':
       return JonGuiDataEnvironmentNetworkStatus.JON_GUI_DATA_ENVIRONMENT_NETWORK_MEDIUM_BANDWIDTH;
     case 5:
-    case "JON_GUI_DATA_ENVIRONMENT_NETWORK_LAN":
+    case 'JON_GUI_DATA_ENVIRONMENT_NETWORK_LAN':
       return JonGuiDataEnvironmentNetworkStatus.JON_GUI_DATA_ENVIRONMENT_NETWORK_LAN;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataEnvironmentNetworkStatus.UNRECOGNIZED;
   }
@@ -881,20 +881,20 @@ export function jonGuiDataEnvironmentNetworkStatusFromJSON(object: any): JonGuiD
 export function jonGuiDataEnvironmentNetworkStatusToJSON(object: JonGuiDataEnvironmentNetworkStatus): string {
   switch (object) {
     case JonGuiDataEnvironmentNetworkStatus.JON_GUI_DATA_ENVIRONMENT_NETWORK_UNSPECIFIED:
-      return "JON_GUI_DATA_ENVIRONMENT_NETWORK_UNSPECIFIED";
+      return 'JON_GUI_DATA_ENVIRONMENT_NETWORK_UNSPECIFIED';
     case JonGuiDataEnvironmentNetworkStatus.JON_GUI_DATA_ENVIRONMENT_NETWORK_DISCONNECTED:
-      return "JON_GUI_DATA_ENVIRONMENT_NETWORK_DISCONNECTED";
+      return 'JON_GUI_DATA_ENVIRONMENT_NETWORK_DISCONNECTED';
     case JonGuiDataEnvironmentNetworkStatus.JON_GUI_DATA_ENVIRONMENT_NETWORK_FLAKY:
-      return "JON_GUI_DATA_ENVIRONMENT_NETWORK_FLAKY";
+      return 'JON_GUI_DATA_ENVIRONMENT_NETWORK_FLAKY';
     case JonGuiDataEnvironmentNetworkStatus.JON_GUI_DATA_ENVIRONMENT_NETWORK_LOW_BANDWIDTH:
-      return "JON_GUI_DATA_ENVIRONMENT_NETWORK_LOW_BANDWIDTH";
+      return 'JON_GUI_DATA_ENVIRONMENT_NETWORK_LOW_BANDWIDTH';
     case JonGuiDataEnvironmentNetworkStatus.JON_GUI_DATA_ENVIRONMENT_NETWORK_MEDIUM_BANDWIDTH:
-      return "JON_GUI_DATA_ENVIRONMENT_NETWORK_MEDIUM_BANDWIDTH";
+      return 'JON_GUI_DATA_ENVIRONMENT_NETWORK_MEDIUM_BANDWIDTH';
     case JonGuiDataEnvironmentNetworkStatus.JON_GUI_DATA_ENVIRONMENT_NETWORK_LAN:
-      return "JON_GUI_DATA_ENVIRONMENT_NETWORK_LAN";
+      return 'JON_GUI_DATA_ENVIRONMENT_NETWORK_LAN';
     case JonGuiDataEnvironmentNetworkStatus.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -916,40 +916,40 @@ export enum JonGuiDataEnvironmentLightSource {
 export function jonGuiDataEnvironmentLightSourceFromJSON(object: any): JonGuiDataEnvironmentLightSource {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_UNSPECIFIED":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_UNSPECIFIED':
       return JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_NONE":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_NONE':
       return JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_NONE;
     case 2:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_FULL_MOON":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_FULL_MOON':
       return JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_FULL_MOON;
     case 3:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_STARRY_NIGHT":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_STARRY_NIGHT':
       return JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_STARRY_NIGHT;
     case 4:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_ABOVE":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_ABOVE':
       return JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_ABOVE;
     case 5:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_FRONT":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_FRONT':
       return JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_FRONT;
     case 6:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_BEHIND":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_BEHIND':
       return JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_BEHIND;
     case 7:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_DIFFUSED_STRONG":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_DIFFUSED_STRONG':
       return JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_DIFFUSED_STRONG;
     case 8:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_DIFFUSED_WEAK":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_DIFFUSED_WEAK':
       return JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_DIFFUSED_WEAK;
     case 9:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_PROJECTOR":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_PROJECTOR':
       return JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_PROJECTOR;
     case 10:
-    case "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_LIT_TARGET":
+    case 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_LIT_TARGET':
       return JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_LIT_TARGET;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataEnvironmentLightSource.UNRECOGNIZED;
   }
@@ -958,30 +958,30 @@ export function jonGuiDataEnvironmentLightSourceFromJSON(object: any): JonGuiDat
 export function jonGuiDataEnvironmentLightSourceToJSON(object: JonGuiDataEnvironmentLightSource): string {
   switch (object) {
     case JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_UNSPECIFIED:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_UNSPECIFIED";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_UNSPECIFIED';
     case JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_NONE:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_NONE";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_NONE';
     case JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_FULL_MOON:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_FULL_MOON";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_FULL_MOON';
     case JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_STARRY_NIGHT:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_STARRY_NIGHT";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_STARRY_NIGHT';
     case JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_ABOVE:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_ABOVE";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_ABOVE';
     case JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_FRONT:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_FRONT";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_FRONT';
     case JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_BEHIND:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_BEHIND";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_SUN_BEHIND';
     case JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_DIFFUSED_STRONG:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_DIFFUSED_STRONG";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_DIFFUSED_STRONG';
     case JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_DIFFUSED_WEAK:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_DIFFUSED_WEAK";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_DIFFUSED_WEAK';
     case JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_PROJECTOR:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_PROJECTOR";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_PROJECTOR';
     case JonGuiDataEnvironmentLightSource.JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_LIT_TARGET:
-      return "JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_LIT_TARGET";
+      return 'JON_GUI_DATA_ENVIRONMENT_LIGHT_SOURCE_LIT_TARGET';
     case JonGuiDataEnvironmentLightSource.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -999,28 +999,28 @@ export enum JonGuiDataRotaryMode {
 export function jonGuiDataRotaryModeFromJSON(object: any): JonGuiDataRotaryMode {
   switch (object) {
     case 0:
-    case "JON_GUI_DATA_ROTARY_MODE_UNSPECIFIED":
+    case 'JON_GUI_DATA_ROTARY_MODE_UNSPECIFIED':
       return JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_UNSPECIFIED;
     case 1:
-    case "JON_GUI_DATA_ROTARY_MODE_INITIALIZATION":
+    case 'JON_GUI_DATA_ROTARY_MODE_INITIALIZATION':
       return JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_INITIALIZATION;
     case 2:
-    case "JON_GUI_DATA_ROTARY_MODE_SPEED":
+    case 'JON_GUI_DATA_ROTARY_MODE_SPEED':
       return JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_SPEED;
     case 3:
-    case "JON_GUI_DATA_ROTARY_MODE_POSITION":
+    case 'JON_GUI_DATA_ROTARY_MODE_POSITION':
       return JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_POSITION;
     case 4:
-    case "JON_GUI_DATA_ROTARY_MODE_STABILIZATION":
+    case 'JON_GUI_DATA_ROTARY_MODE_STABILIZATION':
       return JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_STABILIZATION;
     case 5:
-    case "JON_GUI_DATA_ROTARY_MODE_TARGETING":
+    case 'JON_GUI_DATA_ROTARY_MODE_TARGETING':
       return JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_TARGETING;
     case 6:
-    case "JON_GUI_DATA_ROTARY_MODE_VIDEO_TRACKER":
+    case 'JON_GUI_DATA_ROTARY_MODE_VIDEO_TRACKER':
       return JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_VIDEO_TRACKER;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return JonGuiDataRotaryMode.UNRECOGNIZED;
   }
@@ -1029,22 +1029,22 @@ export function jonGuiDataRotaryModeFromJSON(object: any): JonGuiDataRotaryMode 
 export function jonGuiDataRotaryModeToJSON(object: JonGuiDataRotaryMode): string {
   switch (object) {
     case JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_UNSPECIFIED:
-      return "JON_GUI_DATA_ROTARY_MODE_UNSPECIFIED";
+      return 'JON_GUI_DATA_ROTARY_MODE_UNSPECIFIED';
     case JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_INITIALIZATION:
-      return "JON_GUI_DATA_ROTARY_MODE_INITIALIZATION";
+      return 'JON_GUI_DATA_ROTARY_MODE_INITIALIZATION';
     case JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_SPEED:
-      return "JON_GUI_DATA_ROTARY_MODE_SPEED";
+      return 'JON_GUI_DATA_ROTARY_MODE_SPEED';
     case JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_POSITION:
-      return "JON_GUI_DATA_ROTARY_MODE_POSITION";
+      return 'JON_GUI_DATA_ROTARY_MODE_POSITION';
     case JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_STABILIZATION:
-      return "JON_GUI_DATA_ROTARY_MODE_STABILIZATION";
+      return 'JON_GUI_DATA_ROTARY_MODE_STABILIZATION';
     case JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_TARGETING:
-      return "JON_GUI_DATA_ROTARY_MODE_TARGETING";
+      return 'JON_GUI_DATA_ROTARY_MODE_TARGETING';
     case JonGuiDataRotaryMode.JON_GUI_DATA_ROTARY_MODE_VIDEO_TRACKER:
-      return "JON_GUI_DATA_ROTARY_MODE_VIDEO_TRACKER";
+      return 'JON_GUI_DATA_ROTARY_MODE_VIDEO_TRACKER';
     case JonGuiDataRotaryMode.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -1145,15 +1145,18 @@ export const JonGuiDataMeteo = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;
