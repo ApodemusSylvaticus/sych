@@ -17,7 +17,7 @@ export const TargetMarks: React.FC = React.memo(() => {
           key={`${el.timeStamp}_${el.coords.lon}_${el.coords.lat}`}
         >
           <Entity name={`${el.target.value}-el.timeStamp`} lon={el.coords.lon} lat={el.coords.lat} alt={0} properties={{ color: '#000002' }}>
-            <Billboard size={[30, 30]} src={'src/assets/point2.svg'} color={'#000002'} />
+            <Billboard size={[30, 30]} src={'./point.svg'} color={'#000002'} />
           </Entity>
         </Vector>
       ))}

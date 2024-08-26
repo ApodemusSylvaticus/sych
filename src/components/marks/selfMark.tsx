@@ -54,7 +54,7 @@ export const LineMarker = React.memo(() => {
           alt={selfMarker.coords.alt}
           properties={{ color: '#CF6679' }}
         >
-          <Billboard size={[30, 30]} src={'src/assets/point2.svg'} color={'#CF6679'} />
+          <Billboard size={[30, 30]} src={'./point.svg'} color={'#CF6679'} />
         </Entity>
       </Vector>
       <Vector name={'Direction'} key={rerenderKey}>
