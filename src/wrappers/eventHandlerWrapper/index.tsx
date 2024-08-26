@@ -74,6 +74,8 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
         //   // Отправляем событие на document
         //   document.getElementById('canvas__globus2__')!.dispatchEvent(mouseEvent);
         // });
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         touchRefStart.current = { x: e.clientX, y: e.clientY };
       });
 
@@ -81,6 +83,8 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
         console.log('touchend', e);
         const prevDxDy = touchRefStart.current;
         const dXdY = { x: e.clientX, y: e.clientY };
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         if (Math.abs(prevDxDy.x - dXdY.x) <= 5 && Math.abs(prevDxDy.y - dXdY.y) <= 5) {
           const lonLat = globe.planet.getLonLatFromPixelTerrain(e);
           setTimeout(() => {

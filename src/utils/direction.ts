@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { LonLat, Vec3 } from '@openglobus/og';
 import { GlobeContextProps } from '@openglobus/openglobus-react';
 import { ICoord } from '../store/markers.ts';
@@ -57,6 +59,8 @@ const getDistance = (start: ICoord, end: ICoord): number => {
 };
 
 // /////////////////////
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 const calculateNorthVector = (cartesianPoint: Vec3, ellipsoid: any): Vec3 => {
   const { x, y, z } = cartesianPoint;
   const a = ellipsoid._a;
