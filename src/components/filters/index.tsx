@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { TypeFilters } from './typeFilters';
 import { TagsFilter } from './tagsFilter';
-import { CardContainer } from '../containers/cardStyle.ts';
 import { TimeFilter } from './timeFilter';
 import { ColumnContainer, Container, MainCardName } from './style.ts';
 import { useFilterStore } from '../../store/filter.ts';
@@ -20,8 +19,6 @@ export function filterMarkers(
   useTypeFilter: boolean = false,
   useTimeFilter: boolean = false,
 ) {
-  console.log('markers', markers);
-
   let filteredMarkers = markers;
 
   // Фильтр по тегам
@@ -46,18 +43,22 @@ export function filterMarkers(
 
   // Временной фильтр
   if (useTimeFilter) {
+    console.log(timeFilter);
     filteredMarkers = filteredMarkers.filter((marker) => {
+      console.log('--marker--', new Date(marker.timeStamp));
+      console.log('--from--', new Date(timeFilter.from));
+      console.log('--to--', new Date(timeFilter.to));
+      const markerDate = new Date(marker.timeStamp);
       if (timeFilter.from !== -1 && timeFilter.to !== -1) {
-        return marker.timeStamp >= timeFilter.from && marker.timeStamp <= timeFilter.to;
+        return markerDate >= new Date(timeFilter.from) && markerDate <= new Date(timeFilter.to);
       } else if (timeFilter.from !== -1) {
-        return marker.timeStamp >= timeFilter.from;
+        return markerDate >= new Date(timeFilter.from);
       } else if (timeFilter.to !== -1) {
-        return marker.timeStamp <= timeFilter.to;
+        return markerDate <= new Date(timeFilter.to);
       }
       return true;
     });
   }
-  console.log('filteredMarkers', filteredMarkers);
 
   return filteredMarkers;
 }
@@ -74,7 +75,7 @@ export const Filters: React.FC = React.memo(() => {
 
   useEffect(() => {
     const filtered = onlySession
-      ? filterMarkers(sessionMarkers, tagFilter, typeFilter, { from: -1, to: -1 }, isTagFilterEnabled, isTypeFilterEnabled, isTimeFilterEnabled)
+      ? filterMarkers(sessionMarkers, tagFilter, typeFilter, { from: -1, to: -1 }, isTagFilterEnabled, isTypeFilterEnabled, false)
       : filterMarkers(allMarkers, tagFilter, typeFilter, timeFilter, isTagFilterEnabled, isTypeFilterEnabled, isTimeFilterEnabled);
     setFilteredMarkers(filtered);
   }, [

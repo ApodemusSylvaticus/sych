@@ -7,6 +7,8 @@
     --rdp-day-height: 3.5rem;
     --rdp-nav_button-width: 3.5rem;
     --rdp-nav_button-height: 3.5rem;
+
+
     .rdp-day {
         font-size: 1.8rem;
         color: rgb(18, 18,18);
@@ -19,8 +21,11 @@
     }
     .rdp-weekdays{
         color: rgb(18, 18,18);
-    font-size: 1.8rem;
+        font-size: 1.8rem;
     }
 
+    .rdp-today{
+        color: #CF6679;
+    }
 
 }

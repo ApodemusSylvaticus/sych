@@ -9,18 +9,18 @@ import { useTranslation } from 'react-i18next';
 
 export const TypeFilters: React.FC = React.memo(() => {
   const targets = useTargetStore((state) => state.targets);
-  const addTypeFilter = useFilterStore((state) => state.addTypeFilter);
+  const { addTypeFilter, switchTypeFilter, isTypeFilterEnabled } = useFilterStore((state) => ({
+    addTypeFilter: state.addTypeFilter,
+    switchTypeFilter: state.switchTypeFilter,
+    isTypeFilterEnabled: state.isTypeFilterEnabled,
+  }));
   const [chosenTargets, setChosenTargets] = useState(() => new Set(targets.map((t) => t.value)));
-  const [isFilterAvailable, setIsFilterAvailable] = useState<boolean>(false);
   const { t } = useTranslation();
+
   useEffect(() => {
-    if (isFilterAvailable) {
-      const typeFilterArray = Array.from(chosenTargets);
-      addTypeFilter(typeFilterArray);
-    } else {
-      addTypeFilter([]);
-    }
-  }, [addTypeFilter, chosenTargets, isFilterAvailable]);
+    const typeFilterArray = Array.from(chosenTargets);
+    addTypeFilter(typeFilterArray);
+  }, [addTypeFilter, chosenTargets]);
 
   const handleClick = useCallback((el: { value: string }) => {
     setChosenTargets((prevChosenTargets) => {
@@ -50,8 +50,8 @@ export const TypeFilters: React.FC = React.memo(() => {
       <BaseColumnContainer>
         {memoizedTargets}
         <RightSideContainer>
-          <Button onClick={() => setIsFilterAvailable(!isFilterAvailable)} isActive={isFilterAvailable}>
-            {isFilterAvailable ? t('default_enabled') : t('default_disabled')}
+          <Button onClick={switchTypeFilter} isActive={isTypeFilterEnabled}>
+            {isTypeFilterEnabled ? t('default_enabled') : t('default_disabled')}
           </Button>
         </RightSideContainer>
       </BaseColumnContainer>

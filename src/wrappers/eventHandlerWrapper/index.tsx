@@ -10,6 +10,7 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
     isOpen: state.isOpen,
   }));
   const isOpenRef = useRef<boolean>(false);
+  const touchRefStart = useRef(null);
 
   useEffect(() => {
     isOpenRef.current = isOpen;
@@ -73,19 +74,29 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
         //   // Отправляем событие на document
         //   document.getElementById('canvas__globus2__')!.dispatchEvent(mouseEvent);
         // });
-        const dXdY = { x: e.clientX, y: e.clientY };
-        const lonLat = globe.planet.getLonLatFromPixelTerrain(e);
-        setTimeout(() => {
-          if (lonLat) {
-            openPopup({ dXdY, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: lonLat.height } });
-          }
-        }, 0);
-        console.log(dXdY, lonLat);
+        touchRefStart.current = { x: e.clientX, y: e.clientY };
       });
 
-      // globe.renderer.events.on('touchend', (e) => {
-      //   console.log('e end', e);
-      // });
+      globe.renderer.events.on('touchend', (e) => {
+        console.log('touchend', e);
+        const prevDxDy = touchRefStart.current;
+        const dXdY = { x: e.clientX, y: e.clientY };
+        if (Math.abs(prevDxDy.x - dXdY.x) <= 5 && Math.abs(prevDxDy.y - dXdY.y) <= 5) {
+          const lonLat = globe.planet.getLonLatFromPixelTerrain(e);
+          setTimeout(() => {
+            if (lonLat) {
+              openPopup({ dXdY, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: lonLat.height } });
+            }
+          }, 0);
+        }
+      });
+
+      globe.renderer.events.on('touchmove', (e) => {
+        console.log('touchmove', e);
+        if (isOpenRef.current) {
+          closePopup();
+        }
+      });
 
       globe.renderer.events.on('lhold', () => {
         if (isOpenRef.current) {

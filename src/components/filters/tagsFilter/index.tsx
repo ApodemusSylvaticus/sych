@@ -9,18 +9,17 @@ import { useTranslation } from 'react-i18next';
 
 export const TagsFilter: React.FC = React.memo(() => {
   const tagsList = useTagsStore((state) => state.tagsList);
-  const addTagFilter = useFilterStore((state) => state.addTagFilter);
+  const { addTagFilter, isTagFilterEnabled, switchTagFilter } = useFilterStore((state) => ({
+    addTagFilter: state.addTagFilter,
+    isTagFilterEnabled: state.isTagFilterEnabled,
+    switchTagFilter: state.switchTagFilter,
+  }));
   const { t } = useTranslation();
   const [chosenTargets, setChosenTargets] = useState(tagsList);
-  const [isFilterAvailable, setIsFilterAvailable] = useState<boolean>(false);
 
   useEffect(() => {
-    if (isFilterAvailable) {
-      addTagFilter(chosenTargets);
-    } else {
-      addTagFilter([]);
-    }
-  }, [addTagFilter, chosenTargets, isFilterAvailable]);
+    addTagFilter(chosenTargets);
+  }, [addTagFilter, chosenTargets]);
 
   const handleClick = useCallback((el: string) => {
     setChosenTargets((prevChosenTargets) => {
@@ -47,8 +46,8 @@ export const TagsFilter: React.FC = React.memo(() => {
       <CardName>{t('default_tags_filter')}</CardName>
       <BaseRowContainerWithWrap>{memoizedTargets}</BaseRowContainerWithWrap>
       <RightSideContainer>
-        <Button onClick={() => setIsFilterAvailable(!isFilterAvailable)} isActive={isFilterAvailable}>
-          {isFilterAvailable ? t('default_enabled') : t('default_disabled')}
+        <Button onClick={switchTagFilter} isActive={isTagFilterEnabled}>
+          {isTagFilterEnabled ? t('default_enabled') : t('default_disabled')}
         </Button>
       </RightSideContainer>
     </CardContainer>

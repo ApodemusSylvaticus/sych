@@ -52,9 +52,9 @@ export const LineMarker = React.memo(() => {
           lon={selfMarker.coords.lon}
           lat={selfMarker.coords.lat}
           alt={selfMarker.coords.alt}
-          properties={{ color: '#000002' }}
+          properties={{ color: '#CF6679' }}
         >
-          <Billboard size={[30, 30]} src={'src/assets/point2.svg'} color={'#000002'} />
+          <Billboard size={[30, 30]} src={'src/assets/point2.svg'} color={'#CF6679'} />
         </Entity>
       </Vector>
       <Vector name={'Direction'} key={rerenderKey}>

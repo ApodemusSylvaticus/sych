@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { ITarget } from './target.ts';
+import { LocalStorage } from '../interface/localStorage.ts';
 
 export interface ICoord {
   lon: number;
@@ -28,6 +29,7 @@ export interface MarkersStore {
   filteredMarkers: IMarker[];
   setFilteredMarkers: (value: IMarker[]) => void;
   addMarker: (marker: IMarker) => void;
+  getMarkersFromLocalStorage: () => void;
 }
 
 export const useMarkerStore = create<MarkersStore>((set) => ({
@@ -43,6 +45,18 @@ export const useMarkerStore = create<MarkersStore>((set) => ({
   allMarkers: [],
   sessionMarkers: [],
   filteredMarkers: [],
-  addMarker: (marker: IMarker) => set((state) => ({ allMarkers: [...state.allMarkers, marker], sessionMarkers: [...state.sessionMarkers, marker] })),
+  addMarker: (marker: IMarker) =>
+    set((state) => {
+      const newData = [...state.allMarkers, marker];
+      localStorage.setItem(LocalStorage.MARKERS, JSON.stringify(newData));
+      return { allMarkers: newData, sessionMarkers: [...state.sessionMarkers, marker] };
+    }),
   setFilteredMarkers: (value: IMarker[]) => set({ filteredMarkers: value }),
+
+  getMarkersFromLocalStorage: () =>
+    set(() => {
+      const localStorageData = localStorage.getItem(LocalStorage.MARKERS);
+      const data: IMarker[] = localStorageData ? JSON.parse(localStorageData) : [];
+      return { allMarkers: data };
+    }),
 }));

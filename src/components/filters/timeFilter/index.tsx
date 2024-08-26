@@ -21,10 +21,15 @@ const ukrainianLocale = {
 
 export const TimeFilter: React.FC = React.memo(() => {
   const [checked, setChecked] = useState(false);
-  const [isFilterAvailable, setIsFilterAvailable] = useState<boolean>(false);
   const [fromDate, setFromDate] = useState<string>('');
   const [toDate, setToDate] = useState<string>('');
-  const { addTimeFilter, setOnlySession } = useFilterStore((state) => ({ addTimeFilter: state.addTimeFilter, setOnlySession: state.setOnlySession }));
+
+  const { addTimeFilter, setOnlySession, switchTimeFilter, isTimeFilterEnabled } = useFilterStore((state) => ({
+    addTimeFilter: state.addTimeFilter,
+    setOnlySession: state.setOnlySession,
+    switchTimeFilter: state.switchTimeFilter,
+    isTimeFilterEnabled: state.isTimeFilterEnabled,
+  }));
   const [range, setRange] = useState<DateRange | undefined>({ from: undefined, to: undefined });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useTranslation();
@@ -34,6 +39,11 @@ export const TimeFilter: React.FC = React.memo(() => {
   useEffect(() => {
     const today = new Date();
     const oneWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const offset = today.getTimezoneOffset();
+    today.setHours(23, 59, 59, 999);
+    oneWeekAgo.setHours(0, 0, 0, 0);
+    addTimeFilter({ from: oneWeekAgo.getTime(), to: today.getTime() });
+    oneWeekAgo.setHours(0, 0 - offset, 0, 0);
 
     setToDate(formatDate(today));
     setFromDate(formatDate(oneWeekAgo));
@@ -51,22 +61,23 @@ export const TimeFilter: React.FC = React.memo(() => {
     });
   }, [setOnlySession]);
 
-  useEffect(() => {
-    if (isFilterAvailable) {
-      addTimeFilter({ from: fromDate ? new Date(fromDate).getTime() : -1, to: toDate ? new Date(toDate).getTime() : -1 });
-    } else {
-      addTimeFilter({ from: -1, to: -1 });
-    }
-  }, [isFilterAvailable, fromDate, toDate, addTimeFilter]);
-
   const handleRangeSelect = (newRange: DateRange | undefined) => {
     setRange(newRange);
   };
 
   const save = () => {
     setIsModalOpen(false);
-    if (range?.to) setToDate(formatDate(range.to));
-    if (range?.from) setFromDate(formatDate(range.from));
+    if (range?.from && range.to) {
+      const from = range.from;
+      const offset = from.getTimezoneOffset();
+      const to = range.to;
+      to.setHours(23, 59, 59, 999);
+      addTimeFilter({ from: from.getTime(), to: to.getTime() });
+
+      from.setHours(0, 0 - offset, 0, 0);
+      setFromDate(formatDate(from));
+      setToDate(formatDate(to));
+    }
   };
 
   const calendarLocal = useMemo(() => {
@@ -82,6 +93,7 @@ export const TimeFilter: React.FC = React.memo(() => {
           <TextField
             label={t('default_from')}
             id={'from'}
+            type={'date'}
             value={fromDate}
             disabled
             labelStyle={{ background: '#121212', color: 'white' }}
@@ -93,6 +105,7 @@ export const TimeFilter: React.FC = React.memo(() => {
           <TextField
             label={t('default_to')}
             id={'to'}
+            type={'date'}
             disabled
             value={toDate}
             labelStyle={{ background: '#121212', color: 'white' }}
@@ -113,8 +126,8 @@ export const TimeFilter: React.FC = React.memo(() => {
         </CheckpointContainer>
       </ColumnContainer>
       <RightSideContainer>
-        <Button onClick={() => setIsFilterAvailable(!isFilterAvailable)} isActive={isFilterAvailable}>
-          {isFilterAvailable ? t('default_enabled') : t('default_disabled')}
+        <Button onClick={switchTimeFilter} isActive={isTimeFilterEnabled}>
+          {isTimeFilterEnabled ? t('default_enabled') : t('default_disabled')}
         </Button>
       </RightSideContainer>
 
