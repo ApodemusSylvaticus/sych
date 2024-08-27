@@ -15,13 +15,14 @@ import { LineMarker } from './components/marks/selfMark.tsx';
 import { TargetMarks } from './components/marks/targetMarks.tsx';
 import { MarkerInfoModal } from './components/modals/markerInfo';
 import { useMarkerStore } from './store/markers.ts';
+import { useBroadcast } from './hooks/useBroadcast.ts';
 
 function App(): JSX.Element {
   const { language, getLanguageFromLocalStorage } = useSettingsStore((state) => ({
     language: state.language,
     getLanguageFromLocalStorage: state.getLanguageFromLocalStorage,
   }));
-
+  useBroadcast();
   const getMarkersFromLocalStorage = useMarkerStore((state) => state.getMarkersFromLocalStorage);
   useEffect(() => {
     if (language !== i18n.language) {
