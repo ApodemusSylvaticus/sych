@@ -16,6 +16,7 @@ import { TargetMarks } from './components/marks/targetMarks.tsx';
 import { MarkerInfoModal } from './components/modals/markerInfo';
 import { useMarkerStore } from './store/markers.ts';
 import { useBroadcast } from './hooks/useBroadcast.ts';
+import { EmptyMarker } from './components/marks/emptyMarker.tsx';
 
 function App(): JSX.Element {
   const { language, getLanguageFromLocalStorage } = useSettingsStore((state) => ({
@@ -47,6 +48,7 @@ function App(): JSX.Element {
               <Layer />
               <LineMarker />
               <TargetMarks />
+              <EmptyMarker />
             </Globe>
           </EventHandlerWrapper>
           <MenuManipulationButton />
