@@ -31,6 +31,10 @@ function App(): JSX.Element {
   useEffect(() => {
     const wscm = new WebSocketConnectionManager();
     wscm.startWebSocketWorker('wss://sych.app/ws/ws_cmd/cmd/deviceState', 'cmd', 'deviceState');
+
+    return () => {
+      wscm.stopAllWebSocketWorkers();
+    };
   }, []);
   useEffect(() => {
     if (language !== i18n.language) {
