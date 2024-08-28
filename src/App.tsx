@@ -17,14 +17,21 @@ import { MarkerInfoModal } from './components/modals/markerInfo';
 import { useMarkerStore } from './store/markers.ts';
 import { useBroadcast } from './hooks/useBroadcast.ts';
 import { EmptyMarker } from './components/marks/emptyMarker.tsx';
+import { WebSocketConnectionManager } from './mainApp/js/webSocketConnectionManager';
 
 function App(): JSX.Element {
   const { language, getLanguageFromLocalStorage } = useSettingsStore((state) => ({
     language: state.language,
     getLanguageFromLocalStorage: state.getLanguageFromLocalStorage,
   }));
+
   useBroadcast();
   const getMarkersFromLocalStorage = useMarkerStore((state) => state.getMarkersFromLocalStorage);
+
+  useEffect(() => {
+    const wscm = new WebSocketConnectionManager();
+    wscm.startWebSocketWorker('wss://sych.app/ws/ws_cmd/cmd/deviceState', 'cmd', 'deviceState');
+  }, []);
   useEffect(() => {
     if (language !== i18n.language) {
       i18n.changeLanguage(language);

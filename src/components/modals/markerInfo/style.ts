@@ -51,12 +51,14 @@ export const Container = styled.div<{ height: number }>`
 export const Type = styled.div`
   font-size: 1.8rem;
   font-weight: bold;
+  color: rgb(${(props) => props.theme.colors.menuBg});
   font-family: Lato-Bold, system-ui, Avenir, Helvetica, Arial, sans-serif;
 `;
 
 export const CoordSpan = styled.span`
   font-size: 1.6rem;
   font-weight: 500;
+  color: rgb(${(props) => props.theme.colors.menuBg});
   font-family: Lato-Bold, system-ui, Avenir, Helvetica, Arial, sans-serif;
 `;
 
