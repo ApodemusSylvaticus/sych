@@ -3,6 +3,7 @@ import { create } from 'zustand';
 export interface ITarget {
   value: string;
   src: string;
+  type: 'self' | 'target' | 'empty';
 }
 
 export type ITargetState = {
@@ -11,10 +12,10 @@ export type ITargetState = {
 
 const initialState: ITargetState = {
   targets: [
-    { src: '', value: 'default_enemy' },
-    { src: '', value: 'default_enemy_stock' },
-    { src: '', value: 'default_enemy_group' },
-    { src: '', value: 'default_enemy_artillery' },
+    { src: '', value: 'default_enemy', type: 'target' },
+    { src: '', value: 'default_enemy_stock', type: 'target' },
+    { src: '', value: 'default_enemy_group', type: 'target' },
+    { src: '', value: 'default_enemy_artillery', type: 'target' },
   ],
 };
 

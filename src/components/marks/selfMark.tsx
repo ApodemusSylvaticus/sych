@@ -29,20 +29,13 @@ export const LineMarker = React.memo(() => {
       <Vector
         name={'SelfMarker'}
         clampToGround={true}
-        onTouchStart={(e) => console.log('ss, ', e)}
-        onTouchMove={(e) => console.log('ss, ', e)}
-        onTouchEnd={(e) => console.log('ss, ', e)}
-        onDoubleTouch={(e) => console.log('ss, ', e)}
-        onMouseMove={(e) => console.log('ss, ', e)}
-        onTouchEnter={(e) => console.log('ss, ', e)}
-        onTouchLeave={(e) => console.log('ss, ', e)}
         onLclick={() => {
           openMarkerInfoModal({
             coords: selfMarker.coords,
             timeStamp: -1,
             notes: selfMarker.notes,
             tags: [],
-            target: { value: 'default_self', src: '' },
+            target: { value: 'default_self', src: '', type: 'self' },
           });
         }}
       >
@@ -52,9 +45,9 @@ export const LineMarker = React.memo(() => {
           lon={selfMarker.coords.lon}
           lat={selfMarker.coords.lat}
           alt={selfMarker.coords.alt}
-          properties={{ color: '#CF6679' }}
+          properties={{ color: '#9d2626' }}
         >
-          <Billboard size={[30, 30]} src={'./point.svg'} color={'#CF6679'} />
+          <Billboard size={[30, 30]} src={'./point.svg'} color={'#9d2626'} />
         </Entity>
       </Vector>
       <Vector name={'Direction'} key={rerenderKey}>

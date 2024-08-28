@@ -18,7 +18,7 @@ export interface JonGuiDataLrf {
   isScanning: boolean;
   isMeasuring: boolean;
   measureId: number;
-  target: JonGuiDataTarget | undefined;
+  a: JonGuiDataTarget | undefined;
   meteo: JonGuiDataMeteo | undefined;
 }
 

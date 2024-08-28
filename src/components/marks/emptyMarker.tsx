@@ -12,12 +12,20 @@ export const EmptyMarker: React.FC = React.memo(() => {
       {emptyMarkers.map((el) => (
         <Vector
           clampToGround={true}
-          onLclick={() => openMarkerInfoModal(el)}
+          onLclick={() =>
+            openMarkerInfoModal({
+              target: { value: 'default_empty', src: '', type: 'empty' },
+              coords: el.coord,
+              timeStamp: el.timeStamp,
+              tags: [],
+              notes: '',
+            })
+          }
           name={`${el.timeStamp}_${el.coord.lon}_${el.coord.lat}`}
           key={`${el.timeStamp}_${el.coord.lon}_${el.coord.lat}`}
         >
-          <Entity name={`${el.timeStamp}-el.timeStamp`} lon={el.coord.lon} lat={el.coord.lat} alt={0} properties={{ color: '#000002' }}>
-            <Billboard size={[30, 30]} src={'./point.svg'} color={'#000002'} />
+          <Entity name={`${el.timeStamp}-el.timeStamp`} lon={el.coord.lon} lat={el.coord.lat} alt={0} properties={{ color: 'rgb(74,74,74)' }}>
+            <Billboard size={[30, 30]} src={'./point.svg'} color={'rgb(74,74,74)'} />
           </Entity>
         </Vector>
       ))}

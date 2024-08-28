@@ -23,7 +23,7 @@ export const AddTargetModal: React.FC = () => {
   const [localLat, setLocalLat] = useState<string>(addNewTargetState.coords.lat.toString());
   const [localLon, setLocalLon] = useState<string>(addNewTargetState.coords.lon.toString());
   const [localAlt, setLocalAlt] = useState<string>(addNewTargetState.coords.alt.toString());
-  const [targetType, setTargetType] = useState<ITarget>({ value: '', src: '' });
+  const [targetType, setTargetType] = useState<ITarget>({ value: '', src: '', type: 'target' });
   const [notes, setNotes] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
   const { t } = useTranslation();

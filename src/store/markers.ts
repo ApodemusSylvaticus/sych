@@ -56,7 +56,16 @@ export const useMarkerStore = create<MarkersStore>((set) => ({
   sessionMarkers: [],
   filteredMarkers: [],
   setSelfCoord: (data: ICoord) => set((state) => ({ selfMarker: { ...state.selfMarker, coords: data } })),
-  emptyMarkers: [],
+  emptyMarkers: [
+    {
+      timeStamp: 500000,
+      coord: {
+        lon: 14,
+        lat: 50,
+        alt: 235,
+      },
+    },
+  ],
   setEmptyMarker: (data: IEmptyMarker) =>
     set((state) => {
       const updatedEmptyMarkers = [...state.emptyMarkers, data];
@@ -77,7 +86,18 @@ export const useMarkerStore = create<MarkersStore>((set) => ({
       const data: IMarker[] = localStorageData ? JSON.parse(localStorageData) : [];
 
       const localStorageEmptyData = localStorage.getItem(LocalStorage.EMPTY_MARKERS);
-      const emptyData: IEmptyMarker[] = localStorageEmptyData ? JSON.parse(localStorageEmptyData) : [];
+      const emptyData: IEmptyMarker[] = localStorageEmptyData
+        ? JSON.parse(localStorageEmptyData)
+        : [
+            {
+              timeStamp: 500000,
+              coord: {
+                lon: 14,
+                lat: 50,
+                alt: 235,
+              },
+            },
+          ];
 
       return {
         allMarkers: data,
