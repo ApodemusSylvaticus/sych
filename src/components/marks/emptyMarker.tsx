@@ -21,6 +21,15 @@ export const EmptyMarker: React.FC = React.memo(() => {
               notes: '',
             })
           }
+          onTouchEnd={() =>
+            openMarkerInfoModal({
+              target: { value: 'default_empty', src: '', type: 'empty' },
+              coords: el.coord,
+              timeStamp: el.timeStamp,
+              tags: [],
+              notes: '',
+            })
+          }
           name={`${el.timeStamp}_${el.coord.lon}_${el.coord.lat}`}
           key={`${el.timeStamp}_${el.coord.lon}_${el.coord.lat}`}
         >

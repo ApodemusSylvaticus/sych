@@ -38,6 +38,15 @@ export const LineMarker = React.memo(() => {
             target: { value: 'default_self', src: '', type: 'self' },
           });
         }}
+        onTouchEnd={() => {
+          openMarkerInfoModal({
+            coords: selfMarker.coords,
+            timeStamp: -1,
+            notes: selfMarker.notes,
+            tags: [],
+            target: { value: 'default_self', src: '', type: 'self' },
+          });
+        }}
       >
         <Entity
           name="Self Marker"

@@ -1,18 +1,14 @@
 import styled from 'styled-components';
 import { ClickableTabCss } from '../../clickableTab/style.ts';
 import { BaseColumnContainer } from '../../containers/style.ts';
-
-export const ContentWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-`;
+import { Button } from '../../button/style.ts';
 
 export const InvisibleComponent = styled(BaseColumnContainer)`
   position: absolute;
   padding: 1.6rem;
   opacity: 0;
   pointer-events: none;
+  width: min(80%, 450px);
 `;
 
 export const ContentContainer = styled(BaseColumnContainer)`
@@ -44,7 +40,7 @@ export const Container = styled.div<{ height: number }>`
   background-color: rgb(${(props) => props.theme.colors.primary});
   z-index: 3;
   border-radius: 8px;
-  min-width: min(80%, 420px);
+  min-width: min(80%, 450px);
   overflow: hidden;
   transition: height 0.3s linear;
   height: ${(props) => props.height}px;
@@ -69,4 +65,8 @@ export const TagTab = styled.div`
   color: rgb(${(props) => props.theme.colors.tabHover});
   background-color: rgba(${(props) => props.theme.colors.tabHover}, 0.3);
   cursor: auto;
+`;
+
+export const ChangeButton = styled(Button)`
+  margin-left: auto;
 `;

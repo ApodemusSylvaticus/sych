@@ -23,7 +23,6 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
         'lclick',
         (e) => {
           closePopup();
-          console.log('lclick', e);
 
           if (e.pickingObject && e.pickingObject.billboard) {
             return;
@@ -53,40 +52,27 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
         }
       });
 
-      // globe.renderer.events.on('touchstart', touchStart);
-
       globe.renderer.events.on('touchstart', (e) => {
-        console.log('touchstart', e);
-
-        // const eventSequence = ['mousedown', 'mouseup', 'click'];
-        //
-        // eventSequence.forEach((eventType) => {
-        //   const mouseEvent = new MouseEvent(eventType, {
-        //     view: window,
-        //     bubbles: true,
-        //     cancelable: true,
-        //     clientX: e.clientX,
-        //     clientY: e.clientY,
-        //     button: 0,
-        //     buttons: eventType === 'mousedown' ? 1 : 0,
-        //   });
-        //
-        //   // Отправляем событие на document
-        //   document.getElementById('canvas__globus2__')!.dispatchEvent(mouseEvent);
-        // });
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         touchRefStart.current = { x: e.clientX, y: e.clientY };
       });
 
       globe.renderer.events.on('touchend', (e) => {
-        console.log('touchend', e);
+        // console.log('touchend', e);
         const prevDxDy = touchRefStart.current;
         const dXdY = { x: e.clientX, y: e.clientY };
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         if (Math.abs(prevDxDy.x - dXdY.x) <= 5 && Math.abs(prevDxDy.y - dXdY.y) <= 5) {
+          closePopup();
+
+          if (e.pickingObject && e.pickingObject.billboard) {
+            return;
+          }
+
           const lonLat = globe.planet.getLonLatFromPixelTerrain(e);
+
           setTimeout(() => {
             if (lonLat) {
               openPopup({ dXdY, coords: { lon: lonLat.lon, lat: lonLat.lat, alt: lonLat.height } });
@@ -96,7 +82,7 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
       });
 
       globe.renderer.events.on('touchmove', (e) => {
-        console.log('touchmove', e);
+        // console.log('touchmove', e);
         if (isOpenRef.current) {
           closePopup();
         }
