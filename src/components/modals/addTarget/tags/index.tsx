@@ -5,11 +5,16 @@ import { useTagsStore } from '../../../../store/tags.ts';
 import { WithButtonInput } from '../../../input/withButtonInput.tsx';
 import { useTranslation } from 'react-i18next';
 
-export const Tags: React.FC<{ setTags: (value: string[]) => void }> = ({ setTags }) => {
+export const Tags: React.FC<{ tags: string[]; setTags: (value: string[]) => void }> = ({ tags, setTags }) => {
   const { tagsList, addTag } = useTagsStore((state) => ({ tagsList: state.tagsList, addTag: state.addTag }));
-  const [selectedList, setSelectedList] = useState<string[]>([]);
+  const [selectedList, setSelectedList] = useState<string[]>(tags);
   const [inputValue, setInputValue] = useState<string>('');
   const { t } = useTranslation();
+
+  useEffect(() => {
+    setSelectedList(tags);
+  }, [tags]);
+
   useEffect(() => {
     setTags(selectedList);
   }, [selectedList]);

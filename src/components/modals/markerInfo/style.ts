@@ -8,16 +8,23 @@ export const ContentWrapper = styled.div`
   height: 100%;
 `;
 
+export const InvisibleComponent = styled(BaseColumnContainer)`
+  position: absolute;
+  padding: 1.6rem;
+  opacity: 0;
+  pointer-events: none;
+`;
+
 export const ContentContainer = styled(BaseColumnContainer)`
   position: absolute;
   top: 0;
   left: 0;
   padding: 1.6rem;
   width: 100%;
-  height: 100%;
+  max-height: 100%;
   transition: opacity 0.15s linear;
   opacity: 0;
-  overflow: auto;
+  overflow-y: auto;
   pointer-events: none;
 
   &.active {
@@ -37,7 +44,7 @@ export const Container = styled.div<{ height: number }>`
   background-color: rgb(${(props) => props.theme.colors.primary});
   z-index: 3;
   border-radius: 8px;
-  min-width: min(80%, 320px);
+  min-width: min(80%, 420px);
   overflow: hidden;
   transition: height 0.3s linear;
   height: ${(props) => props.height}px;
