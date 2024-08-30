@@ -10,7 +10,6 @@ import { AddTargetModal } from './components/modals/addTarget';
 import { useTagsStore } from './store/tags.ts';
 import { useSettingsStore } from './store/settings.ts';
 import i18n from 'i18next';
-import { Layer } from './components/globus/layer';
 import { LineMarker } from './components/marks/selfMark.tsx';
 import { TargetMarks } from './components/marks/targetMarks.tsx';
 import { MarkerInfoModal } from './components/modals/markerInfo';
@@ -18,19 +17,22 @@ import { useMarkerStore } from './store/markers.ts';
 import { useBroadcast } from './hooks/useBroadcast.ts';
 import { EmptyMarker } from './components/marks/emptyMarker.tsx';
 import { WebSocketConnectionManager } from './mainApp/js/webSocketConnectionManager';
+import { XYZ } from '@openglobus/og';
+import { GeoImageComponent } from './components/globus/geoImage/input.tsx';
 
 function App(): JSX.Element {
   const { language, getLanguageFromLocalStorage } = useSettingsStore((state) => ({
     language: state.language,
     getLanguageFromLocalStorage: state.getLanguageFromLocalStorage,
   }));
-
+  const getTagsFromLocalStorage = useTagsStore((state) => state.getTagsFromLocalStorage);
   useBroadcast();
-  const getMarkersFromLocalStorage = useMarkerStore((state) => state.getMarkersFromLocalStorage);
+
+  const getMarkersFromDB = useMarkerStore((state) => state.getMarkersFromDB);
 
   useEffect(() => {
     const wscm = new WebSocketConnectionManager();
-    wscm.startWebSocketWorker('wss://sych.app/ws/ws_cmd/cmd/deviceState', 'cmd', 'deviceState');
+    wscm.startWebSocketWorker('wss://sych.app/ws/ws_cmd', 'cmd', 'deviceState');
 
     return () => {
       wscm.stopAllWebSocketWorkers();
@@ -42,12 +44,10 @@ function App(): JSX.Element {
     }
   }, [i18n, language]);
 
-  const getTagsFromLocalStorage = useTagsStore((state) => state.getTagsFromLocalStorage);
-
   useEffect(() => {
     getTagsFromLocalStorage();
     getLanguageFromLocalStorage();
-    getMarkersFromLocalStorage();
+    getMarkersFromDB();
   }, []);
 
   return (
@@ -55,11 +55,26 @@ function App(): JSX.Element {
       <MainContainer>
         <GlobeContextProvider>
           <EventHandlerWrapper>
-            <Globe name="myGlobe">
-              <Layer />
+            <Globe
+              name="myGlobe"
+              layers={[
+                new XYZ('OpenStreetMap', {
+                  isBaseLayer: true,
+
+                  // url: 'https://sych.app/api/map/osm/tile/{z}/{x}/{y}.png',
+                  url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  visibility: true,
+                  attribution: 'Data @ OpenStreetMap contributors, ODbL',
+                  // urlRewrite: function (s: TileInfo, u: string) {
+                  //   return `https://sych.app/api/map/osm/tile/${s.tileZoom}/${s.tileX}/${s.tileY}.png`;
+                  // },
+                }),
+              ]}
+            >
               <LineMarker />
               <TargetMarks />
               <EmptyMarker />
+              <GeoImageComponent />
             </Globe>
           </EventHandlerWrapper>
           <MenuManipulationButton />

@@ -10,6 +10,7 @@ import { IMarker, useMarkerStore } from '../../../store/markers.ts';
 import { usePopupStore } from '../../../store/popup.ts';
 import { useTranslation } from 'react-i18next';
 import { ColumnContainer } from '../../filters/style.ts';
+import { Button } from '../../button/style.ts';
 
 export const AddTargetModal: React.FC = () => {
   const { addNewTargetState, closeNewTargetModal } = useModalStore((state) => ({
@@ -33,7 +34,15 @@ export const AddTargetModal: React.FC = () => {
     <BaseModal id={'add_new_target'} closeAction={closeNewTargetModal} isOpen={addNewTargetState.isOpen}>
       <AddTargetForm
         saveAction={onButtonClick}
-        marker={{ timeStamp: 0, tags: [], notes: '', coords: addNewTargetState.coords, target: { src: '', value: '', type: 'target' } }}
+        marker={{
+          files: [],
+          timeStamp: 0,
+          tags: [],
+          notes: '',
+          coords: addNewTargetState.coords,
+          target: { src: '', value: '', type: 'target' },
+          uniqKey: '',
+        }}
       />
     </BaseModal>
   );
@@ -51,15 +60,17 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
   const [targetType, setTargetType] = useState<ITarget>(marker.target.type === 'empty' ? { value: '', src: '', type: 'target' } : marker.target);
   const [notes, setNotes] = useState<string>(marker.notes);
   const [tags, setTags] = useState<string[]>(marker.tags);
+  const [images, setImages] = useState<string[]>([]);
   const { t } = useTranslation();
 
   useEffect(() => {
     setLocalAlt(marker.coords.alt.toString());
     setLocalLat(marker.coords.lat.toString());
     setLocalLon(marker.coords.lon.toString());
-    setTargetType(marker.target.type === 'empty' ? { value: '', src: '', type: 'target' } : marker.target);
+    setTargetType(marker.target.type === 'empty' ? { value: 'default_enemy', src: '', type: 'target' } : marker.target);
     setNotes(marker.notes);
     setTags(marker.tags);
+    setImages(marker.files);
   }, [marker]);
 
   const validateAndSetValue = useCallback((value: string, setter: React.Dispatch<React.SetStateAction<string>>, min: number, max: number) => {
@@ -117,9 +128,41 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
     },
     [handleInputChange],
   );
+
+  const handleImageUpload = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e: Event) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const base64 = event.target?.result as string;
+          setImages((prevImages) => [...prevImages, base64]);
+        };
+        reader.readAsDataURL(file);
+      }
+      input.remove();
+    };
+    input.onblur = () => {
+      input.remove();
+    };
+    input.click();
+  }, []);
+
   const onButtonClick = useCallback(() => {
-    saveAction({ notes, tags, target: targetType, coords: { lon: +localLon, alt: +localAlt, lat: +localLat }, timeStamp: marker.timeStamp });
-  }, [notes, saveAction, tags, targetType, localLon, localAlt, localLat, marker]);
+    const localTimestamp = new Date().toISOString();
+    saveAction({
+      notes,
+      tags,
+      target: targetType,
+      coords: { lon: +localLon, alt: +localAlt, lat: +localLat },
+      timeStamp: marker.timeStamp,
+      uniqKey: `${localTimestamp}_${localLat}_${localLon}`,
+      files: images,
+    });
+  }, [notes, saveAction, tags, targetType, localLon, localAlt, localLat, marker, images]);
 
   return (
     <ColumnContainer>
@@ -132,6 +175,22 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
       <Tags tags={tags} setTags={setTags} />
 
       <TextArea id={'notes'} label={t('default_notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />
+
+      <Button onClick={handleImageUpload}>{t('upload_image')}</Button>
+
+      {images.length > 0 && (
+        <div>
+          {images.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`Uploaded ${index + 1}`}
+              style={{ width: '100px', height: '100px', objectFit: 'cover', margin: '5px' }}
+            />
+          ))}
+        </div>
+      )}
+
       <SaveButton onClick={onButtonClick}>{t('default_save')}</SaveButton>
     </ColumnContainer>
   );

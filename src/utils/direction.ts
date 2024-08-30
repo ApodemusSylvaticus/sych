@@ -80,26 +80,79 @@ const calculateNorthVector = (cartesianPoint: Vec3, ellipsoid: any): Vec3 => {
   return new Vec3(-sinφ * cosλ, -sinφ * sinλ, cosφ).normalize();
 };
 
-export const calculateEndPoint = (context: GlobeContextProps, startPoint: LonLat, direction: number, length: number): LonLat => {
-  // Convert start point to cartesian coordinates
+export const calculateEndPoint = (context: GlobeContextProps, startPoint: LonLat, azimuth: number, length: number): LonLat => {
   const globe = context.globe;
   if (globe === null) {
     throw new Error('globe must be a globe');
   }
+
+  // Преобразуем азимут из градусов в радианы
+  const azimuthRad = (azimuth * Math.PI) / 180;
+
+  // Преобразуем начальную точку в декартовы координаты
   const startCartesian = globe.planet.ellipsoid.lonLatToCartesian(startPoint);
 
-  // Calculate direction vector in ECEF coordinates
+  // Вычисляем вектор направления на север
   const northVector = calculateNorthVector(startCartesian, globe.planet.ellipsoid);
-  const eastVector = northVector.cross(new Vec3(0, 0, 1)).normalize();
-  const directionVector = eastVector.scale(Math.cos(direction)).add(northVector.scale(Math.sin(direction)));
 
-  // Scale the direction vector by the length
+  // Вычисляем вектор направления на восток
+  const eastVector = northVector.cross(new Vec3(0, 0, 1)).normalize();
+
+  // Вычисляем вектор направления азимута
+  // Обратите внимание на изменение порядка: сначала восток, потом север
+  const directionVector = eastVector.scale(Math.sin(azimuthRad)).add(northVector.scale(Math.cos(azimuthRad)));
+
+  // Масштабируем вектор направления на длину
   const displacement = directionVector.scale(length);
 
-  // Add the displacement to the start point
+  // Добавляем смещение к начальной точке
   const endCartesian = startCartesian.add(displacement);
 
-  // Convert end point back to LonLat
+  // Преобразуем конечную точку обратно в LonLat
   return globe.planet.ellipsoid.cartesianToLonLat(endCartesian);
 };
-// /////////////////////
+function normalizeAngle(angle) {
+  angle = angle % 360;
+  if (angle < 0) {
+    angle += 360;
+  }
+  return angle;
+}
+
+export const calculateEndPointByAzimuth = (startPoint: LonLat, azimuth: number, length: number): LonLat => {
+  azimuth = normalizeAngle(azimuth);
+  const R = 6371000;
+  const d = length / R;
+  const lat1 = (startPoint.lat * Math.PI) / 180;
+  const lon1 = (startPoint.lon * Math.PI) / 180;
+  const bearing = (azimuth * Math.PI) / 180;
+
+  let lat2 = Math.asin(Math.sin(lat1) * Math.cos(d) + Math.cos(lat1) * Math.sin(d) * Math.cos(bearing));
+  let lon2 = lon1 + Math.atan2(Math.sin(bearing) * Math.sin(d) * Math.cos(lat1), Math.cos(d) - Math.sin(lat1) * Math.sin(lat2));
+
+  lat2 = (lat2 * 180) / Math.PI;
+  lon2 = (lon2 * 180) / Math.PI;
+
+  return new LonLat(lon2, lat2);
+};
+
+export function generateIntermediatePoints(startLon, startLat, endLon, endLat) {
+  const totalPoints = 11;
+  const gapRatio = 0.3;
+
+  const points = [];
+
+  for (let i = 0; i < totalPoints; i++) {
+    const t = i / (totalPoints - 1);
+    const adjustedT = t / (1 + gapRatio) + (i > 0 ? gapRatio / (1 + gapRatio) : 0);
+
+    const lon = startLon + adjustedT * (endLon - startLon);
+    const lat = startLat + adjustedT * (endLat - startLat);
+
+    const normalizedLon = ((((lon + 180) % 360) + 360) % 360) - 180;
+
+    points.push({ lon: normalizedLon, lat: Math.max(-90, Math.min(90, lat)) });
+  }
+
+  return points;
+}

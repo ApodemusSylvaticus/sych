@@ -19,6 +19,8 @@ export const EmptyMarker: React.FC = React.memo(() => {
               timeStamp: el.timeStamp,
               tags: [],
               notes: '',
+              files: [],
+              uniqKey: '',
             })
           }
           onTouchEnd={() =>
@@ -28,12 +30,21 @@ export const EmptyMarker: React.FC = React.memo(() => {
               timeStamp: el.timeStamp,
               tags: [],
               notes: '',
+              files: [],
+              uniqKey: '',
             })
           }
           name={`${el.timeStamp}_${el.coord.lon}_${el.coord.lat}`}
           key={`${el.timeStamp}_${el.coord.lon}_${el.coord.lat}`}
         >
-          <Entity name={`${el.timeStamp}-el.timeStamp`} lon={el.coord.lon} lat={el.coord.lat} alt={0} properties={{ color: 'rgb(74,74,74)' }}>
+          <Entity
+            key={`${el.timeStamp}_${el.coord.lon}_${el.coord.lat}`}
+            name={`${el.timeStamp}-el.timeStamp`}
+            lon={el.coord.lon}
+            lat={el.coord.lat}
+            alt={0}
+            properties={{ color: 'rgb(74,74,74)' }}
+          >
             <Billboard size={[30, 30]} src={'./point.svg'} color={'rgb(74,74,74)'} />
           </Entity>
         </Vector>

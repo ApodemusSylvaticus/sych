@@ -113,8 +113,8 @@ export const MarkerInfoModal: React.FC = () => {
               <TextArea id={'notes_info'} label={t('default_notes')} value={markerInfoModalState.marker.notes} disabled />
             </>
           )}
-          {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>Edit</ChangeButton>}
-          {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>Fill</ChangeButton>}
+          {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
+          {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
         </ContentContainer>
 
         <ContentContainer className={!isChangeable ? 'inactive' : 'active'}>
@@ -145,8 +145,8 @@ export const MarkerInfoModal: React.FC = () => {
             <TextArea id={'notes_info'} label={t('default_notes')} value={markerInfoModalState.marker.notes} disabled />
           </>
         )}
-        {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>Edit</ChangeButton>}
-        {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>Fill</ChangeButton>}
+        {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
+        {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
       </InvisibleComponent>
       <InvisibleComponent ref={editContentRef}>
         <AddTargetForm saveAction={saveAction} marker={{ ...markerInfoModalState.marker }} />

@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { ITarget } from './target.ts';
 import { LocalStorage } from '../interface/localStorage.ts';
+import { targetsDB } from '../utils/targetsDB.ts';
 
 export interface ICoord {
   lon: number;
@@ -14,6 +15,8 @@ export interface IMarker {
   tags: string[];
   timeStamp: number;
   notes: string;
+  uniqKey: string;
+  files: string[];
 }
 
 export interface IEmptyMarker {
@@ -34,12 +37,13 @@ export interface MarkersStore {
   sessionMarkers: IMarker[];
   filteredMarkers: IMarker[];
   setSelfCoord: (data: ICoord) => void;
+  cleanAll: () => Promise<void>;
   setEmptyMarker: (markers: IEmptyMarker) => void;
   setFilteredMarkers: (value: IMarker[]) => void;
-  updateMarker: (marker: IMarker) => void;
-  fillEmptyMarker: (marker: IMarker) => void;
-  addMarker: (marker: IMarker) => void;
-  getMarkersFromLocalStorage: () => void;
+  updateMarker: (marker: IMarker) => Promise<void>;
+  fillEmptyMarker: (marker: IMarker) => Promise<void>;
+  addMarker: (marker: IMarker) => Promise<void>;
+  getMarkersFromDB: () => Promise<void>;
 }
 
 export const useMarkerStore = create<MarkersStore>((set) => ({
@@ -55,75 +59,67 @@ export const useMarkerStore = create<MarkersStore>((set) => ({
   allMarkers: [],
   sessionMarkers: [],
   filteredMarkers: [],
-  setSelfCoord: (data: ICoord) => set((state) => ({ selfMarker: { ...state.selfMarker, coords: data } })),
-  emptyMarkers: [
-    {
-      timeStamp: 500000,
-      coord: {
-        lon: 14,
-        lat: 50,
-        alt: 235,
-      },
-    },
-  ],
+  emptyMarkers: [],
+
+  setSelfCoord: (data: ICoord) =>
+    set((state) => ({
+      selfMarker: { ...state.selfMarker, coords: data },
+    })),
+
+  cleanAll: async () => {
+    localStorage.removeItem(LocalStorage.EMPTY_MARKERS);
+    await targetsDB.clearAllMarkers();
+    set({ allMarkers: [], emptyMarkers: [], sessionMarkers: [] });
+  },
+
   setEmptyMarker: (data: IEmptyMarker) =>
     set((state) => {
       const updatedEmptyMarkers = [...state.emptyMarkers, data];
       localStorage.setItem(LocalStorage.EMPTY_MARKERS, JSON.stringify(updatedEmptyMarkers));
       return { emptyMarkers: updatedEmptyMarkers };
     }),
-  addMarker: (marker: IMarker) =>
-    set((state) => {
-      const newData = [...state.allMarkers, marker];
-      localStorage.setItem(LocalStorage.MARKERS, JSON.stringify(newData));
-      return { allMarkers: newData, sessionMarkers: [...state.sessionMarkers, marker] };
-    }),
+
+  addMarker: async (marker: IMarker) => {
+    await targetsDB.addMarker(marker);
+    set((state) => ({
+      allMarkers: [...state.allMarkers, marker],
+      sessionMarkers: [...state.sessionMarkers, marker],
+    }));
+  },
+
   setFilteredMarkers: (value: IMarker[]) => set({ filteredMarkers: value }),
 
-  getMarkersFromLocalStorage: () =>
-    set(() => {
-      const localStorageData = localStorage.getItem(LocalStorage.MARKERS);
-      const data: IMarker[] = localStorageData ? JSON.parse(localStorageData) : [];
+  getMarkersFromDB: async () => {
+    const data = await targetsDB.getMarkers();
+    const localStorageEmptyData = localStorage.getItem(LocalStorage.EMPTY_MARKERS);
+    const emptyData: IEmptyMarker[] = localStorageEmptyData ? JSON.parse(localStorageEmptyData) : [];
 
-      const localStorageEmptyData = localStorage.getItem(LocalStorage.EMPTY_MARKERS);
-      const emptyData: IEmptyMarker[] = localStorageEmptyData
-        ? JSON.parse(localStorageEmptyData)
-        : [
-            {
-              timeStamp: 500000,
-              coord: {
-                lon: 14,
-                lat: 50,
-                alt: 235,
-              },
-            },
-          ];
+    set({
+      allMarkers: data,
+      emptyMarkers: emptyData,
+    });
+  },
 
-      return {
-        allMarkers: data,
-        emptyMarkers: emptyData,
-      };
-    }),
+  updateMarker: async (updatedMarker: IMarker) => {
+    await targetsDB.updateMarker(updatedMarker);
+    set((state) => ({
+      allMarkers: state.allMarkers.map((marker) => (marker.timeStamp === updatedMarker.timeStamp ? updatedMarker : marker)),
+      sessionMarkers: state.sessionMarkers.map((marker) => (marker.timeStamp === updatedMarker.timeStamp ? updatedMarker : marker)),
+    }));
+  },
 
-  updateMarker: (updatedMarker: IMarker) =>
-    set((state) => {
-      const updatedMarkers = state.allMarkers.map((marker) => (marker.timeStamp === updatedMarker.timeStamp ? updatedMarker : marker));
-      localStorage.setItem(LocalStorage.MARKERS, JSON.stringify(updatedMarkers));
-      return {
-        allMarkers: updatedMarkers,
-        sessionMarkers: state.sessionMarkers.map((marker) => (marker.timeStamp === updatedMarker.timeStamp ? updatedMarker : marker)),
-      };
-    }),
-  fillEmptyMarker: (filledMarker: IMarker) =>
+  fillEmptyMarker: async (filledMarker: IMarker) => {
+    await targetsDB.addMarker(filledMarker);
+
     set((state) => {
       const updatedEmptyMarkers = state.emptyMarkers.filter((emptyMarker) => emptyMarker.timeStamp !== filledMarker.timeStamp);
-      const updatedAllMarkers = [...state.allMarkers, filledMarker];
-      localStorage.setItem(LocalStorage.MARKERS, JSON.stringify(updatedAllMarkers));
       localStorage.setItem(LocalStorage.EMPTY_MARKERS, JSON.stringify(updatedEmptyMarkers));
+
       return {
         emptyMarkers: updatedEmptyMarkers,
-        allMarkers: updatedAllMarkers,
+        allMarkers: [...state.allMarkers, filledMarker],
         sessionMarkers: [...state.sessionMarkers, filledMarker],
       };
-    }),
+    });
+  },
 }));

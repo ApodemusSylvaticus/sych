@@ -13,6 +13,8 @@ export const TargetType: React.FC<{ target: ITarget; setTargetType: (value: ITar
     const index = targets.findIndex((el) => el.value === target.value);
     if (index !== -1) {
       setSelected(targets[index]);
+    } else {
+      setSelected(targets[0]);
     }
   }, [target, targets]);
 

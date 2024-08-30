@@ -11,4 +11,16 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
+  build: {
+    minify: false,
+    terserOptions: {
+      compress: false,
+      mangle: false,
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
 });

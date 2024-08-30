@@ -31,7 +31,14 @@
       "default_notes": "Notes",
       "default_save": "Save",
       "default_add_new_tag": "Add new tag",
-      "default_self": "My location"
+      "default_self": "My location",
+      "default_empty": "Not assigned",
+      "default_fill": "Fill data",
+      "default_edit": "Edit",
+      "default_delete_all_markers": "Delete all markers",
+      "default_are_you_sure": "Are you sure?",
+      "default_accept": "Accept",
+      "default_reject": "Reject"
     }
   },
   "ua": {
@@ -66,7 +73,14 @@
       "default_notes": "Примітки",
       "default_save": "Зберегти",
       "default_add_new_tag": "Додати тег",
-      "default_self": "Моє місцезнаходження"
+      "default_self": "Моє місцезнаходження",
+      "default_empty": "Невизначена ціль",
+      "default_fill": "Заповнити данні",
+      "default_edit": "Змінити",
+      "default_delete_all_markers": "Delete all markers",
+      "default_are_you_sure": "Are you sure?",
+      "default_accept": "Accept",
+      "default_reject": "Reject"
     }
   },
   "languageSimbolArray": [
