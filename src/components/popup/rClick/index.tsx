@@ -138,9 +138,9 @@ export const RClickPopup: React.FC = React.memo(() => {
         <span>
           {t('default_lon')}: {coords.lon}
         </span>
-        <span>
-          {t('default_alt')}: {coords.alt}
-        </span>
+        {/* <span>*/}
+        {/*  {t('default_alt')}: {coords.alt}*/}
+        {/* </span>*/}
       </PaddingContainer>
       <Divider />
 

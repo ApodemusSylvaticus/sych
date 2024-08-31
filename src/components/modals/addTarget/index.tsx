@@ -4,13 +4,14 @@ import { useModalStore } from '../../../store/modals.ts';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Tags } from './tags';
 import { TargetType } from './targetType';
-import { SaveButton } from '../style.ts';
+import { ImgCard, ImgContainer, ImgWrapper, RemoveImgButton, SaveButton } from '../style.ts';
 import { ITarget } from '../../../store/target.ts';
 import { IMarker, useMarkerStore } from '../../../store/markers.ts';
 import { usePopupStore } from '../../../store/popup.ts';
 import { useTranslation } from 'react-i18next';
 import { ColumnContainer } from '../../filters/style.ts';
 import { Button } from '../../button/style.ts';
+import { CardName, Container } from './tags/style.ts';
 
 export const AddTargetModal: React.FC = () => {
   const { addNewTargetState, closeNewTargetModal } = useModalStore((state) => ({
@@ -56,15 +57,19 @@ interface AddTargetFormProps {
 export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction }) => {
   const [localLat, setLocalLat] = useState<string>(marker.coords.lat.toString());
   const [localLon, setLocalLon] = useState<string>(marker.coords.lon.toString());
-  const [localAlt, setLocalAlt] = useState<string>(marker.coords.alt.toString());
+  const [localAlt, setLocalAlt] = useState<string>('0');
   const [targetType, setTargetType] = useState<ITarget>(marker.target.type === 'empty' ? { value: '', src: '', type: 'target' } : marker.target);
   const [notes, setNotes] = useState<string>(marker.notes);
   const [tags, setTags] = useState<string[]>(marker.tags);
   const [images, setImages] = useState<string[]>([]);
   const { t } = useTranslation();
 
+  const handleRemoveImg = useCallback((file: string) => {
+    setImages((prev) => prev.filter((el) => el !== file));
+  }, []);
+
   useEffect(() => {
-    setLocalAlt(marker.coords.alt.toString());
+    setLocalAlt('0');
     setLocalLat(marker.coords.lat.toString());
     setLocalLon(marker.coords.lon.toString());
     setTargetType(marker.target.type === 'empty' ? { value: 'default_enemy', src: '', type: 'target' } : marker.target);
@@ -168,7 +173,7 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
     <ColumnContainer>
       <TextField id={'lat'} label={t('default_lat')} value={localLat} onChange={onLatChange} />
       <TextField id={'lon'} label={t('default_lon')} value={localLon} onChange={onLonChange} />
-      <TextField id={'alt'} label={t('default_alt')} value={localAlt} onChange={onAltChange} />
+      {/* <TextField id={'alt'} label={t('default_alt')} value={localAlt} onChange={onAltChange} />*/}
 
       <TargetType target={targetType} setTargetType={setTargetType} />
 
@@ -176,19 +181,21 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
 
       <TextArea id={'notes'} label={t('default_notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />
 
-      <Button onClick={handleImageUpload}>{t('upload_image')}</Button>
+      {images.length === 0 && <Button onClick={handleImageUpload}>{t('upload_image')}</Button>}
 
       {images.length > 0 && (
-        <div>
-          {images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Uploaded ${index + 1}`}
-              style={{ width: '100px', height: '100px', objectFit: 'cover', margin: '5px' }}
-            />
-          ))}
-        </div>
+        <Container>
+          <CardName>Pinned photo</CardName>
+          <ImgContainer>
+            {images.map((image, index) => (
+              <ImgWrapper>
+                <ImgCard key={index} src={image} alt={`Uploaded ${index + 1}`}></ImgCard>
+                <RemoveImgButton onClick={() => handleRemoveImg(image)} />
+              </ImgWrapper>
+            ))}
+          </ImgContainer>
+          <Button onClick={handleImageUpload}>{t('upload_image')}</Button>
+        </Container>
       )}
 
       <SaveButton onClick={onButtonClick}>{t('default_save')}</SaveButton>

@@ -1,12 +1,11 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useGeoImgsStore } from '../../../store/geoImgs.ts';
 import { SubmitButton } from '../style.ts';
 import { BaseModal } from '../../modals';
 import { useTranslation } from 'react-i18next';
 import { TextField } from '../../input';
-import { ManagerContainer, Container, TextFieldsContainer, ImgCardsContainer, ContainerCardName } from './style.ts';
+import { ManagerContainer, Container, TextFieldsContainer, ImgCardsContainer, ContainerCardName, SaveButton, ActiveButton } from './style.ts';
 import { CardName } from '../../modals/addTarget/tags/style.ts';
-import { Button } from '../../button/style.ts';
 import { GeoImgCard } from './geoImgCard.tsx';
 import styled from 'styled-components';
 
@@ -75,8 +74,21 @@ export const AddNewGeoImgModal: React.FC<{ isOpen: boolean; close: () => void }>
     fileInputRef.current?.click();
   }, []);
 
+  const areCornersValid = useMemo(
+    () =>
+      !isNaN(parseFloat(corners.topLeft.lon)) &&
+      !isNaN(parseFloat(corners.topLeft.lat)) &&
+      !isNaN(parseFloat(corners.topRight.lon)) &&
+      !isNaN(parseFloat(corners.topRight.lat)) &&
+      !isNaN(parseFloat(corners.bottomRight.lon)) &&
+      !isNaN(parseFloat(corners.bottomRight.lat)) &&
+      !isNaN(parseFloat(corners.bottomLeft.lon)) &&
+      !isNaN(parseFloat(corners.bottomLeft.lat)),
+    [corners],
+  );
+
   const handleSubmit = useCallback(() => {
-    if (image) {
+    if (image && areCornersValid) {
       const newImg = {
         uniqKey: `img_${Date.now()}`,
         src: image,
@@ -90,13 +102,13 @@ export const AddNewGeoImgModal: React.FC<{ isOpen: boolean; close: () => void }>
       addImg(newImg);
       close();
     }
-  }, [image, corners, addImg]);
+  }, [image, corners, addImg, areCornersValid]);
 
   return (
     <BaseModal isOpen={isOpen} closeAction={close} id={'add_new_geo_img'}>
       <Container>
         <input type="file" ref={fileInputRef} style={{ display: 'none' }} accept="image/*" onChange={handleImageUpload} />
-        <Button onClick={handleSetImgClick}>Set img</Button>
+        <ActiveButton onClick={handleSetImgClick}>Set img</ActiveButton>
         {image && (
           <ImageContainer>
             <StyledImage src={image} alt="Current" />
@@ -170,7 +182,9 @@ export const AddNewGeoImgModal: React.FC<{ isOpen: boolean; close: () => void }>
             onChange={(e) => handleCornerChange('bottomLeft', 'lat', e.target.value)}
           />
         </TextFieldsContainer>
-        <Button onClick={handleSubmit}>Save Image</Button>
+        <SaveButton isDisabled={!areCornersValid || image === null || image === ''} onClick={handleSubmit}>
+          Save Image
+        </SaveButton>
       </Container>
     </BaseModal>
   );

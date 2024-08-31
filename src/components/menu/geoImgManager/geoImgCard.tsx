@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { IGeoImg, useGeoImgsStore } from '../../../store/geoImgs.ts';
-import { Container, ImgCard, ImgCardDisabledTab, TextFieldsContainer } from './style.ts';
+import { ActiveButton, Container, ImgCard, ImgCardDisabledTab, TextFieldsContainer } from './style.ts';
 import { useTranslation } from 'react-i18next';
 import { BaseModal } from '../../modals';
-import { Button } from '../../button/style.ts';
+import { Button, DeleteButton } from '../../button/style.ts';
 import { CardName } from '../../modals/addTarget/tags/style.ts';
 import { TextField } from '../../input';
 import styled from 'styled-components';
@@ -121,7 +121,7 @@ export const GeoImgModal: React.FC<{ isOpen: boolean; close: () => void; data: I
       <BaseModal isOpen={isOpen} closeAction={close} id={'edit_geo_img'}>
         <Container>
           <input type="file" ref={fileInputRef} style={{ display: 'none' }} accept="image/*" onChange={handleImageUpload} />
-          <Button onClick={handleSetImgClick}>Change image</Button>
+          <ActiveButton onClick={handleSetImgClick}>Change image</ActiveButton>
           {image && (
             <ImageContainer>
               <StyledImage src={image} alt="Current" />
@@ -195,16 +195,17 @@ export const GeoImgModal: React.FC<{ isOpen: boolean; close: () => void; data: I
               onChange={(e) => handleCornerChange('bottomLeft', 'lat', e.target.value)}
             />
           </TextFieldsContainer>
-          <Button onClick={handleSubmit}>Update Data</Button>
-          <Button onClick={handleOpenDeleteModal}>Delete Img</Button>
-          <Button onClick={handleChangeIsShown}>Disable this geo Img</Button>
+          <ActiveButton onClick={handleSubmit}>Update Data</ActiveButton>
+          <ActiveButton onClick={handleChangeIsShown}>{data.isShown ? 'Disable this geo Img' : 'Enable this geo img'}</ActiveButton>
+
+          <DeleteButton onClick={handleOpenDeleteModal}>Delete Img</DeleteButton>
         </Container>
       </BaseModal>
 
       <BaseModal id={'clean_geo_img'} isOpen={isDeleteModalOpen} closeAction={handleCloseDeleteModal}>
         <Question>{t('default_are_you_sure')}</Question>
         <ButtonsContainer>
-          <Button onClick={handleDelete}>{t('default_accept')}</Button>
+          <DeleteButton onClick={handleDelete}>{t('default_accept')}</DeleteButton>
           <Button onClick={handleCloseDeleteModal}>{t('default_reject')}</Button>
         </ButtonsContainer>
       </BaseModal>

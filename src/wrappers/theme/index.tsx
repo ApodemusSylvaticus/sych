@@ -11,6 +11,8 @@ interface ThemeInterface extends DefaultTheme {
     tabDefault: string;
     tabActive: string;
     tabHover: string;
+    error: string;
+    errorHover: string;
   };
   fonts: {
     main: string;
@@ -25,6 +27,8 @@ const theme: ThemeInterface = {
     tabActive: '34, 115, 93',
     tabHover: '27, 84, 69',
     tabDefault: '70, 69, 69',
+    error: '180, 35, 35',
+    errorHover: '150, 35, 35',
   },
   fonts: {
     main: 'Arial, sans-serif',

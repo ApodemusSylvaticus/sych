@@ -12,10 +12,26 @@ export const Button = styled.button`
   transition: background-color 0.3s;
   color: rgb(${(props) => props.theme.colors.primary});
   outline: none;
-
+  &:active {
+    background-color: rgb(${(props) => props.theme.colors.tabHover});
+  }
   @media (hover: hover) {
     &:hover {
       background-color: rgb(${(props) => props.theme.colors.tabHover});
+    }
+  }
+`;
+
+export const DeleteButton = styled(Button)`
+  background-color: rgb(${(props) => props.theme.colors.error});
+
+  &:active {
+    background-color: rgb(${(props) => props.theme.colors.errorHover});
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: rgb(${(props) => props.theme.colors.errorHover});
     }
   }
 `;

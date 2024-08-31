@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { BaseColumnContainer, BaseRowContainer } from '../../containers/style.ts';
 import { CardName } from '../../filters/style.ts';
+import { Button } from '../../button/style.ts';
 
 export const Container = styled(BaseColumnContainer)`
   gap: 1.6rem;
@@ -66,4 +67,30 @@ export const ImgCardDisabledTab = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
+`;
+
+export const ActiveButton = styled(Button)`
+  background: rgb(${(props) => props.theme.colors.tabActive});
+`;
+
+interface SaveButtonProps {
+  isDisabled: boolean;
+}
+
+export const SaveButton = styled(Button)<SaveButtonProps>`
+  ${(props) =>
+    props.isDisabled === true
+      ? css`
+          pointer-events: none; /* Отключаем все события на кнопке */
+          cursor: default; /* Меняем курсор на стандартный */
+
+          &:hover,
+          &:active {
+            background-color: initial; /* Убираем фон при наведении и активации */
+            color: initial; /* Убираем изменение цвета текста */
+          }
+        `
+      : css`
+          background: rgb(${(props) => props.theme.colors.tabActive});
+        `};
 `;

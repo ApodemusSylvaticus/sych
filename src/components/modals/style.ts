@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Button } from '../button/style.ts';
+import { CloseButton } from '../popup/rClick/style.ts';
 
 export const OpacityFullSizeContainer = styled.div`
   position: absolute;
@@ -45,4 +46,27 @@ export const SaveButton = styled(Button)`
       background-color: rgb(${(props) => props.theme.colors.tabHover});
     }
   }
+`;
+
+export const ImgContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8rem;
+`;
+
+export const ImgCard = styled.img`
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 1/1;
+`;
+
+export const ImgWrapper = styled.div`
+  position: relative;
+`;
+
+export const RemoveImgButton = styled(CloseButton)`
+  top: 0;
+  right: 0;
+  background: rgb(${(props) => props.theme.colors.menuBg});
+  border-radius: 0;
 `;

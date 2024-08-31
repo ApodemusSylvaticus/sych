@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { BaseModalWithoutContainer } from '../index.tsx';
 import { useModalStore } from '../../../store/modals.ts';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,7 @@ import { LastElemWrapper } from '../addTarget/tags/style.ts';
 import { TextArea } from '../../input';
 import { AddTargetForm } from '../addTarget';
 import { IMarker, useMarkerStore } from '../../../store/markers.ts';
+import { ImgCard, ImgContainer } from '../style.ts';
 
 const formatDate = (date: Date): string => {
   const day = date.getDate().toString().padStart(2, '0');
@@ -27,7 +28,7 @@ export const MarkerInfoModal: React.FC = () => {
   }));
 
   const { fillEmptyMarker, updateMarker } = useMarkerStore((state) => ({ updateMarker: state.updateMarker, fillEmptyMarker: state.fillEmptyMarker }));
-
+  const [fullSizeImgState, setFullSizeImgState] = useState<{ isOpen: boolean; file: string }>({ isOpen: false, file: '' });
   const { t } = useTranslation();
   const [isChangeable, setIsChangeable] = useState<boolean>(false);
   const [containerHeight, setContainerHeight] = useState<number>(0);
@@ -87,6 +88,14 @@ export const MarkerInfoModal: React.FC = () => {
     toggleChangeable();
   };
 
+  const handleImgClick = useCallback((file: string) => {
+    setFullSizeImgState({ file, isOpen: true });
+  }, []);
+
+  const handleCloseFullSizeImg = useCallback(() => {
+    setFullSizeImgState({ isOpen: false, file: '' });
+  }, []);
+
   return (
     <BaseModalWithoutContainer isOpen={markerInfoModalState.isOpen} closeAction={closeMarkerInfoModal} id={'markerInfoModal'}>
       <Container height={containerHeight}>
@@ -101,9 +110,9 @@ export const MarkerInfoModal: React.FC = () => {
             <CoordSpan>
               {t('default_lon')}: {markerInfoModalState.marker.coords.lon}
             </CoordSpan>
-            <CoordSpan>
-              {t('default_alt')}: {markerInfoModalState.marker.coords.alt}
-            </CoordSpan>
+            {/* <CoordSpan>*/}
+            {/*  {t('default_alt')}: {markerInfoModalState.marker.coords.alt}*/}
+            {/* </CoordSpan>*/}
           </BaseColumnContainer>
 
           <BaseRowContainerWithWrap>{memoizedTargets}</BaseRowContainerWithWrap>
@@ -112,6 +121,13 @@ export const MarkerInfoModal: React.FC = () => {
               <div />
               <TextArea id={'notes_info'} label={t('default_notes')} value={markerInfoModalState.marker.notes} disabled />
             </>
+          )}
+          {markerInfoModalState.marker.files.length !== 0 && (
+            <ImgContainer>
+              {markerInfoModalState.marker.files.map((el, index) => (
+                <ImgCard onClick={() => handleImgClick(el)} key={index} src={el} alt={`Uploaded ${index + 1}`} />
+              ))}
+            </ImgContainer>
           )}
           {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
           {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
@@ -133,9 +149,9 @@ export const MarkerInfoModal: React.FC = () => {
           <CoordSpan>
             {t('default_lon')}: {markerInfoModalState.marker.coords.lon}
           </CoordSpan>
-          <CoordSpan>
-            {t('default_alt')}: {markerInfoModalState.marker.coords.alt}
-          </CoordSpan>
+          {/* <CoordSpan>*/}
+          {/*  {t('default_alt')}: {markerInfoModalState.marker.coords.alt}*/}
+          {/* </CoordSpan>*/}
         </BaseColumnContainer>
 
         <BaseRowContainerWithWrap>{memoizedTargets}</BaseRowContainerWithWrap>
@@ -145,12 +161,22 @@ export const MarkerInfoModal: React.FC = () => {
             <TextArea id={'notes_info'} label={t('default_notes')} value={markerInfoModalState.marker.notes} disabled />
           </>
         )}
+        {markerInfoModalState.marker.files.length !== 0 && (
+          <ImgContainer>
+            {markerInfoModalState.marker.files.map((el, index) => (
+              <ImgCard key={index} src={el} alt={`Uploaded ${index + 1}`} />
+            ))}
+          </ImgContainer>
+        )}
         {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
         {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
       </InvisibleComponent>
       <InvisibleComponent ref={editContentRef}>
         <AddTargetForm saveAction={saveAction} marker={{ ...markerInfoModalState.marker }} />
       </InvisibleComponent>
+      <BaseModalWithoutContainer isOpen={fullSizeImgState.isOpen} closeAction={handleCloseFullSizeImg} id={'fullSizeImg'}>
+        <img src={fullSizeImgState.file} style={{ maxWidth: '70%', position: 'absolute', zIndex: 100 }} />
+      </BaseModalWithoutContainer>
     </BaseModalWithoutContainer>
   );
 };
