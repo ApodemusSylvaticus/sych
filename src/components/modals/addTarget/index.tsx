@@ -58,7 +58,9 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
   const [localLat, setLocalLat] = useState<string>(marker.coords.lat.toString());
   const [localLon, setLocalLon] = useState<string>(marker.coords.lon.toString());
   const [localAlt, setLocalAlt] = useState<string>('0');
-  const [targetType, setTargetType] = useState<ITarget>(marker.target.type === 'empty' ? { value: '', src: '', type: 'target' } : marker.target);
+  const [targetType, setTargetType] = useState<ITarget>(
+    marker.target.type === 'empty' ? { value: 'default_enemy', src: '', type: 'target' } : marker.target,
+  );
   const [notes, setNotes] = useState<string>(marker.notes);
   const [tags, setTags] = useState<string[]>(marker.tags);
   const [images, setImages] = useState<string[]>([]);
@@ -161,7 +163,7 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
     saveAction({
       notes,
       tags,
-      target: targetType,
+      target: { src: '', type: 'target', value: targetType.value !== '' ? targetType.value : 'default_enemy' },
       coords: { lon: +localLon, alt: +localAlt, lat: +localLat },
       timeStamp: marker.timeStamp,
       uniqKey: `${localTimestamp}_${localLat}_${localLon}`,
@@ -181,11 +183,11 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
 
       <TextArea id={'notes'} label={t('default_notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />
 
-      {images.length === 0 && <Button onClick={handleImageUpload}>{t('upload_image')}</Button>}
+      {images.length === 0 && <Button onClick={handleImageUpload}>{t('default_attach_photo')}</Button>}
 
       {images.length > 0 && (
         <Container>
-          <CardName>Pinned photo</CardName>
+          <CardName>{t('default_pinned_photo')}</CardName>
           <ImgContainer>
             {images.map((image, index) => (
               <ImgWrapper>
@@ -194,7 +196,7 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
               </ImgWrapper>
             ))}
           </ImgContainer>
-          <Button onClick={handleImageUpload}>{t('upload_image')}</Button>
+          <Button onClick={handleImageUpload}>{t('default_attach_photo')}</Button>
         </Container>
       )}
 

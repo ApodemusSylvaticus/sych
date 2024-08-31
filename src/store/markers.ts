@@ -49,9 +49,9 @@ export interface MarkersStore {
 export const useMarkerStore = create<MarkersStore>((set) => ({
   selfMarker: {
     coords: {
-      lon: 14.42,
-      lat: 50.07,
-      alt: 235,
+      lon: 0,
+      lat: 0,
+      alt: 0,
     },
     target: { value: 'SELF', src: '' },
     notes: '',

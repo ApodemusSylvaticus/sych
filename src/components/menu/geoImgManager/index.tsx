@@ -108,14 +108,14 @@ export const AddNewGeoImgModal: React.FC<{ isOpen: boolean; close: () => void }>
     <BaseModal isOpen={isOpen} closeAction={close} id={'add_new_geo_img'}>
       <Container>
         <input type="file" ref={fileInputRef} style={{ display: 'none' }} accept="image/*" onChange={handleImageUpload} />
-        <ActiveButton onClick={handleSetImgClick}>Set img</ActiveButton>
+        <ActiveButton onClick={handleSetImgClick}>{t('default_attach_photo')}</ActiveButton>
         {image && (
           <ImageContainer>
             <StyledImage src={image} alt="Current" />
           </ImageContainer>
         )}
         <TextFieldsContainer>
-          <CardName>Top left corner</CardName>
+          <CardName>{t('default_top_left')}</CardName>
           <TextField
             label={t('default_lon')}
             id={'topLeft_lon'}
@@ -132,7 +132,7 @@ export const AddNewGeoImgModal: React.FC<{ isOpen: boolean; close: () => void }>
           />
         </TextFieldsContainer>
         <TextFieldsContainer>
-          <CardName>Top right corner</CardName>
+          <CardName>{t('default_top_right')}</CardName>
           <TextField
             label={t('default_lon')}
             id={'topRight_lon'}
@@ -149,7 +149,7 @@ export const AddNewGeoImgModal: React.FC<{ isOpen: boolean; close: () => void }>
           />
         </TextFieldsContainer>
         <TextFieldsContainer>
-          <CardName>Bottom right corner</CardName>
+          <CardName>{t('default_bottom_right')}</CardName>
           <TextField
             label={t('default_lon')}
             id={'bottomRight_lon'}
@@ -166,7 +166,7 @@ export const AddNewGeoImgModal: React.FC<{ isOpen: boolean; close: () => void }>
           />
         </TextFieldsContainer>
         <TextFieldsContainer>
-          <CardName>Bottom left corner</CardName>
+          <CardName>{t('default_bottom_left')}</CardName>
           <TextField
             label={t('default_lon')}
             id={'bottomLeft_lon'}
@@ -183,7 +183,7 @@ export const AddNewGeoImgModal: React.FC<{ isOpen: boolean; close: () => void }>
           />
         </TextFieldsContainer>
         <SaveButton isDisabled={!areCornersValid || image === null || image === ''} onClick={handleSubmit}>
-          Save Image
+          {t('default_save')}
         </SaveButton>
       </Container>
     </BaseModal>
@@ -200,7 +200,7 @@ export const GeoImgManager: React.FC = React.memo(() => {
   if (geoImgs.length === 0) {
     return (
       <>
-        <SubmitButton onClick={() => setIsOpen(true)}>Geo img</SubmitButton>
+        <SubmitButton onClick={() => setIsOpen(true)}>{t('default_add_custom_map')}</SubmitButton>
         <AddNewGeoImgModal isOpen={isOpen} close={closeAction} />
       </>
     );
@@ -208,13 +208,13 @@ export const GeoImgManager: React.FC = React.memo(() => {
 
   return (
     <ManagerContainer>
-      <ContainerCardName>Geo img</ContainerCardName>
+      <ContainerCardName>{t('default_custom_map')}</ContainerCardName>
       <ImgCardsContainer>
         {geoImgs.map((img) => (
           <GeoImgCard {...img} />
         ))}
       </ImgCardsContainer>
-      <SubmitButton onClick={() => setIsOpen(true)}>Add geo img</SubmitButton>
+      <SubmitButton onClick={() => setIsOpen(true)}>{t('default_add_custom_map')}</SubmitButton>
       <AddNewGeoImgModal isOpen={isOpen} close={closeAction} />
     </ManagerContainer>
   );

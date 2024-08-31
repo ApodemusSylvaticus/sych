@@ -69,6 +69,9 @@ export const TagTab = styled.div`
   cursor: auto;
 `;
 
-export const ChangeButton = styled(Button)`
-  margin-left: auto;
+export const ChangeButton = styled(Button)``;
+
+export const LastRowContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

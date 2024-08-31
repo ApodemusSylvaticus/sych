@@ -35,10 +35,23 @@
       "default_empty": "Not assigned",
       "default_fill": "Fill data",
       "default_edit": "Edit",
-      "default_delete_all_markers": "Delete all markers",
+      "default_delete_all_markers": "Delete all targets",
       "default_are_you_sure": "Are you sure?",
       "default_accept": "Accept",
-      "default_reject": "Reject"
+      "default_reject": "Reject",
+      "default_pinned_photo": "Attached photo",
+      "default_custom_map": "Custom map",
+      "default_attach_photo": "Attach a photo",
+      "default_add_custom_map": "Add custom map",
+      "default_top_left": "Top left corner",
+      "default_top_right": "Top right corner",
+      "default_bottom_right": "Bottom right corner",
+      "default_bottom_left": "Bottom left corner",
+      "default_disable_custom_map": "Disable this custom map",
+      "default_enable_custom_map": "Enable this custom map",
+      "default_delete": "Delete",
+      "default_are_you_sure_delete_custom_map": "Are you sure you want to delete this custom map?",
+      "default_are_you_sure_delete_targets": "Are you sure you want to delete all targets?"
     }
   },
   "ua": {
@@ -77,10 +90,23 @@
       "default_empty": "Невизначена ціль",
       "default_fill": "Заповнити данні",
       "default_edit": "Змінити",
-      "default_delete_all_markers": "Delete all markers",
+      "default_delete_all_markers": "Видалити всі цілі",
       "default_are_you_sure": "Are you sure?",
-      "default_accept": "Accept",
-      "default_reject": "Reject"
+      "default_accept": "Прийняти",
+      "default_reject": "Відхилити",
+      "default_pinned_photo": "Прикріплені фотографіі",
+      "default_custom_map": "Власна карта",
+      "default_attach_photo": "Прикріпити фотографію",
+      "default_add_custom_map": "Додати власну карту",
+      "default_top_left": "Верхній лівий кут",
+      "default_top_right": "Верхній правий кут",
+      "default_bottom_right": "Нижній правий кут",
+      "default_bottom_left": "Нижній лівий кут",
+      "default_disable_custom_map": "Вимкнути цю карту",
+      "default_enable_custom_map": "Увімкнути цю карту",
+      "default_delete": "Видалити",
+      "default_are_you_sure_delete_custom_map": "Ви впевнені, що хочете видалити цю користувацьку мапу?",
+      "default_are_you_sure_delete_targets": "Ви впевнені, що хочете видалити всі цілі?"
     }
   },
   "languageSimbolArray": [

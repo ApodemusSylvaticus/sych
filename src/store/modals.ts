@@ -42,7 +42,7 @@ export const useModalStore = create<ModalsState>((set) => ({
     isOpen: false,
     marker: {
       notes: '',
-      target: { src: '', value: '', type: 'target' },
+      target: { src: '', value: 'default_enemy', type: 'target' },
       timeStamp: 0,
       coords: {
         lat: 0,

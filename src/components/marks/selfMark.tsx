@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Billboard, Entity, Geometry, useGlobeContext, Vector } from '@openglobus/openglobus-react';
 import { useMarkerStore } from '../../store/markers.ts';
 import { useGlobusStore } from '../../store/globus.ts';
@@ -13,6 +13,7 @@ export const LineMarker = React.memo(() => {
   const activeLayer = useGlobusStore((state) => state.activeLayer);
   const openMarkerInfoModal = useModalStore((state) => state.openMarkerInfoModal);
   const azimuth = useGlobusStore((state) => state.azimuth);
+  const isOneTimeChanged = useRef(false);
 
   const calculateEnd = useCallback(() => {
     const intermediatePoint = calculateEndPointByAzimuth(new LonLat(selfMarker.coords.lon, selfMarker.coords.lat), azimuth, 30000);
@@ -34,6 +35,15 @@ export const LineMarker = React.memo(() => {
       target: { value: 'default_self', src: '', type: 'self' },
     });
   }, [openMarkerInfoModal, selfMarker]);
+
+  useEffect(() => {
+    if (globe && selfMarker) {
+      if ((selfMarker.coords.lon !== 0 || selfMarker.coords.lat !== 0) && isOneTimeChanged.current === false) {
+        isOneTimeChanged.current = true;
+        globe.planet.camera.flyLonLat(new LonLat(selfMarker.coords.lon, selfMarker.coords.lat, 500000));
+      }
+    }
+  }, [globe, selfMarker]);
 
   const vectorKey = useMemo(() => `Line_self_mark_${activeLayer}_${azimuth}`, [activeLayer, azimuth]);
   const selfMarkKey = useMemo(() => `self_mark_${selfMarker.coords.lat}_${selfMarker.coords.lon}_${activeLayer}`, [selfMarker, activeLayer]);

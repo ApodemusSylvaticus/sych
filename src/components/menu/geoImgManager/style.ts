@@ -66,7 +66,7 @@ export const ImgCardDisabledTab = styled.div`
   color: rgba(${(props) => props.theme.colors.primary}, 0.8);
   justify-content: center;
   align-items: center;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 `;
 
 export const ActiveButton = styled(Button)`

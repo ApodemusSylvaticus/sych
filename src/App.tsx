@@ -19,6 +19,13 @@ import { EmptyMarker } from './components/marks/emptyMarker.tsx';
 import { WebSocketConnectionManager } from './mainApp/js/webSocketConnectionManager';
 import { XYZ } from '@openglobus/og';
 import { GeoImageComponent } from './components/globus/geoImage/input.tsx';
+import { CenterButton } from './components/centerButton';
+
+interface TileInfo {
+  tileZoom: string;
+  tileX: string;
+  tileY: string;
+}
 
 function App(): JSX.Element {
   const { language, getLanguageFromLocalStorage } = useSettingsStore((state) => ({
@@ -57,17 +64,19 @@ function App(): JSX.Element {
           <EventHandlerWrapper>
             <Globe
               name="myGlobe"
+              minAltitude={500}
+              maxAltitude={2500000}
               layers={[
                 new XYZ('OpenStreetMap', {
                   isBaseLayer: true,
 
-                  // url: 'https://sych.app/api/map/osm/tile/{z}/{x}/{y}.png',
-                  url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  url: 'https://sych.app/api/map/osm/tile/{z}/{x}/{y}.png',
+                  // url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                   visibility: true,
                   attribution: 'Data @ OpenStreetMap contributors, ODbL',
-                  // urlRewrite: function (s: TileInfo, u: string) {
-                  //   return `https://sych.app/api/map/osm/tile/${s.tileZoom}/${s.tileX}/${s.tileY}.png`;
-                  // },
+                  urlRewrite: function (s: TileInfo, u: string) {
+                    return `https://sych.app/api/map/osm/tile/${s.tileZoom}/${s.tileX}/${s.tileY}.png`;
+                  },
                 }),
               ]}
             >
@@ -77,6 +86,7 @@ function App(): JSX.Element {
               <GeoImageComponent />
             </Globe>
           </EventHandlerWrapper>
+          <CenterButton />
           <MenuManipulationButton />
         </GlobeContextProvider>
         <RClickPopup />

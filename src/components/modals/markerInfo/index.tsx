@@ -2,13 +2,15 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { BaseModalWithoutContainer } from '../index.tsx';
 import { useModalStore } from '../../../store/modals.ts';
 import { useTranslation } from 'react-i18next';
-import { ChangeButton, Container, ContentContainer, CoordSpan, InvisibleComponent, TagTab, Type } from './style.ts';
+import { ChangeButton, Container, ContentContainer, CoordSpan, InvisibleComponent, LastRowContainer, TagTab, Type } from './style.ts';
 import { BaseColumnContainer, BaseRowContainerWithWrap } from '../../containers/style.ts';
 import { LastElemWrapper } from '../addTarget/tags/style.ts';
 import { TextArea } from '../../input';
 import { AddTargetForm } from '../addTarget';
 import { IMarker, useMarkerStore } from '../../../store/markers.ts';
 import { ImgCard, ImgContainer } from '../style.ts';
+import { Button } from '../../button/style.ts';
+import { setRotateToGps } from '../../../mainApp/ts/cmd/cmdSender/cmdRotary.ts';
 
 const formatDate = (date: Date): string => {
   const day = date.getDate().toString().padStart(2, '0');
@@ -96,6 +98,11 @@ export const MarkerInfoModal: React.FC = () => {
     setFullSizeImgState({ isOpen: false, file: '' });
   }, []);
 
+  const handleAimHere = useCallback(() => {
+    closeMarkerInfoModal();
+    setRotateToGps(markerInfoModalState.marker.coords.lon, markerInfoModalState.marker.coords.lat, 0);
+  }, [closeMarkerInfoModal, markerInfoModalState.marker.coords.lat, markerInfoModalState.marker.coords.lon]);
+
   return (
     <BaseModalWithoutContainer isOpen={markerInfoModalState.isOpen} closeAction={closeMarkerInfoModal} id={'markerInfoModal'}>
       <Container height={containerHeight}>
@@ -129,8 +136,11 @@ export const MarkerInfoModal: React.FC = () => {
               ))}
             </ImgContainer>
           )}
-          {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
-          {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
+          <LastRowContainer>
+            <Button onClick={handleAimHere}>{t('default_aim_here')}</Button>
+            {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
+            {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
+          </LastRowContainer>
         </ContentContainer>
 
         <ContentContainer className={!isChangeable ? 'inactive' : 'active'}>
@@ -168,8 +178,11 @@ export const MarkerInfoModal: React.FC = () => {
             ))}
           </ImgContainer>
         )}
-        {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
-        {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
+        <LastRowContainer>
+          <Button>{t('default_aim_here')}</Button>
+          {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
+          {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
+        </LastRowContainer>
       </InvisibleComponent>
       <InvisibleComponent ref={editContentRef}>
         <AddTargetForm saveAction={saveAction} marker={{ ...markerInfoModalState.marker }} />
