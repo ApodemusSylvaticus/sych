@@ -50,9 +50,8 @@ export const LineMarker = React.memo(() => {
 
   return (
     <>
-      <Vector name={'SelfMarker'} clampToGround={true} onLclick={handleMarkerClick} onTouchEnd={handleMarkerClick}>
+      <Vector key={selfMarkKey} name={'SelfMarker'} clampToGround={true} onLclick={handleMarkerClick} onTouchEnd={handleMarkerClick}>
         <Entity
-          key={selfMarkKey}
           name="Self Marker"
           geometry={{ type: 'POINT', coordinates: [selfMarker.coords.lon, selfMarker.coords.lat, selfMarker.coords.alt] }}
           lon={selfMarker.coords.lon}
@@ -60,15 +59,14 @@ export const LineMarker = React.memo(() => {
           alt={selfMarker.coords.alt}
           properties={{ color: '#9d2626' }}
         >
-          <Billboard key={selfMarkKey} size={[30, 30]} src={'./point.svg'} color={'#9d2626'} />
+          <Billboard size={[30, 30]} src={'./point.svg'} color={'#9d2626'} />
         </Entity>
       </Vector>
 
       {end && (
-        <Vector name={`Line_self_mark`}>
-          <Entity key={vectorKey} name={`Line_self_mark_entity`} lon={selfMarker.coords.lon} lat={selfMarker.coords.lat} alt={0}>
+        <Vector key={vectorKey} name={`Line_self_mark`}>
+          <Entity name={`Line_self_mark_entity`} lon={selfMarker.coords.lon} lat={selfMarker.coords.lat} alt={0}>
             <Geometry
-              key={vectorKey}
               lineColor={'rgba(59, 6, 6, 1)'}
               lineWidth={5}
               type={'LINESTRING'}

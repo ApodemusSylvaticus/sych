@@ -34,42 +34,40 @@ const satArgs = {
   },
 };
 
-// const osmArgs = {
-//   name: 'osm',
-//   opacity: 1,
-//   isBaseLayer: true,
-//   visibility: false,
-//   maxNativeZoom: 19,
-//   defaultTextures: [{ color: '#AAD3DF' }, { color: '#F2EFE9' }],
-//   isSRGB: false,
-//   shininess: 18,
-//   specular: [0.00063, 0.00055, 0.00032],
-//   ambient: [0.2, 0.2, 0.3],
-//   diffuse: [0.9, 0.9, 0.7],
-//   url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-//   urlRewrite: function (s: TileInfo, u: string) {
-//     return `https://sych.app/api/map/osm/tile/${s.tileX}/${s.tileY}/${s.tileZoom}.png`;
-//   },
-// };
-
-const isTest = false;
-
 const osmArgs = {
   name: 'osm',
   opacity: 1,
-  url: 'https://sych.app/api/map/osm/tile/{z}/{x}/{y}.png',
-
+  isBaseLayer: true,
+  visibility: false,
+  maxNativeZoom: 19,
+  defaultTextures: [{ color: '#AAD3DF' }, { color: '#F2EFE9' }],
+  isSRGB: false,
+  shininess: 18,
+  specular: [0.00063, 0.00055, 0.00032],
+  ambient: [0.2, 0.2, 0.3],
+  diffuse: [0.9, 0.9, 0.7],
+  url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   urlRewrite: function (s: TileInfo, u: string) {
-    if (isTest) {
-      utils.stringTemplate(u, {
-        x: s.tileX,
-        y: s.tileY,
-        z: s.tileZoom,
-      });
-    }
-    return `https://sych.app/api/map/osm/tile/${s.tileZoom}/${s.tileX}/${s.tileY}.png`;
+    return `https://sych.app/api/map/osm/tile/${s.tileX}/${s.tileY}/${s.tileZoom}.png`;
   },
 };
+
+// const osmArgs = {
+//   name: 'osm',
+//   opacity: 1,
+//   url: 'https://sych.app/api/map/osm/tile/{z}/{x}/{y}.png',
+//   isBaseLayer: true,
+//   urlRewrite: function (s: TileInfo, u: string) {
+//     if (isTest) {
+//       utils.stringTemplate(u, {
+//         x: s.tileX,
+//         y: s.tileY,
+//         z: s.tileZoom,
+//       });
+//     }
+//     return `https://sych.app/api/map/osm/tile/${s.tileZoom}/${s.tileX}/${s.tileY}.png`;
+//   },
+// };
 
 export const Layer: React.FC = React.memo(() => {
   const activeLayer = useGlobusStore((state) => state.activeLayer);

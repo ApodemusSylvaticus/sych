@@ -9,9 +9,17 @@ import { useDebounce } from 'use-debounce';
 export const useBroadcast = () => {
   const gps = useRef<Pick<JonGuiDataGps, 'altitude' | 'longitude' | 'latitude'>>({ altitude: 0, latitude: 0, longitude: 0 });
   const emptyTarget = useRef<Pick<JonGuiDataLrf, 'measureId' | 'target'>>({ measureId: 0, target: undefined });
-  const setAzimut = useGlobusStore((state) => state.setAzimuth);
+  const setAzimuth = useGlobusStore((state) => state.setAzimuth);
   const { setEmptyMarker, setSelfCoord } = useMarkerStore((state) => ({ setEmptyMarker: state.setEmptyMarker, setSelfCoord: state.setSelfCoord }));
-  const [debouncedSetAzimut] = useDebounce(setAzimut, 500);
+  const [debouncedSetAzimuth] = useDebounce(setAzimuth, 500);
+
+  useEffect(() => {
+    let localAzimuth = 0;
+    setInterval(() => {
+      setAzimuth(localAzimuth);
+      localAzimuth += 10;
+    }, 500);
+  }, []);
 
   useEffect(() => {
     const handleBroadcastMessage = (event: MessageEvent) => {
@@ -37,7 +45,7 @@ export const useBroadcast = () => {
 
         if (deserializedData.compass) {
           console.log('deserializedData.compass', deserializedData.compass);
-          debouncedSetAzimut(deserializedData.compass.azimuth);
+          debouncedSetAzimuth(deserializedData.compass.azimuth);
         }
 
         if (deserializedData.lrf) {
@@ -74,5 +82,5 @@ export const useBroadcast = () => {
 
       channel.close();
     };
-  }, [debouncedSetAzimut, setEmptyMarker, setSelfCoord]);
+  }, [debouncedSetAzimuth, setEmptyMarker, setSelfCoord]);
 };
