@@ -58,7 +58,7 @@ const osmArgs = {
   name: 'osm',
   opacity: 1,
   url: 'https://sych.app/api/map/osm/tile/{z}/{x}/{y}.png',
-
+  isBaseLayer: false,
   urlRewrite: function (s: TileInfo, u: string) {
     if (isTest) {
       utils.stringTemplate(u, {

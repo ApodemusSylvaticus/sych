@@ -12,8 +12,14 @@ export const TargetMarks: React.FC = React.memo(() => {
       {filteredMarkers.map((el) => (
         <Vector
           clampToGround={true}
-          onLclick={() => openMarkerInfoModal(el)}
-          onTouchEnd={() => openMarkerInfoModal(el)}
+          onLclick={(e) => {
+            console.log(e);
+            openMarkerInfoModal(el);
+          }}
+          onTouchEnd={(e) => {
+            console.log(e);
+            openMarkerInfoModal(el);
+          }}
           name={`${el.timeStamp}_${el.coords.lon}_${el.coords.lat}`}
           key={el.uniqKey}
         >
@@ -23,9 +29,9 @@ export const TargetMarks: React.FC = React.memo(() => {
             lon={el.coords.lon}
             lat={el.coords.lat}
             alt={0}
-            properties={{ color: '#000002' }}
+            properties={{ color: '#000002', name: el.uniqKey, type: 'empty' }}
           >
-            <Billboard size={[30, 30]} src={'./point.svg'} color={'#000002'} />
+            <Billboard name={el.uniqKey} size={[30, 30]} src={'./point.svg'} color={'#000002'} />
           </Entity>
         </Vector>
       ))}
