@@ -4,7 +4,7 @@ import './App.css';
 import { MainContainer } from './components/containers/style.ts';
 import { MenuManipulationButton } from './components/menu';
 import { ThemeWrapper } from './wrappers/theme';
-import { EventHandlerWrapper } from './wrappers/eventHandlerWrapper';
+import { GlobeEventHandlerWrapper } from './wrappers/eventHandlerWrapper/globeEventHandlerWrapper.tsx';
 import { RClickPopup } from './components/popup/rClick';
 import { AddTargetModal } from './components/modals/addTarget';
 import { useTagsStore } from './store/tags.ts';
@@ -55,7 +55,7 @@ function App(): JSX.Element {
     <ThemeWrapper>
       <MainContainer>
         <GlobeContextProvider>
-          <EventHandlerWrapper>
+          <GlobeEventHandlerWrapper>
             <Globe name="myGlobe" minAltitude={500} maxAltitude={2500000}>
               <Layer />
               <LineMarker />
@@ -63,7 +63,7 @@ function App(): JSX.Element {
               <EmptyMarker />
               <GeoImageComponent />
             </Globe>
-          </EventHandlerWrapper>
+          </GlobeEventHandlerWrapper>
           <CenterButton />
           <MenuManipulationButton />
         </GlobeContextProvider>

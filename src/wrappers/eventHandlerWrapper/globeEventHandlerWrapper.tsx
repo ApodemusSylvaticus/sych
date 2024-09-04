@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useEffect, useRef } from 'react';
 import { useGlobeContext } from '@openglobus/openglobus-react';
 import { usePopupStore } from '../../store/popup.ts';
 
-export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) => {
+export const GlobeEventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) => {
   const { globe } = useGlobeContext();
   const { openPopup, closePopup, isOpen } = usePopupStore((state) => ({
     openPopup: state.openPopup,
@@ -18,7 +18,6 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
 
   useEffect(() => {
     if (globe) {
-      console.log('tyt');
       globe.renderer.events.on(
         'lclick',
         (e) => {
@@ -81,8 +80,7 @@ export const EventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) =
         }
       });
 
-      globe.renderer.events.on('touchmove', (e) => {
-        // console.log('touchmove', e);
+      globe.renderer.events.on('touchmove', () => {
         if (isOpenRef.current) {
           closePopup();
         }
