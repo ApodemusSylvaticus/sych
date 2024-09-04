@@ -4,12 +4,14 @@ import { useModalStore } from '../../../store/modals.ts';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Tags } from './tags';
 import { TargetType } from './targetType';
-import { SaveButton } from '../style.ts';
+import { ImgCard, ImgContainer, ImgWrapper, RemoveImgButton, SaveButton } from '../style.ts';
 import { ITarget } from '../../../store/target.ts';
-import { useMarkerStore } from '../../../store/markers.ts';
+import { IMarker, useMarkerStore } from '../../../store/markers.ts';
 import { usePopupStore } from '../../../store/popup.ts';
 import { useTranslation } from 'react-i18next';
 import { ColumnContainer } from '../../filters/style.ts';
+import { Button } from '../../button/style.ts';
+import { CardName, Container } from './tags/style.ts';
 
 export const AddTargetModal: React.FC = () => {
   const { addNewTargetState, closeNewTargetModal } = useModalStore((state) => ({
@@ -20,23 +22,63 @@ export const AddTargetModal: React.FC = () => {
   const closePopup = usePopupStore((state) => state.closePopup);
   const addMarker = useMarkerStore((state) => state.addMarker);
 
-  const [localLat, setLocalLat] = useState<string>(addNewTargetState.coords.lat.toString());
-  const [localLon, setLocalLon] = useState<string>(addNewTargetState.coords.lon.toString());
-  const [localAlt, setLocalAlt] = useState<string>(addNewTargetState.coords.alt.toString());
-  const [targetType, setTargetType] = useState<ITarget>({ value: '', src: '', type: 'target' });
-  const [notes, setNotes] = useState<string>('');
-  const [tags, setTags] = useState<string[]>([]);
+  const onButtonClick = useCallback(
+    (data: IMarker) => {
+      addMarker({ ...data, timeStamp: Date.now() });
+      closeNewTargetModal();
+      closePopup();
+    },
+    [addMarker],
+  );
+
+  return (
+    <BaseModal id={'add_new_target'} closeAction={closeNewTargetModal} isOpen={addNewTargetState.isOpen}>
+      <AddTargetForm
+        saveAction={onButtonClick}
+        marker={{
+          files: [],
+          timeStamp: 0,
+          tags: [],
+          notes: '',
+          coords: addNewTargetState.coords,
+          target: { src: '', value: '', type: 'target' },
+          uniqKey: '',
+        }}
+      />
+    </BaseModal>
+  );
+};
+
+interface AddTargetFormProps {
+  marker: IMarker;
+  saveAction: (data: IMarker) => void;
+}
+
+export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction }) => {
+  const [localLat, setLocalLat] = useState<string>(marker.coords.lat.toString());
+  const [localLon, setLocalLon] = useState<string>(marker.coords.lon.toString());
+  const [localAlt, setLocalAlt] = useState<string>('0');
+  const [targetType, setTargetType] = useState<ITarget>(
+    marker.target.type === 'empty' ? { value: 'default_enemy', src: '', type: 'target' } : marker.target,
+  );
+  const [notes, setNotes] = useState<string>(marker.notes);
+  const [tags, setTags] = useState<string[]>(marker.tags);
+  const [images, setImages] = useState<string[]>([]);
   const { t } = useTranslation();
 
+  const handleRemoveImg = useCallback((file: string) => {
+    setImages((prev) => prev.filter((el) => el !== file));
+  }, []);
+
   useEffect(() => {
-    if (addNewTargetState.isOpen) {
-      setLocalAlt(addNewTargetState.coords.alt.toString());
-      setLocalLat(addNewTargetState.coords.lat.toString());
-      setLocalLon(addNewTargetState.coords.lon.toString());
-      setNotes('');
-      return;
-    }
-  }, [addNewTargetState]);
+    setLocalAlt('0');
+    setLocalLat(marker.coords.lat.toString());
+    setLocalLon(marker.coords.lon.toString());
+    setTargetType(marker.target.type === 'empty' ? { value: 'default_enemy', src: '', type: 'target' } : marker.target);
+    setNotes(marker.notes);
+    setTags(marker.tags);
+    setImages(marker.files);
+  }, [marker]);
 
   const validateAndSetValue = useCallback((value: string, setter: React.Dispatch<React.SetStateAction<string>>, min: number, max: number) => {
     if (value === '' || value === '-') {
@@ -93,26 +135,72 @@ export const AddTargetModal: React.FC = () => {
     },
     [handleInputChange],
   );
+
+  const handleImageUpload = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e: Event) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const base64 = event.target?.result as string;
+          setImages((prevImages) => [...prevImages, base64]);
+        };
+        reader.readAsDataURL(file);
+      }
+      input.remove();
+    };
+    input.onblur = () => {
+      input.remove();
+    };
+    input.click();
+  }, []);
+
   const onButtonClick = useCallback(() => {
-    addMarker({ notes, tags, target: targetType, coords: { lon: +localLon, alt: +localAlt, lat: +localLat }, timeStamp: Date.now() });
-    closeNewTargetModal();
-    closePopup();
-  }, [notes, addMarker, tags, targetType, localLon, localAlt, localLat]);
+    const localTimestamp = new Date().toISOString();
+    saveAction({
+      notes,
+      tags,
+      target: { src: '', type: 'target', value: targetType.value !== '' ? targetType.value : 'default_enemy' },
+      coords: { lon: +localLon, alt: +localAlt, lat: +localLat },
+      timeStamp: marker.timeStamp,
+      uniqKey: `${localTimestamp}_${localLat}_${localLon}`,
+      files: images,
+    });
+  }, [notes, saveAction, tags, targetType, localLon, localAlt, localLat, marker, images]);
 
   return (
-    <BaseModal id={'add_new_target'} closeAction={closeNewTargetModal} isOpen={addNewTargetState.isOpen}>
-      <ColumnContainer>
-        <TextField id={'lat'} label={t('default_lat')} value={localLat} onChange={onLatChange} />
-        <TextField id={'lon'} label={t('default_lon')} value={localLon} onChange={onLonChange} />
-        <TextField id={'alt'} label={t('default_alt')} value={localAlt} onChange={onAltChange} />
+    <ColumnContainer>
+      <TextField id={'lat'} label={t('default_lat')} value={localLat} onChange={onLatChange} />
+      <TextField id={'lon'} label={t('default_lon')} value={localLon} onChange={onLonChange} />
+      {/* <TextField id={'alt'} label={t('default_alt')} value={localAlt} onChange={onAltChange} />*/}
 
-        <TargetType setTargetType={setTargetType} />
+      <TargetType target={targetType} setTargetType={setTargetType} />
 
-        <Tags setTags={setTags} />
+      <Tags tags={tags} setTags={setTags} />
 
-        <TextArea id={'notes'} label={t('default_notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />
-        <SaveButton onClick={onButtonClick}>{t('default_save')}</SaveButton>
-      </ColumnContainer>
-    </BaseModal>
+      <TextArea id={'notes'} label={t('default_notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />
+
+      {images.length === 0 && <Button onClick={handleImageUpload}>{t('default_attach_photo')}</Button>}
+
+      {images.length > 0 && (
+        <Container>
+          <CardName>{t('default_pinned_photo')}</CardName>
+          <ImgContainer>
+            {images.map((image, index) => (
+              <ImgWrapper>
+                <ImgCard key={index} src={image} alt={`Uploaded ${index + 1}`}></ImgCard>
+                <RemoveImgButton onClick={() => handleRemoveImg(image)} />
+              </ImgWrapper>
+            ))}
+          </ImgContainer>
+          <Button onClick={handleImageUpload}>{t('default_attach_photo')}</Button>
+        </Container>
+      )}
+
+      <SaveButton onClick={onButtonClick}>{t('default_save')}</SaveButton>
+    </ColumnContainer>
   );
 };

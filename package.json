@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@openglobus/og": "^0.20.3",
-    "@openglobus/openglobus-react": "^0.1.2",
+    "@openglobus/openglobus-react": "^0.1.3",
     "clone-deep": "^4.0.1",
     "react": "^18.3.1",
     "react-day-picker": "^9.0.8",
@@ -19,6 +19,7 @@
     "react-i18next": "^15.0.1",
     "styled-components": "^6.1.12",
     "ts-proto": "^1.181.1",
+    "use-debounce": "^10.0.3",
     "zustand": "^4.5.4"
   },
   "devDependencies": {

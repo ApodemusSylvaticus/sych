@@ -36,6 +36,7 @@ export const Input = styled.input`
   font-size: 1.6rem;
   outline: none;
   transition: border-color 0.2s;
+  color: rgb(${(props) => props.theme.colors.menuBg});
 
   &:focus {
     border-color: rgb(${(props) => props.theme.colors.tabActive});
@@ -65,6 +66,7 @@ export const BaseTextArea = styled.textarea`
   min-height: 4rem;
   overflow-y: hidden;
   background: none;
+  color: rgb(${(props) => props.theme.colors.menuBg});
 
   outline: none;
   transition: border-color 0.2s;

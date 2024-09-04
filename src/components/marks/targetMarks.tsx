@@ -13,10 +13,18 @@ export const TargetMarks: React.FC = React.memo(() => {
         <Vector
           clampToGround={true}
           onLclick={() => openMarkerInfoModal(el)}
+          onTouchEnd={() => openMarkerInfoModal(el)}
           name={`${el.timeStamp}_${el.coords.lon}_${el.coords.lat}`}
-          key={`${el.timeStamp}_${el.coords.lon}_${el.coords.lat}`}
+          key={el.uniqKey}
         >
-          <Entity name={`${el.target.value}-el.timeStamp`} lon={el.coords.lon} lat={el.coords.lat} alt={0} properties={{ color: '#000002' }}>
+          <Entity
+            key={el.uniqKey}
+            name={`${el.target.value}-el.timeStamp`}
+            lon={el.coords.lon}
+            lat={el.coords.lat}
+            alt={0}
+            properties={{ color: '#000002' }}
+          >
             <Billboard size={[30, 30]} src={'./point.svg'} color={'#000002'} />
           </Entity>
         </Vector>

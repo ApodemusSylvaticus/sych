@@ -3,21 +3,24 @@ import { JonGUIState } from '../proto/jon/jon_shared_data.ts';
 import { JonGuiDataGps } from '../proto/jon/jon_shared_data_gps.ts';
 import { JonGuiDataLrf } from '../proto/jon/jon_shared_data_lrf.ts';
 import { useMarkerStore } from '../store/markers.ts';
+import { useGlobusStore } from '../store/globus.ts';
+import { useDebounce } from 'use-debounce';
 
 export const useBroadcast = () => {
   const gps = useRef<Pick<JonGuiDataGps, 'altitude' | 'longitude' | 'latitude'>>({ altitude: 0, latitude: 0, longitude: 0 });
   const emptyTarget = useRef<Pick<JonGuiDataLrf, 'measureId' | 'target'>>({ measureId: 0, target: undefined });
-
+  const setAzimut = useGlobusStore((state) => state.setAzimuth);
   const { setEmptyMarker, setSelfCoord } = useMarkerStore((state) => ({ setEmptyMarker: state.setEmptyMarker, setSelfCoord: state.setSelfCoord }));
+  const [debouncedSetAzimut] = useDebounce(setAzimut, 500);
 
   useEffect(() => {
-    console.log('here');
     const handleBroadcastMessage = (event: MessageEvent) => {
       try {
-        console.log('try to get data');
         const binaryData: Uint8Array = new Uint8Array(event.data);
         const deserializedData: JonGUIState = JonGUIState.decode(binaryData);
         if (deserializedData.gps) {
+          console.log('deserializedData.gps', deserializedData.gps);
+
           if (
             gps.current.latitude !== deserializedData.gps.latitude &&
             gps.current.longitude !== deserializedData.gps.longitude &&
@@ -28,11 +31,18 @@ export const useBroadcast = () => {
               latitude: deserializedData.gps.latitude,
               longitude: deserializedData.gps.longitude,
             };
-            setSelfCoord({ alt: deserializedData.gps.altitude, lon: deserializedData.gps.longitude, lat: deserializedData.gps.altitude });
+            setSelfCoord({ alt: deserializedData.gps.altitude, lon: deserializedData.gps.longitude, lat: deserializedData.gps.latitude });
           }
         }
 
+        if (deserializedData.compass) {
+          console.log('deserializedData.compass', deserializedData.compass);
+          debouncedSetAzimut(deserializedData.compass.azimuth);
+        }
+
         if (deserializedData.lrf) {
+          console.log('deserializedData.lrf', deserializedData.lrf);
+
           if (emptyTarget.current.measureId !== deserializedData.lrf.measureId) {
             emptyTarget.current.measureId = deserializedData.lrf.measureId;
             emptyTarget.current.target = deserializedData.lrf.target;
@@ -54,12 +64,15 @@ export const useBroadcast = () => {
     };
 
     const channel = new BroadcastChannel('deviceState');
-    if (channel.onmessage) {
-      channel.onmessage = handleBroadcastMessage;
-    }
+
+    channel.onmessage = handleBroadcastMessage;
+
+    console.log('open channel', channel);
 
     return () => {
+      console.log('close channel');
+
       channel.close();
     };
-  }, []);
+  }, [debouncedSetAzimut, setEmptyMarker, setSelfCoord]);
 };

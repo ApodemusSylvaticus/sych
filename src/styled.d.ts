@@ -9,6 +9,8 @@ declare module 'styled-components' {
       tabDefault: string;
       tabActive: string;
       tabHover: string;
+      error: string;
+      errorHover: string;
     };
     fonts: {
       main: string;

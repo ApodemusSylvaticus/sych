@@ -20,7 +20,7 @@ export const CardName = styled.span`
   font-weight: 500;
   font-size: 1.8rem;
   padding: 0 0.4rem;
-  color: black;
+  color: rgb(${(props) => props.theme.colors.menuBg});
 `;
 
 export const ChosenTagContainer = styled.div`

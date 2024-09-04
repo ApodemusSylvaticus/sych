@@ -4,10 +4,19 @@ import { ITarget, useTargetStore } from '../../../../store/target.ts';
 import { Button, Wrapper } from './style.ts';
 import { useTranslation } from 'react-i18next';
 
-export const TargetType: React.FC<{ setTargetType: (value: ITarget) => void }> = ({ setTargetType }) => {
+export const TargetType: React.FC<{ target: ITarget; setTargetType: (value: ITarget) => void }> = ({ target, setTargetType }) => {
   const targets = useTargetStore((state) => state.targets);
   const [selected, setSelected] = useState(targets[0]);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    const index = targets.findIndex((el) => el.value === target.value);
+    if (index !== -1) {
+      setSelected(targets[index]);
+    } else {
+      setSelected(targets[0]);
+    }
+  }, [target, targets]);
 
   useEffect(() => {
     setTargetType(selected);

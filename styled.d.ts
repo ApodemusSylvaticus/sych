@@ -8,7 +8,9 @@ declare module 'styled-components' {
       menuBg: string;
       tabDefault: string;
       tabActive: string;
+      error: string;
       tabHover: string;
+      errorHover: string;
     };
     fonts: {
       main: string;

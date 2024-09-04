@@ -3,8 +3,8 @@ import { ButtonContainer, CloseButton, Divider, PaddingContainer, Wrapper } from
 import { usePopupStore } from '../../../store/popup.ts';
 import { useModalStore } from '../../../store/modals.ts';
 import { Button } from '../../button/style.ts';
-import { useGlobusStore } from '../../../store/globus.ts';
 import { useTranslation } from 'react-i18next';
+import { setRotateToGps } from '../../../mainApp/ts/cmd/cmdSender/cmdRotary.ts';
 
 export const RClickPopup: React.FC = React.memo(() => {
   const { isOpen, dXdY, coords, closePopup } = usePopupStore((state) => ({
@@ -19,7 +19,7 @@ export const RClickPopup: React.FC = React.memo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [pointerPosition, setPointerPosition] = useState({ x: 0, y: 0, isTopView: false });
-  const setLookOnPosition = useGlobusStore((state) => state.setLookOnPosition);
+
   useEffect(() => {
     if (containerRef.current) {
       const { width, height } = containerRef.current.getBoundingClientRect();
@@ -115,9 +115,9 @@ export const RClickPopup: React.FC = React.memo(() => {
   }, [dXdY, size]);
 
   const aimHereAction = useCallback(() => {
-    setLookOnPosition(coords);
+    setRotateToGps(coords.lon, coords.lat, 0);
     closePopup();
-  }, [coords, closePopup, setLookOnPosition]);
+  }, [coords, closePopup]);
 
   return (
     <Wrapper
@@ -138,9 +138,9 @@ export const RClickPopup: React.FC = React.memo(() => {
         <span>
           {t('default_lon')}: {coords.lon}
         </span>
-        <span>
-          {t('default_alt')}: {coords.alt}
-        </span>
+        {/* <span>*/}
+        {/*  {t('default_alt')}: {coords.alt}*/}
+        {/* </span>*/}
       </PaddingContainer>
       <Divider />
 

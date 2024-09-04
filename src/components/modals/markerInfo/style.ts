@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 import { ClickableTabCss } from '../../clickableTab/style.ts';
 import { BaseColumnContainer } from '../../containers/style.ts';
+import { Button } from '../../button/style.ts';
 
-export const ContentWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
+export const InvisibleComponent = styled(BaseColumnContainer)`
+  position: absolute;
+  padding: 1.6rem;
+  opacity: 0;
+  pointer-events: none;
+  width: min(80%, 450px);
 `;
 
 export const ContentContainer = styled(BaseColumnContainer)`
@@ -14,10 +17,10 @@ export const ContentContainer = styled(BaseColumnContainer)`
   left: 0;
   padding: 1.6rem;
   width: 100%;
-  height: 100%;
+  max-height: 100%;
   transition: opacity 0.15s linear;
   opacity: 0;
-  overflow: auto;
+  overflow-y: auto;
   pointer-events: none;
 
   &.active {
@@ -37,7 +40,7 @@ export const Container = styled.div<{ height: number }>`
   background-color: rgb(${(props) => props.theme.colors.primary});
   z-index: 3;
   border-radius: 8px;
-  min-width: min(80%, 320px);
+  min-width: min(80%, 450px);
   overflow: hidden;
   transition: height 0.3s linear;
   height: ${(props) => props.height}px;
@@ -48,12 +51,14 @@ export const Container = styled.div<{ height: number }>`
 export const Type = styled.div`
   font-size: 1.8rem;
   font-weight: bold;
+  color: rgb(${(props) => props.theme.colors.menuBg});
   font-family: Lato-Bold, system-ui, Avenir, Helvetica, Arial, sans-serif;
 `;
 
 export const CoordSpan = styled.span`
   font-size: 1.6rem;
   font-weight: 500;
+  color: rgb(${(props) => props.theme.colors.menuBg});
   font-family: Lato-Bold, system-ui, Avenir, Helvetica, Arial, sans-serif;
 `;
 
@@ -62,4 +67,11 @@ export const TagTab = styled.div`
   color: rgb(${(props) => props.theme.colors.tabHover});
   background-color: rgba(${(props) => props.theme.colors.tabHover}, 0.3);
   cursor: auto;
+`;
+
+export const ChangeButton = styled(Button)``;
+
+export const LastRowContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

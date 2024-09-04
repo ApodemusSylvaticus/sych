@@ -2,9 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Container, FirstLine, MenuButtonContainer, SecondLine, SubmitButton, ThirdLine } from './style.ts';
 import { usePopupStore } from '../../store/popup.ts';
 import { Filters } from '../filters';
-import { LanguageSelector, LayerSelector } from './selector';
+import { LanguageSelector } from './selector';
 import { useTranslation } from 'react-i18next';
 import { useMarkerStore } from '../../store/markers.ts';
+import { DeleteButton } from './cleanButton';
+import { GeoImgManager } from './geoImgManager';
 
 export const Menu: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
   const { t } = useTranslation();
@@ -35,8 +37,10 @@ export const Menu: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
   return (
     <Container isActive={isOpen}>
       <LanguageSelector />
-      <LayerSelector />
+      {/* <LayerSelector />*/}
       <SubmitButton onClick={submitSession}>{t('default_submit_session')}</SubmitButton>
+      <DeleteButton />
+      <GeoImgManager />
       <Filters />
     </Container>
   );

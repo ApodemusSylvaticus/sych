@@ -1,12 +1,16 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { BaseModalWithoutContainer } from '../index.tsx';
 import { useModalStore } from '../../../store/modals.ts';
 import { useTranslation } from 'react-i18next';
-import { Container, ContentContainer, CoordSpan, TagTab, Type } from './style.ts';
+import { ChangeButton, Container, ContentContainer, CoordSpan, InvisibleComponent, LastRowContainer, TagTab, Type } from './style.ts';
 import { BaseColumnContainer, BaseRowContainerWithWrap } from '../../containers/style.ts';
 import { LastElemWrapper } from '../addTarget/tags/style.ts';
-import { TextArea, TextField } from '../../input';
+import { TextArea } from '../../input';
+import { AddTargetForm } from '../addTarget';
+import { IMarker, useMarkerStore } from '../../../store/markers.ts';
+import { ImgCard, ImgContainer } from '../style.ts';
 import { Button } from '../../button/style.ts';
+import { setRotateToGps } from '../../../mainApp/ts/cmd/cmdSender/cmdRotary.ts';
 
 const formatDate = (date: Date): string => {
   const day = date.getDate().toString().padStart(2, '0');
@@ -19,19 +23,20 @@ const formatDate = (date: Date): string => {
 };
 
 export const MarkerInfoModal: React.FC = () => {
-  const { closeMarkerInfoModal, markerInfoModalState } = useModalStore((state) => ({
+  const { closeMarkerInfoModal, markerInfoModalState, openMarkerInfoModal } = useModalStore((state) => ({
     markerInfoModalState: state.markerInfoModalState,
     closeMarkerInfoModal: state.closeMarkerInfoModal,
+    openMarkerInfoModal: state.openMarkerInfoModal,
   }));
 
+  const { fillEmptyMarker, updateMarker } = useMarkerStore((state) => ({ updateMarker: state.updateMarker, fillEmptyMarker: state.fillEmptyMarker }));
+  const [fullSizeImgState, setFullSizeImgState] = useState<{ isOpen: boolean; file: string }>({ isOpen: false, file: '' });
   const { t } = useTranslation();
   const [isChangeable, setIsChangeable] = useState<boolean>(false);
   const [containerHeight, setContainerHeight] = useState<number>(0);
+
   const viewContentRef = useRef<HTMLDivElement>(null);
   const editContentRef = useRef<HTMLDivElement>(null);
-
-  const viewContentHeight = useRef<number>(0);
-  const editContentHeight = useRef<number>(0);
 
   const formattedDate = useMemo(() => {
     if (markerInfoModalState.marker.timeStamp === -1) {
@@ -57,31 +62,21 @@ export const MarkerInfoModal: React.FC = () => {
 
   useEffect(() => {
     const updateHeight = () => {
-      if (viewContentHeight.current !== 0 && editContentHeight.current !== 0) {
-        setContainerHeight(isChangeable ? editContentHeight.current : viewContentHeight.current);
-      } else {
-        const viewHeight = viewContentRef.current?.scrollHeight || 0;
-        const editHeight = editContentRef.current?.scrollHeight || 0;
-
-        viewContentHeight.current = viewHeight;
-        editContentHeight.current = editHeight;
-        setContainerHeight(isChangeable ? editContentHeight.current : viewContentHeight.current);
-      }
+      const viewHeight = viewContentRef.current?.scrollHeight || 0;
+      const editHeight = editContentRef.current?.scrollHeight || 0;
+      setContainerHeight(isChangeable ? editHeight : viewHeight);
     };
 
-    updateHeight();
-    // Добавляем небольшую задержку для обеспечения корректного рендеринга
-    const timeoutId = setTimeout(updateHeight, 50);
-
-    return () => clearTimeout(timeoutId);
-  }, [isChangeable, markerInfoModalState.marker]);
+    if (markerInfoModalState.isOpen) {
+      const timeoutId = setTimeout(updateHeight, 0);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isChangeable, markerInfoModalState.isOpen]);
 
   useEffect(() => {
     if (!markerInfoModalState.isOpen) {
-      viewContentHeight.current = 0;
-      editContentHeight.current = 0;
-      setIsChangeable(false);
       setContainerHeight(0);
+      setIsChangeable(false);
     }
   }, [markerInfoModalState.isOpen]);
 
@@ -89,10 +84,29 @@ export const MarkerInfoModal: React.FC = () => {
     setIsChangeable((prev) => !prev);
   };
 
+  const saveAction = (data: IMarker) => {
+    markerInfoModalState.marker.target.type === 'empty' ? fillEmptyMarker(data) : updateMarker(data);
+    openMarkerInfoModal(data);
+    toggleChangeable();
+  };
+
+  const handleImgClick = useCallback((file: string) => {
+    setFullSizeImgState({ file, isOpen: true });
+  }, []);
+
+  const handleCloseFullSizeImg = useCallback(() => {
+    setFullSizeImgState({ isOpen: false, file: '' });
+  }, []);
+
+  const handleAimHere = useCallback(() => {
+    closeMarkerInfoModal();
+    setRotateToGps(markerInfoModalState.marker.coords.lon, markerInfoModalState.marker.coords.lat, 0);
+  }, [closeMarkerInfoModal, markerInfoModalState.marker.coords.lat, markerInfoModalState.marker.coords.lon]);
+
   return (
     <BaseModalWithoutContainer isOpen={markerInfoModalState.isOpen} closeAction={closeMarkerInfoModal} id={'markerInfoModal'}>
       <Container height={containerHeight}>
-        <ContentContainer className={isChangeable ? 'inactive' : 'active'} ref={viewContentRef}>
+        <ContentContainer className={isChangeable ? 'inactive' : 'active'}>
           <Type>
             {t(markerInfoModalState.marker.target.value)} {formattedDate}
           </Type>
@@ -103,9 +117,9 @@ export const MarkerInfoModal: React.FC = () => {
             <CoordSpan>
               {t('default_lon')}: {markerInfoModalState.marker.coords.lon}
             </CoordSpan>
-            <CoordSpan>
-              {t('default_alt')}: {markerInfoModalState.marker.coords.alt}
-            </CoordSpan>
+            {/* <CoordSpan>*/}
+            {/*  {t('default_alt')}: {markerInfoModalState.marker.coords.alt}*/}
+            {/* </CoordSpan>*/}
           </BaseColumnContainer>
 
           <BaseRowContainerWithWrap>{memoizedTargets}</BaseRowContainerWithWrap>
@@ -115,54 +129,67 @@ export const MarkerInfoModal: React.FC = () => {
               <TextArea id={'notes_info'} label={t('default_notes')} value={markerInfoModalState.marker.notes} disabled />
             </>
           )}
-          {markerInfoModalState.marker.target.type === 'target' && <Button onClick={toggleChangeable}>Edit</Button>}
-          {markerInfoModalState.marker.target.type === 'empty' && <Button onClick={toggleChangeable}>Fill</Button>}
+          {markerInfoModalState.marker.files.length !== 0 && (
+            <ImgContainer>
+              {markerInfoModalState.marker.files.map((el, index) => (
+                <ImgCard onClick={() => handleImgClick(el)} key={index} src={el} alt={`Uploaded ${index + 1}`} />
+              ))}
+            </ImgContainer>
+          )}
+          <LastRowContainer>
+            <Button onClick={handleAimHere}>{t('default_aim_here')}</Button>
+            {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
+            {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
+          </LastRowContainer>
         </ContentContainer>
 
-        <ContentContainer className={!isChangeable ? 'inactive' : 'active'} ref={editContentRef}>
-          <Type>
-            {t(markerInfoModalState.marker.target.value)} {formattedDate}
-          </Type>
-          <BaseColumnContainer>
-            <TextField id={'lat'} label={t('default_lat')} value={markerInfoModalState.marker.coords.lat} />
-            <TextField id={'lon'} label={t('default_lon')} value={markerInfoModalState.marker.coords.lon} />
-            <TextField id={'alt'} label={t('default_alt')} value={markerInfoModalState.marker.coords.alt} />
-          </BaseColumnContainer>
-
-          <BaseColumnContainer>
-            <TextField id={'lat'} label={t('default_lat')} value={markerInfoModalState.marker.coords.lat} />
-            <TextField id={'lon'} label={t('default_lon')} value={markerInfoModalState.marker.coords.lon} />
-            <TextField id={'alt'} label={t('default_alt')} value={markerInfoModalState.marker.coords.alt} />
-          </BaseColumnContainer>
-
-          <BaseColumnContainer>
-            <TextField id={'lat'} label={t('default_lat')} value={markerInfoModalState.marker.coords.lat} />
-            <TextField id={'lon'} label={t('default_lon')} value={markerInfoModalState.marker.coords.lon} />
-            <TextField id={'alt'} label={t('default_alt')} value={markerInfoModalState.marker.coords.alt} />
-          </BaseColumnContainer>
-
-          <BaseColumnContainer>
-            <TextField id={'lat'} label={t('default_lat')} value={markerInfoModalState.marker.coords.lat} />
-            <TextField id={'lon'} label={t('default_lon')} value={markerInfoModalState.marker.coords.lon} />
-            <TextField id={'alt'} label={t('default_alt')} value={markerInfoModalState.marker.coords.alt} />
-          </BaseColumnContainer>
-
-          <BaseColumnContainer>
-            <TextField id={'lat'} label={t('default_lat')} value={markerInfoModalState.marker.coords.lat} />
-            <TextField id={'lon'} label={t('default_lon')} value={markerInfoModalState.marker.coords.lon} />
-            <TextField id={'alt'} label={t('default_alt')} value={markerInfoModalState.marker.coords.alt} />
-          </BaseColumnContainer>
-
-          <BaseRowContainerWithWrap>{memoizedTargets}</BaseRowContainerWithWrap>
-          {markerInfoModalState.marker.notes.trim() !== '' && (
-            <>
-              <div />
-              <TextArea id={'notes_info'} label={t('default_notes')} value={markerInfoModalState.marker.notes} />
-            </>
-          )}
-          <Button onClick={toggleChangeable}>Save</Button>
+        <ContentContainer className={!isChangeable ? 'inactive' : 'active'}>
+          <AddTargetForm saveAction={saveAction} marker={{ ...markerInfoModalState.marker }} />
         </ContentContainer>
       </Container>
+
+      <InvisibleComponent ref={viewContentRef}>
+        <Type>
+          {t(markerInfoModalState.marker.target.value)} {formattedDate}
+        </Type>
+        <BaseColumnContainer>
+          <CoordSpan>
+            {t('default_lat')}: {markerInfoModalState.marker.coords.lat}
+          </CoordSpan>
+          <CoordSpan>
+            {t('default_lon')}: {markerInfoModalState.marker.coords.lon}
+          </CoordSpan>
+          {/* <CoordSpan>*/}
+          {/*  {t('default_alt')}: {markerInfoModalState.marker.coords.alt}*/}
+          {/* </CoordSpan>*/}
+        </BaseColumnContainer>
+
+        <BaseRowContainerWithWrap>{memoizedTargets}</BaseRowContainerWithWrap>
+        {markerInfoModalState.marker.notes.trim() !== '' && (
+          <>
+            <div />
+            <TextArea id={'notes_info'} label={t('default_notes')} value={markerInfoModalState.marker.notes} disabled />
+          </>
+        )}
+        {markerInfoModalState.marker.files.length !== 0 && (
+          <ImgContainer>
+            {markerInfoModalState.marker.files.map((el, index) => (
+              <ImgCard key={index} src={el} alt={`Uploaded ${index + 1}`} />
+            ))}
+          </ImgContainer>
+        )}
+        <LastRowContainer>
+          <Button>{t('default_aim_here')}</Button>
+          {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
+          {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
+        </LastRowContainer>
+      </InvisibleComponent>
+      <InvisibleComponent ref={editContentRef}>
+        <AddTargetForm saveAction={saveAction} marker={{ ...markerInfoModalState.marker }} />
+      </InvisibleComponent>
+      <BaseModalWithoutContainer isOpen={fullSizeImgState.isOpen} closeAction={handleCloseFullSizeImg} id={'fullSizeImg'}>
+        <img src={fullSizeImgState.file} style={{ maxWidth: '70%', position: 'absolute', zIndex: 100 }} />
+      </BaseModalWithoutContainer>
     </BaseModalWithoutContainer>
   );
 };
