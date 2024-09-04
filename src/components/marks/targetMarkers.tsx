@@ -3,7 +3,7 @@ import { useMarkerStore } from '../../store/markers.ts';
 import { Billboard, Entity, Vector } from '@openglobus/openglobus-react';
 import { useModalStore } from '../../store/modals.ts';
 
-export const TargetMarks: React.FC = React.memo(() => {
+export const TargetMarkers: React.FC = React.memo(() => {
   const filteredMarkers = useMarkerStore((state) => state.filteredMarkers);
   const openMarkerInfoModal = useModalStore((state) => state.openMarkerInfoModal);
 

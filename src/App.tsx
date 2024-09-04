@@ -10,8 +10,8 @@ import { AddTargetModal } from './components/modals/addTarget';
 import { useTagsStore } from './store/tags.ts';
 import { useSettingsStore } from './store/settings.ts';
 import i18n from 'i18next';
-import { LineMarker } from './components/marks/selfMark.tsx';
-import { TargetMarks } from './components/marks/targetMarks.tsx';
+import { MyPositionMarker } from './components/marks/myPositionMarker.tsx';
+import { TargetMarkers } from './components/marks/targetMarkers.tsx';
 import { MarkerInfoModal } from './components/modals/markerInfo';
 import { useMarkerStore } from './store/markers.ts';
 import { useBroadcast } from './hooks/useBroadcast.ts';
@@ -58,8 +58,8 @@ function App(): JSX.Element {
           <EventHandlerWrapper>
             <Globe name="myGlobe" minAltitude={500} maxAltitude={2500000}>
               <Layer />
-              <LineMarker />
-              <TargetMarks />
+              <MyPositionMarker />
+              <TargetMarkers />
               <EmptyMarker />
               <GeoImageComponent />
             </Globe>
