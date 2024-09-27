@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { ICoord, IMarker } from './markers.ts';
+import { ICoord, TargetTypeEnum } from '../interface/markers.ts';
+import { Nullable } from '../interface/baseComponentsInterface.ts';
 
 export interface ModalsState {
   addNewTargetState: {
@@ -11,9 +12,9 @@ export interface ModalsState {
 
   markerInfoModalState: {
     isOpen: boolean;
-    marker: IMarker;
+    marker: Nullable<{ uniqKey: string; type: TargetTypeEnum }>;
   };
-  openMarkerInfoModal: (data: IMarker) => void;
+  openMarkerInfoModal: (data: { uniqKey: string; type: TargetTypeEnum }) => void;
   closeMarkerInfoModal: () => void;
 }
 
@@ -26,6 +27,7 @@ export const useModalStore = create<ModalsState>((set) => ({
     },
     isOpen: false,
   },
+
   openNewTargetModal: (coords: ICoord) => set(() => ({ addNewTargetState: { coords, isOpen: true } })),
   closeNewTargetModal: () =>
     set(() => ({
@@ -40,26 +42,14 @@ export const useModalStore = create<ModalsState>((set) => ({
     })),
   markerInfoModalState: {
     isOpen: false,
-    marker: {
-      notes: '',
-      target: { src: '', value: 'default_enemy', type: 'target' },
-      timeStamp: 0,
-      coords: {
-        lat: 0,
-        lon: 0,
-        alt: 0,
-      },
-      files: [],
-      tags: [],
-      uniqKey: '',
-    },
+    marker: null,
   },
-  openMarkerInfoModal: (data: IMarker) => set(() => ({ markerInfoModalState: { marker: data, isOpen: true } })),
+  openMarkerInfoModal: (data) => set(() => ({ markerInfoModalState: { marker: data, isOpen: true } })),
   closeMarkerInfoModal: () =>
-    set((prev) => ({
+    set(() => ({
       markerInfoModalState: {
-        ...prev.markerInfoModalState,
         isOpen: false,
+        marker: null,
       },
     })),
 }));

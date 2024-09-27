@@ -5,13 +5,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Tags } from './tags';
 import { TargetType } from './targetType';
 import { ImgCard, ImgContainer, ImgWrapper, RemoveImgButton, SaveButton } from '../style.ts';
-import { ITarget } from '../../../store/target.ts';
-import { IMarker, useMarkerStore } from '../../../store/markers.ts';
+import { useMarkerStore } from '../../../store/markers.ts';
 import { usePopupStore } from '../../../store/popup.ts';
 import { useTranslation } from 'react-i18next';
 import { ColumnContainer } from '../../filters/style.ts';
 import { Button } from '../../button/style.ts';
 import { CardName, Container } from './tags/style.ts';
+import { IMarker, ITarget, TargetTypeEnum } from '../../../interface/markers.ts';
 
 export const AddTargetModal: React.FC = () => {
   const { addNewTargetState, closeNewTargetModal } = useModalStore((state) => ({
@@ -28,7 +28,7 @@ export const AddTargetModal: React.FC = () => {
       closeNewTargetModal();
       closePopup();
     },
-    [addMarker],
+    [addMarker, closeNewTargetModal, closePopup],
   );
 
   return (
@@ -41,7 +41,7 @@ export const AddTargetModal: React.FC = () => {
           tags: [],
           notes: '',
           coords: addNewTargetState.coords,
-          target: { src: '', value: '', type: 'target' },
+          target: { src: '', value: '', type: TargetTypeEnum.target },
           uniqKey: '',
         }}
       />
@@ -59,7 +59,7 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
   const [localLon, setLocalLon] = useState<string>(marker.coords.lon.toString());
   const [localAlt, setLocalAlt] = useState<string>('0');
   const [targetType, setTargetType] = useState<ITarget>(
-    marker.target.type === 'empty' ? { value: 'default_enemy', src: '', type: 'target' } : marker.target,
+    marker.target.type === TargetTypeEnum.empty ? { value: 'default_enemy', src: '', type: TargetTypeEnum.target } : marker.target,
   );
   const [notes, setNotes] = useState<string>(marker.notes);
   const [tags, setTags] = useState<string[]>(marker.tags);
@@ -74,7 +74,7 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
     setLocalAlt('0');
     setLocalLat(marker.coords.lat.toString());
     setLocalLon(marker.coords.lon.toString());
-    setTargetType(marker.target.type === 'empty' ? { value: 'default_enemy', src: '', type: 'target' } : marker.target);
+    setTargetType(marker.target.type === TargetTypeEnum.empty ? { value: 'default_enemy', src: '', type: TargetTypeEnum.target } : marker.target);
     setNotes(marker.notes);
     setTags(marker.tags);
     setImages(marker.files);
@@ -163,7 +163,7 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
     saveAction({
       notes,
       tags,
-      target: { src: '', type: 'target', value: targetType.value !== '' ? targetType.value : 'default_enemy' },
+      target: { src: '', type: TargetTypeEnum.target, value: targetType.value !== '' ? targetType.value : 'default_enemy' },
       coords: { lon: +localLon, alt: +localAlt, lat: +localLat },
       timeStamp: marker.timeStamp,
       uniqKey: `${localTimestamp}_${localLat}_${localLon}`,

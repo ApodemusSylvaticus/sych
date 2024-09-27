@@ -10,7 +10,7 @@ export const useBroadcast = () => {
   const gps = useRef<Pick<JonGuiDataGps, 'altitude' | 'longitude' | 'latitude'>>({ altitude: 0, latitude: 0, longitude: 0 });
   const emptyTarget = useRef<Pick<JonGuiDataLrf, 'measureId' | 'target'>>({ measureId: 0, target: undefined });
   const setAzimut = useGlobusStore((state) => state.setAzimuth);
-  const { setEmptyMarker, setSelfCoord } = useMarkerStore((state) => ({ setEmptyMarker: state.setEmptyMarker, setSelfCoord: state.setSelfCoord }));
+  const { setEmptyMarker, setSelfCoords } = useMarkerStore((state) => ({ setEmptyMarker: state.setEmptyMarker, setSelfCoords: state.setSelfCoords }));
   const [debouncedSetAzimut] = useDebounce(setAzimut, 500);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const useBroadcast = () => {
               latitude: deserializedData.gps.latitude,
               longitude: deserializedData.gps.longitude,
             };
-            setSelfCoord({ alt: deserializedData.gps.altitude, lon: deserializedData.gps.longitude, lat: deserializedData.gps.latitude });
+            setSelfCoords({ alt: deserializedData.gps.altitude, lon: deserializedData.gps.longitude, lat: deserializedData.gps.latitude });
           }
         }
 
@@ -74,5 +74,5 @@ export const useBroadcast = () => {
 
       channel.close();
     };
-  }, [debouncedSetAzimut, setEmptyMarker, setSelfCoord]);
+  }, [debouncedSetAzimut, setEmptyMarker, setSelfCoords]);
 };

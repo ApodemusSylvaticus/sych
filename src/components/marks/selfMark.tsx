@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Billboard, Entity, Geometry, useGlobeContext, Vector } from '@openglobus/openglobus-react';
+import { Billboard, Entity, Geometry, useGlobeContext } from '@openglobus/openglobus-react';
 import { useMarkerStore } from '../../store/markers.ts';
 import { useGlobusStore } from '../../store/globus.ts';
-import { useModalStore } from '../../store/modals.ts';
 import { LonLat } from '@openglobus/og';
 import { calculateEndPointByAzimuth } from '../../utils/direction.ts';
+import { TargetTypeEnum } from '../../interface/markers.ts';
 
 export const LineMarker = React.memo(() => {
   const selfMarker = useMarkerStore((state) => state.selfMarker);
@@ -20,7 +20,7 @@ export const LineMarker = React.memo(() => {
   const calculateEnd = useCallback(() => {
     const intermediatePoint = calculateEndPointByAzimuth(new LonLat(selfMarker.coords.lon, selfMarker.coords.lat), azimuth, 30000);
     setEnd(intermediatePoint);
-  }, [selfMarker, azimuth, globe]);
+  }, [selfMarker, azimuth]);
 
   useEffect(() => {
     calculateEnd();
@@ -28,7 +28,7 @@ export const LineMarker = React.memo(() => {
 
   useEffect(() => {
     if (globe && selfMarker) {
-      if ((selfMarker.coords.lon !== 0 || selfMarker.coords.lat !== 0) && isOneTimeChanged.current === false) {
+      if ((selfMarker.coords.lon !== 0 || selfMarker.coords.lat !== 0) && !isOneTimeChanged.current) {
         isOneTimeChanged.current = true;
         globe.planet.camera.flyLonLat(new LonLat(selfMarker.coords.lon, selfMarker.coords.lat, 500000));
       }
@@ -46,25 +46,25 @@ export const LineMarker = React.memo(() => {
         lon={selfMarker.coords.lon}
         lat={selfMarker.coords.lat}
         alt={selfMarker.coords.alt}
-        properties={{ color: '#9d2626', type: 'Self' }}
+        properties={{ color: '#9d2626', type: TargetTypeEnum.self }}
       >
         <Billboard key={selfMarkKey} size={[30, 30]} src={'./point.svg'} color={'#9d2626'} />
       </Entity>
 
-      {end && (
-        <Entity key={vectorKey} lon={selfMarker.coords.lon} lat={selfMarker.coords.lat} alt={0}>
-          <Geometry
-            key={vectorKey}
-            lineColor={'rgba(59, 6, 6, 1)'}
-            lineWidth={5}
-            type={'LINESTRING'}
-            coordinates={[
-              [selfMarker.coords.lon, selfMarker.coords.lat, 0],
-              [end.lon, end.lat, 0],
-            ]}
-          />
-        </Entity>
-      )}
+      {/* {end && (*/}
+      {/*  <Entity key={vectorKey} lon={selfMarker.coords.lon} lat={selfMarker.coords.lat} alt={0}>*/}
+      {/*    <Geometry*/}
+      {/*      key={vectorKey}*/}
+      {/*      lineColor={'rgba(59, 6, 6, 1)'}*/}
+      {/*      lineWidth={5}*/}
+      {/*      type={'LINESTRING'}*/}
+      {/*      coordinates={[*/}
+      {/*        [selfMarker.coords.lon, selfMarker.coords.lat, 0],*/}
+      {/*        [end.lon, end.lat, 0],*/}
+      {/*      ]}*/}
+      {/*    />*/}
+      {/*  </Entity>*/}
+      {/* )}*/}
     </>
   );
 });

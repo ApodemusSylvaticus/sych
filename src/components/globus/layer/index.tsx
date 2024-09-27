@@ -52,13 +52,13 @@ const satArgs = {
 //   },
 // };
 
-const isTest = false;
+const isTest = true;
 
 const osmArgs = {
   name: 'osm',
   opacity: 1,
-  url: 'https://sych.app/api/map/osm/tile/{z}/{x}/{y}.png',
-  isBaseLayer: false,
+  url: `${window.location.origin}/api/map/osm/tile/{z}/{x}/{y}.png`,
+  isBaseLayer: isTest ? false : true,
   urlRewrite: function (s: TileInfo, u: string) {
     if (isTest) {
       utils.stringTemplate(u, {
@@ -67,7 +67,7 @@ const osmArgs = {
         z: s.tileZoom,
       });
     }
-    return `https://sych.app/api/map/osm/tile/${s.tileZoom}/${s.tileX}/${s.tileY}.png`;
+    return `${window.location.origin}/api/map/osm/tile/${s.tileZoom}/${s.tileX}/${s.tileY}.png`;
   },
 };
 
@@ -76,6 +76,7 @@ export const Layer: React.FC = React.memo(() => {
   const [key, setKey] = React.useState(1);
 
   const param = useMemo(() => (activeLayer === 'OSM' ? osmArgs : satArgs), [activeLayer]);
+
   useEffect(() => {
     setKey((prev) => prev + 1);
   }, [activeLayer]);

@@ -1,10 +1,5 @@
 import { create } from 'zustand';
-
-export interface ITarget {
-  value: string;
-  src: string;
-  type: 'self' | 'target' | 'empty';
-}
+import { ITarget, TargetTypeEnum } from '../interface/markers.ts';
 
 export type ITargetState = {
   targets: ITarget[];
@@ -12,10 +7,10 @@ export type ITargetState = {
 
 const initialState: ITargetState = {
   targets: [
-    { src: '', value: 'default_enemy', type: 'target' },
-    { src: '', value: 'default_enemy_stock', type: 'target' },
-    { src: '', value: 'default_enemy_group', type: 'target' },
-    { src: '', value: 'default_enemy_artillery', type: 'target' },
+    { src: '', value: 'default_enemy', type: TargetTypeEnum.target },
+    { src: '', value: 'default_enemy_stock', type: TargetTypeEnum.target },
+    { src: '', value: 'default_enemy_group', type: TargetTypeEnum.target },
+    { src: '', value: 'default_enemy_artillery', type: TargetTypeEnum.target },
   ],
 };
 

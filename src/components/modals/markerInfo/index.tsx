@@ -7,10 +7,12 @@ import { BaseColumnContainer, BaseRowContainerWithWrap } from '../../containers/
 import { LastElemWrapper } from '../addTarget/tags/style.ts';
 import { TextArea } from '../../input';
 import { AddTargetForm } from '../addTarget';
-import { IMarker, useMarkerStore } from '../../../store/markers.ts';
 import { ImgCard, ImgContainer } from '../style.ts';
 import { Button } from '../../button/style.ts';
 import { setRotateToGps } from '../../../mainApp/ts/cmd/cmdSender/cmdRotary.ts';
+import { useMarkerStore } from '../../../store/markers.ts';
+import { IMarker, TargetTypeEnum } from '../../../interface/markers.ts';
+import { assertNever } from '../../../interface/baseComponentsInterface.ts';
 
 const formatDate = (date: Date): string => {
   const day = date.getDate().toString().padStart(2, '0');
@@ -23,15 +25,77 @@ const formatDate = (date: Date): string => {
 };
 
 export const MarkerInfoModal: React.FC = () => {
-  const { closeMarkerInfoModal, markerInfoModalState, openMarkerInfoModal } = useModalStore((state) => ({
+  const { t } = useTranslation();
+
+  const { closeMarkerInfoModal, markerInfoModalState } = useModalStore((state) => ({
     markerInfoModalState: state.markerInfoModalState,
     closeMarkerInfoModal: state.closeMarkerInfoModal,
-    openMarkerInfoModal: state.openMarkerInfoModal,
+  }));
+  const { fillEmptyMarker, updateMarker, allMarkers, selfMarker, emptyMarkers } = useMarkerStore((state) => ({
+    updateMarker: state.updateMarker,
+    fillEmptyMarker: state.fillEmptyMarker,
+    selfMarker: state.selfMarker,
+    allMarkers: state.allMarkers,
+    emptyMarkers: state.emptyMarkers,
   }));
 
-  const { fillEmptyMarker, updateMarker } = useMarkerStore((state) => ({ updateMarker: state.updateMarker, fillEmptyMarker: state.fillEmptyMarker }));
+  const [localState, setLocalState] = useState<IMarker>({
+    uniqKey: '',
+    notes: '',
+    files: [],
+    target: { type: TargetTypeEnum.empty, src: '', value: '' },
+    coords: { lon: 0, lat: 0, alt: 0 },
+    tags: [],
+    timeStamp: 0,
+  });
+
+  const isAlreadyOpen = useRef(false);
+
+  useEffect(() => {
+    if (markerInfoModalState.isOpen && markerInfoModalState.marker && !isAlreadyOpen.current) {
+      const { type, uniqKey } = markerInfoModalState.marker;
+
+      if (type === TargetTypeEnum.self) {
+        setLocalState({
+          notes: '',
+          files: [],
+          tags: [],
+          timeStamp: 0,
+          ...selfMarker,
+        });
+        isAlreadyOpen.current = true;
+      } else if (type === TargetTypeEnum.empty) {
+        const data = emptyMarkers.find((el) => el.uniqKey === uniqKey);
+        if (data === undefined) {
+          throw new Error('Empty marker not found');
+        }
+        setLocalState({
+          notes: '',
+          files: [],
+          target: { type: TargetTypeEnum.empty, src: '', value: '' },
+          tags: [],
+          ...data,
+        });
+        isAlreadyOpen.current = true;
+      } else if (type === TargetTypeEnum.target) {
+        const data = allMarkers.find((el) => el.uniqKey === uniqKey);
+        if (data === undefined) {
+          throw new Error('Target marker not found');
+        }
+        setLocalState(data);
+        isAlreadyOpen.current = true;
+      } else {
+        assertNever(type);
+      }
+    }
+
+    if (!markerInfoModalState.isOpen) {
+      isAlreadyOpen.current = false;
+    }
+  }, [markerInfoModalState, allMarkers, selfMarker, emptyMarkers]);
+
   const [fullSizeImgState, setFullSizeImgState] = useState<{ isOpen: boolean; file: string }>({ isOpen: false, file: '' });
-  const { t } = useTranslation();
+
   const [isChangeable, setIsChangeable] = useState<boolean>(false);
   const [containerHeight, setContainerHeight] = useState<number>(0);
 
@@ -39,17 +103,17 @@ export const MarkerInfoModal: React.FC = () => {
   const editContentRef = useRef<HTMLDivElement>(null);
 
   const formattedDate = useMemo(() => {
-    if (markerInfoModalState.marker.timeStamp === -1) {
+    if (localState.timeStamp === -1) {
       return '';
     }
-    const date = new Date(markerInfoModalState.marker.timeStamp);
+    const date = new Date(localState.timeStamp);
     return formatDate(date);
-  }, [markerInfoModalState.marker]);
+  }, [localState]);
 
   const memoizedTargets = useMemo(
     () =>
-      markerInfoModalState.marker.tags.map((el, index) =>
-        index === markerInfoModalState.marker.tags.length - 1 ? (
+      localState.tags.map((el, index) =>
+        index === localState.tags.length - 1 ? (
           <LastElemWrapper key={el}>
             <TagTab>{el}</TagTab>
           </LastElemWrapper>
@@ -57,7 +121,7 @@ export const MarkerInfoModal: React.FC = () => {
           <TagTab key={el}>{el}</TagTab>
         ),
       ),
-    [markerInfoModalState.marker.tags],
+    [localState.tags],
   );
 
   useEffect(() => {
@@ -85,8 +149,8 @@ export const MarkerInfoModal: React.FC = () => {
   };
 
   const saveAction = (data: IMarker) => {
-    markerInfoModalState.marker.target.type === 'empty' ? fillEmptyMarker(data) : updateMarker(data);
-    openMarkerInfoModal(data);
+    localState.target.type === TargetTypeEnum.empty ? fillEmptyMarker(data) : updateMarker(data);
+    setLocalState(data);
     toggleChangeable();
   };
 
@@ -100,92 +164,92 @@ export const MarkerInfoModal: React.FC = () => {
 
   const handleAimHere = useCallback(() => {
     closeMarkerInfoModal();
-    setRotateToGps(markerInfoModalState.marker.coords.lon, markerInfoModalState.marker.coords.lat, 0);
-  }, [closeMarkerInfoModal, markerInfoModalState.marker.coords.lat, markerInfoModalState.marker.coords.lon]);
+    setRotateToGps(localState.coords.lon, localState.coords.lat, 0);
+  }, [closeMarkerInfoModal, localState.coords.lat, localState.coords.lon]);
 
   return (
     <BaseModalWithoutContainer isOpen={markerInfoModalState.isOpen} closeAction={closeMarkerInfoModal} id={'markerInfoModal'}>
       <Container height={containerHeight}>
         <ContentContainer className={isChangeable ? 'inactive' : 'active'}>
           <Type>
-            {t(markerInfoModalState.marker.target.value)} {formattedDate}
+            {t(localState.target.value)} {formattedDate}
           </Type>
           <BaseColumnContainer>
             <CoordSpan>
-              {t('default_lat')}: {markerInfoModalState.marker.coords.lat}
+              {t('default_lat')}: {localState.coords.lat}
             </CoordSpan>
             <CoordSpan>
-              {t('default_lon')}: {markerInfoModalState.marker.coords.lon}
+              {t('default_lon')}: {localState.coords.lon}
             </CoordSpan>
             {/* <CoordSpan>*/}
-            {/*  {t('default_alt')}: {markerInfoModalState.marker.coords.alt}*/}
+            {/*  {t('default_alt')}: {localState.coords.alt}*/}
             {/* </CoordSpan>*/}
           </BaseColumnContainer>
 
           <BaseRowContainerWithWrap>{memoizedTargets}</BaseRowContainerWithWrap>
-          {markerInfoModalState.marker.notes.trim() !== '' && (
+          {localState.notes.trim() !== '' && (
             <>
               <div />
-              <TextArea id={'notes_info'} label={t('default_notes')} value={markerInfoModalState.marker.notes} disabled />
+              <TextArea id={'notes_info'} label={t('default_notes')} value={localState.notes} disabled />
             </>
           )}
-          {markerInfoModalState.marker.files.length !== 0 && (
+          {localState.files.length !== 0 && (
             <ImgContainer>
-              {markerInfoModalState.marker.files.map((el, index) => (
+              {localState.files.map((el, index) => (
                 <ImgCard onClick={() => handleImgClick(el)} key={index} src={el} alt={`Uploaded ${index + 1}`} />
               ))}
             </ImgContainer>
           )}
           <LastRowContainer>
             <Button onClick={handleAimHere}>{t('default_aim_here')}</Button>
-            {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
-            {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
+            {localState.target.type === TargetTypeEnum.target && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
+            {localState.target.type === TargetTypeEnum.empty && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
           </LastRowContainer>
         </ContentContainer>
 
         <ContentContainer className={!isChangeable ? 'inactive' : 'active'}>
-          <AddTargetForm saveAction={saveAction} marker={{ ...markerInfoModalState.marker }} />
+          <AddTargetForm saveAction={saveAction} marker={localState} />
         </ContentContainer>
       </Container>
 
       <InvisibleComponent ref={viewContentRef}>
         <Type>
-          {t(markerInfoModalState.marker.target.value)} {formattedDate}
+          {t(localState.target.value)} {formattedDate}
         </Type>
         <BaseColumnContainer>
           <CoordSpan>
-            {t('default_lat')}: {markerInfoModalState.marker.coords.lat}
+            {t('default_lat')}: {localState.coords.lat}
           </CoordSpan>
           <CoordSpan>
-            {t('default_lon')}: {markerInfoModalState.marker.coords.lon}
+            {t('default_lon')}: {localState.coords.lon}
           </CoordSpan>
           {/* <CoordSpan>*/}
-          {/*  {t('default_alt')}: {markerInfoModalState.marker.coords.alt}*/}
+          {/*  {t('default_alt')}: {localState.coords.alt}*/}
           {/* </CoordSpan>*/}
         </BaseColumnContainer>
 
         <BaseRowContainerWithWrap>{memoizedTargets}</BaseRowContainerWithWrap>
-        {markerInfoModalState.marker.notes.trim() !== '' && (
+        {localState.notes.trim() !== '' && (
           <>
             <div />
-            <TextArea id={'notes_info'} label={t('default_notes')} value={markerInfoModalState.marker.notes} disabled />
+            <TextArea id={'notes_info'} label={t('default_notes')} value={localState.notes} disabled />
           </>
         )}
-        {markerInfoModalState.marker.files.length !== 0 && (
+        {localState.files.length !== 0 && (
           <ImgContainer>
-            {markerInfoModalState.marker.files.map((el, index) => (
+            {localState.files.map((el, index) => (
               <ImgCard key={index} src={el} alt={`Uploaded ${index + 1}`} />
             ))}
           </ImgContainer>
         )}
         <LastRowContainer>
           <Button>{t('default_aim_here')}</Button>
-          {markerInfoModalState.marker.target.type === 'target' && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
-          {markerInfoModalState.marker.target.type === 'empty' && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
+          {localState.target.type === TargetTypeEnum.target && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
+          {localState.target.type === TargetTypeEnum.empty && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
         </LastRowContainer>
       </InvisibleComponent>
       <InvisibleComponent ref={editContentRef}>
-        <AddTargetForm saveAction={saveAction} marker={{ ...markerInfoModalState.marker }} />
+        <AddTargetForm saveAction={saveAction} marker={localState} />
       </InvisibleComponent>
       <BaseModalWithoutContainer isOpen={fullSizeImgState.isOpen} closeAction={handleCloseFullSizeImg} id={'fullSizeImg'}>
         <img src={fullSizeImgState.file} style={{ maxWidth: '70%', position: 'absolute', zIndex: 100 }} />

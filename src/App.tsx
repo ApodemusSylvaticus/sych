@@ -10,16 +10,14 @@ import { AddTargetModal } from './components/modals/addTarget';
 import { useTagsStore } from './store/tags.ts';
 import { useSettingsStore } from './store/settings.ts';
 import i18n from 'i18next';
-import { LineMarker } from './components/marks/selfMark.tsx';
-import { TargetMarks } from './components/marks/targetMarks.tsx';
 import { MarkerInfoModal } from './components/modals/markerInfo';
 import { useMarkerStore } from './store/markers.ts';
 import { useBroadcast } from './hooks/useBroadcast.ts';
-import { EmptyMarker } from './components/marks/emptyMarker.tsx';
 import { WebSocketConnectionManager } from './mainApp/js/webSocketConnectionManager';
 import { GeoImageComponent } from './components/globus/geoImage/input.tsx';
 import { CenterButton } from './components/centerButton';
 import { Layer } from './components/globus/layer';
+import { VectorEventHandlerWrapper } from './wrappers/eventHandlerWrapper/vectorEventHandler.tsx';
 
 function App(): JSX.Element {
   const { language, getLanguageFromLocalStorage } = useSettingsStore((state) => ({
@@ -58,9 +56,7 @@ function App(): JSX.Element {
           <GlobeEventHandlerWrapper>
             <Globe name="myGlobe" minAltitude={500} maxAltitude={2500000}>
               <Layer />
-              <LineMarker />
-              <TargetMarks />
-              <EmptyMarker />
+              <VectorEventHandlerWrapper />
               <GeoImageComponent />
             </Globe>
           </GlobeEventHandlerWrapper>
