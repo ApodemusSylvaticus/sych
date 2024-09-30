@@ -20,12 +20,12 @@ import { Layer } from './components/globus/layer';
 import { VectorEventHandlerWrapper } from './wrappers/eventHandlerWrapper/vectorEventHandler.tsx';
 
 function App(): JSX.Element {
-  const { language, getLanguageFromLocalStorage } = useSettingsStore((state) => ({
-    language: state.language,
-    getLanguageFromLocalStorage: state.getLanguageFromLocalStorage,
-  }));
-  const getTagsFromLocalStorage = useTagsStore((state) => state.getTagsFromLocalStorage);
   useBroadcast();
+
+  const language = useSettingsStore((state) => state.language);
+  const getLanguageFromLocalStorage = useSettingsStore((state) => state.getLanguageFromLocalStorage);
+
+  const getTagsFromLocalStorage = useTagsStore((state) => state.getTagsFromLocalStorage);
 
   const getMarkersFromDB = useMarkerStore((state) => state.getMarkersFromDB);
 

@@ -27,17 +27,14 @@ const formatDate = (date: Date): string => {
 export const MarkerInfoModal: React.FC = () => {
   const { t } = useTranslation();
 
-  const { closeMarkerInfoModal, markerInfoModalState } = useModalStore((state) => ({
-    markerInfoModalState: state.markerInfoModalState,
-    closeMarkerInfoModal: state.closeMarkerInfoModal,
-  }));
-  const { fillEmptyMarker, updateMarker, allMarkers, selfMarker, emptyMarkers } = useMarkerStore((state) => ({
-    updateMarker: state.updateMarker,
-    fillEmptyMarker: state.fillEmptyMarker,
-    selfMarker: state.selfMarker,
-    allMarkers: state.allMarkers,
-    emptyMarkers: state.emptyMarkers,
-  }));
+  const markerInfoModalState = useModalStore((state) => state.markerInfoModalState);
+  const closeMarkerInfoModal = useModalStore((state) => state.closeMarkerInfoModal);
+
+  const updateMarker = useMarkerStore((state) => state.updateMarker);
+  const fillEmptyMarker = useMarkerStore((state) => state.fillEmptyMarker);
+  const selfMarker = useMarkerStore((state) => state.selfMarker);
+  const allMarkers = useMarkerStore((state) => state.allMarkers);
+  const emptyMarkers = useMarkerStore((state) => state.emptyMarkers);
 
   const [localState, setLocalState] = useState<IMarker>({
     uniqKey: '',
@@ -200,11 +197,13 @@ export const MarkerInfoModal: React.FC = () => {
               ))}
             </ImgContainer>
           )}
-          <LastRowContainer>
-            <Button onClick={handleAimHere}>{t('default_aim_here')}</Button>
-            {localState.target.type === TargetTypeEnum.target && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
-            {localState.target.type === TargetTypeEnum.empty && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
-          </LastRowContainer>
+          {localState.target.type !== TargetTypeEnum.self && (
+            <LastRowContainer>
+              <Button onClick={handleAimHere}>{t('default_aim_here')}</Button>
+              {localState.target.type === TargetTypeEnum.target && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
+              {localState.target.type === TargetTypeEnum.empty && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
+            </LastRowContainer>
+          )}
         </ContentContainer>
 
         <ContentContainer className={!isChangeable ? 'inactive' : 'active'}>
@@ -242,11 +241,13 @@ export const MarkerInfoModal: React.FC = () => {
             ))}
           </ImgContainer>
         )}
-        <LastRowContainer>
-          <Button>{t('default_aim_here')}</Button>
-          {localState.target.type === TargetTypeEnum.target && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
-          {localState.target.type === TargetTypeEnum.empty && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
-        </LastRowContainer>
+        {localState.target.type !== TargetTypeEnum.self && (
+          <LastRowContainer>
+            <Button>{t('default_aim_here')}</Button>
+            {localState.target.type === TargetTypeEnum.target && <ChangeButton onClick={toggleChangeable}>{t('default_edit')}</ChangeButton>}
+            {localState.target.type === TargetTypeEnum.empty && <ChangeButton onClick={toggleChangeable}>{t('default_fill')}</ChangeButton>}
+          </LastRowContainer>
+        )}
       </InvisibleComponent>
       <InvisibleComponent ref={editContentRef}>
         <AddTargetForm saveAction={saveAction} marker={localState} />

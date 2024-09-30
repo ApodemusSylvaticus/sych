@@ -9,11 +9,10 @@ import { useTranslation } from 'react-i18next';
 
 export const TagsFilter: React.FC = React.memo(() => {
   const tagsList = useTagsStore((state) => state.tagsList);
-  const { addTagFilter, isTagFilterEnabled, switchTagFilter } = useFilterStore((state) => ({
-    addTagFilter: state.addTagFilter,
-    isTagFilterEnabled: state.isTagFilterEnabled,
-    switchTagFilter: state.switchTagFilter,
-  }));
+  const addTagFilter = useFilterStore((state) => state.addTagFilter);
+  const isTagFilterEnabled = useFilterStore((state) => state.isTagFilterEnabled);
+  const switchTagFilter = useFilterStore((state) => state.switchTagFilter);
+
   const { t } = useTranslation();
   const [chosenTargets, setChosenTargets] = useState(tagsList);
 

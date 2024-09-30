@@ -4,11 +4,10 @@ import { usePopupStore } from '../../store/popup.ts';
 
 export const GlobeEventHandlerWrapper: React.FC<PropsWithChildren> = ({ children }) => {
   const { globe } = useGlobeContext();
-  const { openPopup, closePopup, isOpen } = usePopupStore((state) => ({
-    openPopup: state.openPopup,
-    closePopup: state.closePopup,
-    isOpen: state.isOpen,
-  }));
+  const openPopup = usePopupStore((state) => state.openPopup);
+  const closePopup = usePopupStore((state) => state.closePopup);
+  const isOpen = usePopupStore((state) => state.isOpen);
+
   const isOpenRef = useRef<boolean>(false);
   const touchRefStart = useRef(null);
 

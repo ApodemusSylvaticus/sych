@@ -1,32 +1,20 @@
 import React, { useCallback } from 'react';
-import { Entity, GeoObject, Vector } from '@openglobus/openglobus-react';
-import { LineMarker } from '../../components/marks/selfMark.tsx';
-import { TargetMarks } from '../../components/marks/targetMarks.tsx';
+import { Vector } from '@openglobus/openglobus-react';
+import { SelfMarker } from '../../components/marks/selfMarker.tsx';
+import { TargetMarkers } from '../../components/marks/targetMarkers.tsx';
 import { EmptyMarker } from '../../components/marks/emptyMarker.tsx';
 import { useModalStore } from '../../store/modals.ts';
 import { TargetTypeEnum } from '../../interface/markers.ts';
 import { assertNever } from '../../interface/baseComponentsInterface.ts';
-import { useMarkerStore } from '../../store/markers.ts';
-
-const args = {
-  visibility: true,
-  yaw: 15500,
-  roll: 0,
-  pitch: 0,
-  scale: 0.2,
-  tag: 'none',
-  color: 'black',
-  objSrc: './line.obj',
-};
+import { DirectionVector } from '../../components/directionVector';
 
 export const VectorEventHandlerWrapper: React.FC = React.memo(() => {
   const openMarkerInfoModal = useModalStore((state) => state.openMarkerInfoModal);
-  const selfMarker = useMarkerStore((state) => state.selfMarker);
 
   const handleEvent = useCallback(
-    (e) => {
+    (e: { pickingObject: { properties: { type: TargetTypeEnum; uniqKey: string } } }) => {
       if (e.pickingObject) {
-        const value = e.pickingObject.properties.type as TargetTypeEnum;
+        const value = e.pickingObject.properties.type;
         switch (value) {
           case TargetTypeEnum.self:
             openMarkerInfoModal({ type: TargetTypeEnum.self, uniqKey: '' });
@@ -48,16 +36,12 @@ export const VectorEventHandlerWrapper: React.FC = React.memo(() => {
 
   return (
     <>
-      <Vector name={'test2'} scaleByDistance={[100, 2000000, 1]}>
-        <Entity name="Custom Entity2" lon={selfMarker.coords.lon} lat={selfMarker.coords.lat} alt={selfMarker.coords.alt}>
-          <GeoObject {...args} />
-        </Entity>
-      </Vector>
       <Vector name={'VectorEventHandler'} onLclick={handleEvent} onTouchEnd={handleEvent}>
-        <LineMarker />
-        <TargetMarks />
+        <SelfMarker />
+        <TargetMarkers />
         <EmptyMarker />
       </Vector>
+      <DirectionVector />
     </>
   );
 });

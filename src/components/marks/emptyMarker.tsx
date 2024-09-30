@@ -12,8 +12,8 @@ export const EmptyMarker: React.FC = React.memo(() => {
         <Entity
           key={el.uniqKey}
           name={el.uniqKey}
-          lon={el.coord.lon}
-          lat={el.coord.lat}
+          lon={el.coords.lon}
+          lat={el.coords.lat}
           alt={0}
           properties={{ uniqKey: el.uniqKey, type: TargetTypeEnum.empty }}
         >

@@ -14,10 +14,8 @@ import { CardName, Container } from './tags/style.ts';
 import { IMarker, ITarget, TargetTypeEnum } from '../../../interface/markers.ts';
 
 export const AddTargetModal: React.FC = () => {
-  const { addNewTargetState, closeNewTargetModal } = useModalStore((state) => ({
-    addNewTargetState: state.addNewTargetState,
-    closeNewTargetModal: state.closeNewTargetModal,
-  }));
+  const addNewTargetState = useModalStore((state) => state.addNewTargetState);
+  const closeNewTargetModal = useModalStore((state) => state.closeNewTargetModal);
 
   const closePopup = usePopupStore((state) => state.closePopup);
   const addMarker = useMarkerStore((state) => state.addMarker);
@@ -129,12 +127,12 @@ export const AddTargetForm: React.FC<AddTargetFormProps> = ({ marker, saveAction
     [handleInputChange],
   );
 
-  const onAltChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      handleInputChange(event, setLocalAlt, -1000, 100000);
-    },
-    [handleInputChange],
-  );
+  // const onAltChange = useCallback(
+  //   (event: React.ChangeEvent<HTMLInputElement>) => {
+  //     handleInputChange(event, setLocalAlt, -1000, 100000);
+  //   },
+  //   [handleInputChange],
+  // );
 
   const handleImageUpload = useCallback(() => {
     const input = document.createElement('input');

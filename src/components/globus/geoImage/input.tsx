@@ -3,10 +3,8 @@ import { GeoImage } from '@openglobus/openglobus-react';
 import { useGeoImgsStore } from '../../../store/geoImgs.ts';
 
 export const GeoImageComponent: React.FC = React.memo(() => {
-  const { geoImgs, getGeoImgsFromIndexedDB } = useGeoImgsStore((state) => ({
-    geoImgs: state.geoImgs,
-    getGeoImgsFromIndexedDB: state.getGeoImgsFromIndexedDB,
-  }));
+  const geoImgs = useGeoImgsStore((state) => state.geoImgs);
+  const getGeoImgsFromIndexedDB = useGeoImgsStore((state) => state.getGeoImgsFromIndexedDB);
 
   useEffect(() => {
     getGeoImgsFromIndexedDB();

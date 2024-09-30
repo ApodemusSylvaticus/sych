@@ -98,7 +98,6 @@ export const AddNewGeoImgModal: React.FC<{ isOpen: boolean; close: () => void }>
         rightBottomCorner: { lon: parseFloat(corners.bottomRight.lon), lat: parseFloat(corners.bottomRight.lat), alt: 0 },
         leftBottomCorner: { lon: parseFloat(corners.bottomLeft.lon), lat: parseFloat(corners.bottomLeft.lat), alt: 0 },
       };
-      console.log('newImg', newImg);
       addImg(newImg);
       close();
     }

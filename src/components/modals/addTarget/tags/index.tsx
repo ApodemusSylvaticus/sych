@@ -6,7 +6,8 @@ import { WithButtonInput } from '../../../input/withButtonInput.tsx';
 import { useTranslation } from 'react-i18next';
 
 export const Tags: React.FC<{ tags: string[]; setTags: (value: string[]) => void }> = ({ tags, setTags }) => {
-  const { tagsList, addTag } = useTagsStore((state) => ({ tagsList: state.tagsList, addTag: state.addTag }));
+  const tagsList = useTagsStore((state) => state.tagsList);
+  const addTag = useTagsStore((state) => state.addTag);
   const [selectedList, setSelectedList] = useState<string[]>(tags);
   const [inputValue, setInputValue] = useState<string>('');
   const { t } = useTranslation();

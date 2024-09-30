@@ -9,11 +9,11 @@ import { useTranslation } from 'react-i18next';
 
 export const TypeFilters: React.FC = React.memo(() => {
   const targets = useTargetStore((state) => state.targets);
-  const { addTypeFilter, switchTypeFilter, isTypeFilterEnabled } = useFilterStore((state) => ({
-    addTypeFilter: state.addTypeFilter,
-    switchTypeFilter: state.switchTypeFilter,
-    isTypeFilterEnabled: state.isTypeFilterEnabled,
-  }));
+
+  const addTypeFilter = useFilterStore((state) => state.addTypeFilter);
+  const switchTypeFilter = useFilterStore((state) => state.switchTypeFilter);
+  const isTypeFilterEnabled = useFilterStore((state) => state.isTypeFilterEnabled);
+
   const [chosenTargets, setChosenTargets] = useState(() => new Set(targets.map((t) => t.value)));
   const { t } = useTranslation();
 

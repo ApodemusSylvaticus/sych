@@ -37,9 +37,9 @@ const StyledImage = styled.img`
 `;
 
 export const GeoImgModal: React.FC<{ isOpen: boolean; close: () => void; data: IGeoImg }> = ({ isOpen, close, data }) => {
-  const { changeImage, deleteImage } = useGeoImgsStore((state) => ({ changeImage: state.changeImage, deleteImage: state.deleteImage }));
+  const changeImage = useGeoImgsStore((state) => state.changeImage);
+  const deleteImage = useGeoImgsStore((state) => state.deleteImage);
   const { t } = useTranslation();
-  console.log('data', data);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 

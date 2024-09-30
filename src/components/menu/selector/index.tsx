@@ -6,7 +6,8 @@ import { useGlobusStore } from '../../../store/globus.ts';
 import { useTranslation } from 'react-i18next';
 
 export const LanguageSelector: React.FC = React.memo(() => {
-  const { setLanguage, language } = useSettingsStore((state) => ({ language: state.language, setLanguage: state.setLanguage }));
+  const setLanguage = useSettingsStore((state) => state.setLanguage);
+  const language = useSettingsStore((state) => state.language);
 
   return (
     <Container>
@@ -22,7 +23,8 @@ export const LanguageSelector: React.FC = React.memo(() => {
 });
 
 export const LayerSelector: React.FC = React.memo(() => {
-  const { activeLayer, setActiveLayer } = useGlobusStore((state) => ({ activeLayer: state.activeLayer, setActiveLayer: state.setActiveLayer }));
+  const activeLayer = useGlobusStore((state) => state.activeLayer);
+  const setActiveLayer = useGlobusStore((state) => state.setActiveLayer);
   const { t } = useTranslation();
   return (
     <Container>

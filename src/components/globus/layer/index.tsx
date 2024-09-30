@@ -52,7 +52,7 @@ const satArgs = {
 //   },
 // };
 
-const isTest = true;
+const isTest = false;
 
 const osmArgs = {
   name: 'osm',
@@ -75,6 +75,9 @@ export const Layer: React.FC = React.memo(() => {
   const activeLayer = useGlobusStore((state) => state.activeLayer);
   const [key, setKey] = React.useState(1);
 
+  useEffect(() => {
+    console.log('call card: ', `${window.location.origin}/api/map/osm/tile/{z}/{x}/{y}.png`);
+  }, []);
   const param = useMemo(() => (activeLayer === 'OSM' ? osmArgs : satArgs), [activeLayer]);
 
   useEffect(() => {

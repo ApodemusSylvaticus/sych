@@ -1,5 +1,5 @@
-import { ICoord } from './markers.ts';
 import { create } from 'zustand';
+import { ICoord } from '../interface/markers.ts';
 
 export interface IdXdY {
   x: number;

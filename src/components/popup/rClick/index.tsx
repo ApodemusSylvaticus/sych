@@ -7,12 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { setRotateToGps } from '../../../mainApp/ts/cmd/cmdSender/cmdRotary.ts';
 
 export const RClickPopup: React.FC = React.memo(() => {
-  const { isOpen, dXdY, coords, closePopup } = usePopupStore((state) => ({
-    isOpen: state.isOpen,
-    coords: state.coords,
-    dXdY: state.dXdY,
-    closePopup: state.closePopup,
-  }));
+  const isOpen = usePopupStore((state) => state.isOpen);
+  const coords = usePopupStore((state) => state.coords);
+  const dXdY = usePopupStore((state) => state.dXdY);
+  const closePopup = usePopupStore((state) => state.closePopup);
+
   const openNewTargetModal = useModalStore((state) => state.openNewTargetModal);
   const { t } = useTranslation();
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -31,8 +30,6 @@ export const RClickPopup: React.FC = React.memo(() => {
     if (dXdY.y - size.height > 5) {
       // облако сверху
       if (dXdY.x - size.width / 2 < 0) {
-        // Не хватает места слева
-        console.log('tyt', dXdY, size);
         setPosition({
           x: 0,
           y: dXdY.y - size.height - 5,

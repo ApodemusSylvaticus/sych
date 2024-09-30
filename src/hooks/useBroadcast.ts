@@ -10,7 +10,8 @@ export const useBroadcast = () => {
   const gps = useRef<Pick<JonGuiDataGps, 'altitude' | 'longitude' | 'latitude'>>({ altitude: 0, latitude: 0, longitude: 0 });
   const emptyTarget = useRef<Pick<JonGuiDataLrf, 'measureId' | 'target'>>({ measureId: 0, target: undefined });
   const setAzimut = useGlobusStore((state) => state.setAzimuth);
-  const { setEmptyMarker, setSelfCoords } = useMarkerStore((state) => ({ setEmptyMarker: state.setEmptyMarker, setSelfCoords: state.setSelfCoords }));
+  const setEmptyMarker = useMarkerStore((state) => state.setEmptyMarker);
+  const setSelfCoords = useMarkerStore((state) => state.setSelfCoords);
   const [debouncedSetAzimut] = useDebounce(setAzimut, 500);
 
   useEffect(() => {
@@ -48,8 +49,10 @@ export const useBroadcast = () => {
             emptyTarget.current.target = deserializedData.lrf.target;
             if (deserializedData.lrf.target) {
               setEmptyMarker({
+                // eslint-disable-next-line max-len
+                uniqKey: `${deserializedData.lrf.target.timestamp}_${deserializedData.lrf.target.targetLatitude}_${deserializedData.lrf.target.targetLongitude}`,
                 timeStamp: deserializedData.lrf.target.timestamp,
-                coord: {
+                coords: {
                   lon: deserializedData.lrf.target.targetLongitude,
                   lat: deserializedData.lrf.target.targetLatitude,
                   alt: deserializedData.lrf.target.targetAltitude,
@@ -58,7 +61,7 @@ export const useBroadcast = () => {
             }
           }
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error deserializing JonGUIState:', error);
       }
     };

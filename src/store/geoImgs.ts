@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { ICoord } from './markers.ts';
 import { geoImagesDB } from '../utils/geoImagesDB.ts';
+import { ICoord } from '../interface/markers.ts';
 
 export interface IGeoImg {
   leftTopCorner: Omit<ICoord, 'alt'>;
@@ -24,7 +24,6 @@ export const useGeoImgsStore = create<GeoImgsStore>((set) => ({
   geoImgs: [],
 
   addImg: async (img: IGeoImg) => {
-    console.log('addImg', img);
     await geoImagesDB.addGeoImg(img);
     set((state) => ({ geoImgs: [...state.geoImgs, img] }));
   },

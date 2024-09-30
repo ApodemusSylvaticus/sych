@@ -3,7 +3,7 @@ import { useMarkerStore } from '../../store/markers.ts';
 import { Billboard, Entity } from '@openglobus/openglobus-react';
 import { TargetTypeEnum } from '../../interface/markers.ts';
 
-export const TargetMarks: React.FC = React.memo(() => {
+export const TargetMarkers: React.FC = React.memo(() => {
   const filteredMarkers = useMarkerStore((state) => state.filteredMarkers);
 
   return (

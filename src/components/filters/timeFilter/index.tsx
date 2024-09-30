@@ -24,12 +24,11 @@ export const TimeFilter: React.FC = React.memo(() => {
   const [fromDate, setFromDate] = useState<string>('');
   const [toDate, setToDate] = useState<string>('');
 
-  const { addTimeFilter, setOnlySession, switchTimeFilter, isTimeFilterEnabled } = useFilterStore((state) => ({
-    addTimeFilter: state.addTimeFilter,
-    setOnlySession: state.setOnlySession,
-    switchTimeFilter: state.switchTimeFilter,
-    isTimeFilterEnabled: state.isTimeFilterEnabled,
-  }));
+  const addTimeFilter = useFilterStore((state) => state.addTimeFilter);
+  const setOnlySession = useFilterStore((state) => state.setOnlySession);
+  const switchTimeFilter = useFilterStore((state) => state.switchTimeFilter);
+  const isTimeFilterEnabled = useFilterStore((state) => state.isTimeFilterEnabled);
+
   const [range, setRange] = useState<DateRange | undefined>({ from: undefined, to: undefined });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useTranslation();
