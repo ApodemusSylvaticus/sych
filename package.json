@@ -10,16 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
     "@openglobus/og": "^0.21.0",
     "@openglobus/openglobus-react": "^0.1.4",
     "clone-deep": "^4.0.1",
     "react": "^18.3.1",
     "react-day-picker": "^9.0.8",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.2",
     "react-i18next": "^15.0.1",
+    "react-router-dom": "^6.28.0",
     "styled-components": "^6.1.12",
     "ts-proto": "^1.181.1",
     "use-debounce": "^10.0.3",
+    "yup": "^1.4.0",
     "zustand": "^4.5.4"
   },
   "devDependencies": {

@@ -1,19 +1,29 @@
 import React, { useState, InputHTMLAttributes, TextareaHTMLAttributes, useEffect, useRef } from 'react';
 import { BaseTextArea, Input, Label, StyledTextField } from './style';
+import { useForm } from 'react-hook-form';
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   label: string;
   labelStyle?: React.CSSProperties;
   inputStyle?: React.CSSProperties;
+  register: ReturnType<typeof useForm>['register'];
 }
 
-export const TextField: React.FC<TextFieldProps> = ({ id, label, labelStyle, inputStyle, ...props }) => {
+export const TextField: React.FC<TextFieldProps> = ({ id, label, labelStyle, inputStyle, register, ...props }) => {
   const [focused, setFocused] = useState<boolean>(false);
 
   return (
     <StyledTextField focused={focused}>
-      <Input id={id} placeholder={''} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} {...props} style={inputStyle} />
+      <Input
+        {...register(id)}
+        id={id}
+        placeholder={''}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        {...props}
+        style={inputStyle}
+      />
       <Label htmlFor={id} focused={focused} style={labelStyle}>
         {label}
       </Label>

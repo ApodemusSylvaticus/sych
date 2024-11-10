@@ -52,7 +52,7 @@ const satArgs = {
 //   },
 // };
 
-const isTest = false;
+const isTest = true;
 
 const osmArgs = {
   name: 'osm',
