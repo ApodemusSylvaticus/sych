@@ -112,48 +112,48 @@ let workerState = 'stopped';
  * @param {MessageEvent<WorkerMessage>} event - The message event received by the worker.
  */
 onmessage = async function (event) {
-    const data = event.data;
+  const data = event.data;
 
-    if (!isCommandValid(data.type)) {
-        console.warn(`Invalid command '${data.type}' in state '${workerState}'`);
-        return;
-    }
+  if (!isCommandValid(data.type)) {
+    console.warn(`Invalid command '${data.type}' in state '${workerState}'`);
+    return;
+  }
 
-    switch (data.type) {
-        case 'init':
-            await initializeCanvas(data.canvas, data.dayConfig, data.heatConfig).catch(handleError);
-            workerState = 'running';
-            console.log('Worker initialized and now running.');
-            break;
-        case 'resize':
-        case 'videoQuadCreate':
-        case 'videoQuadDestroy':
-        case 'videoQuadUpdate':
-        case 'render':
-            executeRendererCommand(data);
-            workerState = 'running';
-            break;
-        case 'animationFrame':
-            executeRendererCommand({ type: 'render' });
-            workerState = 'running';
-            break;
-        case 'suspend':
-            unsubscribeDecoders();
-            workerState = 'suspended';
-            console.log('Worker suspended.');
-            break;
-        case 'resume':
-            if (workerState === 'suspended') {
-                subscribeDecoders();
-                workerState = 'running';
-                console.log('Worker resumed.');
-            }
-            break;
-        case 'cleanUpResources':
-            cleanUpResources();
-            workerState = 'stopped';
-            break;
-    }
+  switch (data.type) {
+    case 'init':
+      await initializeCanvas(data.canvas, data.dayConfig, data.heatConfig).catch(handleError);
+      workerState = 'running';
+      console.log('Worker initialized and now running.');
+      break;
+    case 'resize':
+    case 'videoQuadCreate':
+    case 'videoQuadDestroy':
+    case 'videoQuadUpdate':
+    case 'render':
+      executeRendererCommand(data);
+      workerState = 'running';
+      break;
+    case 'animationFrame':
+      executeRendererCommand({ type: 'render' });
+      workerState = 'running';
+      break;
+    case 'suspend':
+      unsubscribeDecoders();
+      workerState = 'suspended';
+      console.log('Worker suspended.');
+      break;
+    case 'resume':
+      if (workerState === 'suspended') {
+        subscribeDecoders();
+        workerState = 'running';
+        console.log('Worker resumed.');
+      }
+      break;
+    case 'cleanUpResources':
+      cleanUpResources();
+      workerState = 'stopped';
+      break;
+  }
 };
 
 /**
@@ -161,28 +161,28 @@ onmessage = async function (event) {
  * @param {RendererMessage} message - The message containing the command and its parameters.
  */
 function executeRendererCommand(message) {
-    if (!renderer) {
-        console.error('Renderer not initialized');
-        return;
-    }
+  if (!renderer) {
+    console.error('Renderer not initialized');
+    return;
+  }
 
-    switch (message.type) {
-        case 'videoQuadCreate':
-            renderer.videoQuadCreate(message.name, message.channelType, message.properties);
-            break;
-        case 'videoQuadDestroy':
-            renderer.videoQuadDestroy(message.name);
-            break;
-        case 'videoQuadUpdate':
-            renderer.videoQuadUpdate(message.name, message.properties);
-            break;
-        case 'resize':
-            renderer.resize(message.width, message.height);
-            break;
-        case 'render':
-            renderer.render();
-            break;
-    }
+  switch (message.type) {
+    case 'videoQuadCreate':
+      renderer.videoQuadCreate(message.name, message.channelType, message.properties);
+      break;
+    case 'videoQuadDestroy':
+      renderer.videoQuadDestroy(message.name);
+      break;
+    case 'videoQuadUpdate':
+      renderer.videoQuadUpdate(message.name, message.properties);
+      break;
+    case 'resize':
+      renderer.resize(message.width, message.height);
+      break;
+    case 'render':
+      renderer.render();
+      break;
+  }
 }
 
 /**
@@ -191,22 +191,22 @@ function executeRendererCommand(message) {
  * @return {boolean} - Whether the command is valid for the current state.
  */
 function isCommandValid(commandType) {
-    switch (commandType) {
-        case 'init':
-            return workerState === 'stopped';
-        case 'suspend':
-        case 'animationFrame':
-        case 'videoQuadCreate':
-        case 'videoQuadDestroy':
-        case 'videoQuadUpdate':
-        case 'render':
-            return workerState === 'running';
-        case 'resume':
-            return workerState === 'suspended';
-        case 'resize':
-        case 'cleanUpResources':
-            return true;
-    }
+  switch (commandType) {
+    case 'init':
+      return workerState === 'stopped';
+    case 'suspend':
+    case 'animationFrame':
+    case 'videoQuadCreate':
+    case 'videoQuadDestroy':
+    case 'videoQuadUpdate':
+    case 'render':
+      return workerState === 'running';
+    case 'resume':
+      return workerState === 'suspended';
+    case 'resize':
+    case 'cleanUpResources':
+      return true;
+  }
 }
 
 /**
@@ -216,19 +216,19 @@ function isCommandValid(commandType) {
  * @param {VideoDecoderConfig} heatConfig - Configuration for the heat video decoder.
  */
 async function initializeCanvas(canvas, dayConfig, heatConfig) {
-    if (!canvas) {
-        console.error('Canvas not provided to worker.');
-        return;
-    }
+  if (!canvas) {
+    console.error('Canvas not provided to worker.');
+    return;
+  }
 
-    canvas.addEventListener('webglcontextlost', handleContextLost, false);
-    canvas.addEventListener('webglcontextrestored', () => reinitializeRenderer(canvas, dayConfig, heatConfig), false);
+  canvas.addEventListener('webglcontextlost', handleContextLost, false);
+  canvas.addEventListener('webglcontextrestored', () => reinitializeRenderer(canvas, dayConfig, heatConfig), false);
 
-    renderer = new WebGLRenderer( canvas, dayConfig, heatConfig );
+  renderer = new WebGLRenderer(canvas, dayConfig, heatConfig);
 
-    await renderer.initialize().catch(handleError);
+  await renderer.initialize().catch(handleError);
 
-    initializeDecoders(dayConfig, heatConfig);
+  initializeDecoders(dayConfig, heatConfig);
 }
 
 /**
@@ -237,13 +237,13 @@ async function initializeCanvas(canvas, dayConfig, heatConfig) {
  * @param {VideoDecoderConfig} heatConfig - Configuration for the heat video decoder.
  */
 function initializeDecoders(dayConfig, heatConfig) {
-    try {
-        videoDayDecoder = new VideoSubDecoder('videoDay', dayConfig, frame => renderer.newDayFrame(frame), handleError);
-        videoHeatDecoder = new VideoSubDecoder('videoHeat', heatConfig, frame => renderer.newHeatFrame(frame), handleError);
-        subscribeDecoders();
-    } catch (error) {
-        handleError(error);
-    }
+  try {
+    videoDayDecoder = new VideoSubDecoder('videoDay', dayConfig, (frame) => renderer.newDayFrame(frame), handleError);
+    videoHeatDecoder = new VideoSubDecoder('videoHeat', heatConfig, (frame) => renderer.newHeatFrame(frame), handleError);
+    subscribeDecoders();
+  } catch (error) {
+    handleError(error);
+  }
 }
 
 /**
@@ -251,11 +251,11 @@ function initializeDecoders(dayConfig, heatConfig) {
  * @param {Event} event - The event triggered on context loss.
  */
 function handleContextLost(event) {
-    event.preventDefault();
-    console.log('Cleaning up resources due to context loss.');
-    cleanUpResources();
-    postMessage({ type: 'contextLost' });
-    self.close();
+  event.preventDefault();
+  console.log('Cleaning up resources due to context loss.');
+  cleanUpResources();
+  postMessage({ type: 'contextLost' });
+  self.close();
 }
 
 /**
@@ -265,32 +265,32 @@ function handleContextLost(event) {
  * @param {VideoDecoderConfig} heatConfig - Configuration for the heat video decoder.
  */
 function reinitializeRenderer(canvas, dayConfig, heatConfig) {
-    renderer = new WebGLRenderer( canvas, dayConfig, heatConfig);
-    initializeDecoders(dayConfig, heatConfig);
+  renderer = new WebGLRenderer(canvas, dayConfig, heatConfig);
+  initializeDecoders(dayConfig, heatConfig);
 }
 
 /**
  * Subscribes the video decoders.
  */
 function subscribeDecoders() {
-    if (videoDayDecoder) {
-        videoDayDecoder.subscribeChannel();
-    }
-    if (videoHeatDecoder) {
-        videoHeatDecoder.subscribeChannel();
-    }
+  if (videoDayDecoder) {
+    videoDayDecoder.subscribeChannel();
+  }
+  if (videoHeatDecoder) {
+    videoHeatDecoder.subscribeChannel();
+  }
 }
 
 /**
  * Unsubscribes the video decoders.
  */
 function unsubscribeDecoders() {
-    if (videoDayDecoder) {
-        videoDayDecoder.unsubscribeChannel();
-    }
-    if (videoHeatDecoder) {
-        videoHeatDecoder.unsubscribeChannel();
-    }
+  if (videoDayDecoder) {
+    videoDayDecoder.unsubscribeChannel();
+  }
+  if (videoHeatDecoder) {
+    videoHeatDecoder.unsubscribeChannel();
+  }
 }
 
 /**
@@ -298,30 +298,30 @@ function unsubscribeDecoders() {
  * @param {Error} error - The error object to handle.
  */
 function handleError(error) {
-    console.error(error);
+  console.error(error);
 }
 
 /**
  * Cleans up resources and prepares the worker for termination.
  */
 function cleanUpResources() {
-    console.log('Cleaning up resources...');
-    unsubscribeDecoders();
+  console.log('Cleaning up resources...');
+  unsubscribeDecoders();
 
-    if (renderer) {
-        renderer.destructor();
-        renderer = null;
-    }
+  if (renderer) {
+    renderer.destructor();
+    renderer = null;
+  }
 
-    if (videoDayDecoder) {
-        videoDayDecoder.destructor();
-        videoDayDecoder = null;
-    }
-    if (videoHeatDecoder) {
-        videoHeatDecoder.destructor();
-        videoHeatDecoder = null;
-    }
+  if (videoDayDecoder) {
+    videoDayDecoder.destructor();
+    videoDayDecoder = null;
+  }
+  if (videoHeatDecoder) {
+    videoHeatDecoder.destructor();
+    videoHeatDecoder = null;
+  }
 
-    postMessage({ type: 'destroyed', message: 'All WebSocket connections closed. Exiting.' });
-    self.close();
+  postMessage({ type: 'destroyed', message: 'All WebSocket connections closed. Exiting.' });
+  self.close();
 }

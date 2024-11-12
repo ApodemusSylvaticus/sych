@@ -109,8 +109,5 @@
       "default_are_you_sure_delete_targets": "Ви впевнені, що хочете видалити всі цілі?"
     }
   },
-  "languageSimbolArray": [
-    "en",
-    "ua"
-  ]
+  "languageSimbolArray": ["en", "ua"]
 }

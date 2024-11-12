@@ -6,7 +6,10 @@ import React, { useRef } from 'react';
 import { CardContainer } from '../components/containers/cardStyle.ts';
 import { CardName, ColumnContainer } from '../components/filters/style.ts';
 import { TextField } from '../components/input';
-import { WireGuardContainer } from '../components/containers/style.ts';
+import { WireGuardContainer, WireGuardsButtonContainer, WireGuardsFormsContainer } from '../components/containers/style.ts';
+import { ErrorText } from '../components/text/wireGuard.ts';
+import { Button } from '../components/button/style.ts';
+import { useTheme } from 'styled-components';
 
 interface FormInputs {
   privateKey: string;
@@ -41,10 +44,13 @@ const downloadConfigFile = (data: FormInputs) => {
 };
 
 const ipRegex =
+  // eslint-disable-next-line max-len
   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 const ipPortRegex =
+  // eslint-disable-next-line max-len
   /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):(\d{1,5}))$/;
 const ipCidrRegex =
+  // eslint-disable-next-line max-len
   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\/([0-9]|[1-2][0-9]|3[0-2]))$/;
 
 const schema = yup
@@ -73,7 +79,6 @@ const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
   console.log('here');
   const file = event.target.files?.[0];
 
-  // Проверяем, что файл имеет расширение .conf
   if (file && file.name.endsWith('.conf')) {
     const reader = new FileReader();
 
@@ -135,9 +140,9 @@ const FileUploadButton: React.FC = () => {
     <div>
       <input ref={fileInputRef} type="file" accept=".conf" onChange={handleFileUpload} style={{ display: 'none' }} id="file-upload" />
       <label htmlFor="file-upload">
-        <button type="button" onClick={handleClick}>
+        <Button type="button" onClick={handleClick}>
           Загрузить конфигурацию
-        </button>
+        </Button>
       </label>
     </div>
   );
@@ -145,6 +150,7 @@ const FileUploadButton: React.FC = () => {
 
 export const WireGuard: React.FC = () => {
   const { t } = useTranslation();
+  const {colors} = useTheme();
   const {
     register,
     handleSubmit,
@@ -158,8 +164,22 @@ export const WireGuard: React.FC = () => {
   };
 
   return (
-    <WireGuardContainer>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <WireGuardContainer onSubmit={handleSubmit(onSubmit)}>
+
+
+      <div style={{
+        position: 'absolute',
+        top: '1.6rem',
+        right: '1.6rem',
+        border: `1px solid rgb(${colors.primary})`,
+        color: `rgb(${colors.primary})`, padding: '0.8rem',
+        fontSize: '1.4rem',
+        borderRadius: '8px'
+      }}>
+        UA
+      </div>
+
+      <WireGuardsFormsContainer>
         <CardContainer>
           <CardName>{t('Interface')}</CardName>
           <ColumnContainer>
@@ -167,29 +187,26 @@ export const WireGuard: React.FC = () => {
               label={t('PrivateKey')}
               id="privateKey"
               type="text"
-              register={register}
               labelStyle={{ background: '#121212', color: 'white' }}
               inputStyle={{ background: '#121212', color: 'white' }}
             />
-            <p>{errors.privateKey?.message}</p>
+            <ErrorText isVisible={!!errors.privateKey?.message}>{errors.privateKey?.message}</ErrorText>
             <TextField
               label={t('Address')}
               id="address"
               type="text"
-              register={register}
               labelStyle={{ background: '#121212', color: 'white' }}
               inputStyle={{ background: '#121212', color: 'white' }}
             />
-            <p>{errors.address?.message}</p>
+            <ErrorText isVisible={!!errors.address?.message}>{errors.address?.message}</ErrorText>
             <TextField
               label={t('ListenPort')}
               id="listenPort"
               type="number"
-              register={register}
               labelStyle={{ background: '#121212', color: 'white' }}
               inputStyle={{ background: '#121212', color: 'white' }}
             />
-            <p>{errors.listenPort?.message}</p>
+            <ErrorText isVisible={!!errors.listenPort?.message}>{errors.listenPort?.message}</ErrorText>
           </ColumnContainer>
         </CardContainer>
 
@@ -200,44 +217,43 @@ export const WireGuard: React.FC = () => {
               label={t('PublicKey')}
               id="publicKey"
               type="text"
-              register={register}
               labelStyle={{ background: '#121212', color: 'white' }}
               inputStyle={{ background: '#121212', color: 'white' }}
             />
-            <p>{errors.publicKey?.message}</p>
+            <ErrorText isVisible={!!errors.privateKey?.message}>{errors.publicKey?.message}</ErrorText>
             <TextField
               label={t('Endpoint')}
               id="endpoint"
               type="text"
-              register={register}
               labelStyle={{ background: '#121212', color: 'white' }}
               inputStyle={{ background: '#121212', color: 'white' }}
             />
-            <p>{errors.endpoint?.message}</p>
+            <ErrorText isVisible={!!errors.endpoint?.message}>{errors.endpoint?.message}</ErrorText>
             <TextField
               label={t('AllowedIPs')}
               id="allowedIPs"
               type="text"
-              register={register}
               labelStyle={{ background: '#121212', color: 'white' }}
               inputStyle={{ background: '#121212', color: 'white' }}
             />
-            <p>{errors.allowedIPs?.message}</p>
+            <ErrorText isVisible={!!errors.allowedIPs?.message}>{errors.allowedIPs?.message}</ErrorText>
             <TextField
               label={t('PersistentKeepalive')}
               id="persistentKeepalive"
               type="number"
-              register={register}
               labelStyle={{ background: '#121212', color: 'white' }}
               inputStyle={{ background: '#121212', color: 'white' }}
             />
-            <p>{errors.persistentKeepalive?.message}</p>
+            <ErrorText
+              isVisible={!!errors.persistentKeepalive?.message}>{errors.persistentKeepalive?.message}</ErrorText>
           </ColumnContainer>
         </CardContainer>
+      </WireGuardsFormsContainer>
 
-        <button type="submit">{t('Submit')}</button>
+      <WireGuardsButtonContainer>
         <FileUploadButton />
-      </form>
+        <Button type="submit">{t('Submit')}</Button>
+      </WireGuardsButtonContainer>
     </WireGuardContainer>
   );
 };

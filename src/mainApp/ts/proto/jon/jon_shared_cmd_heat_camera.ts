@@ -5,7 +5,7 @@
 // source: jon_shared_cmd_heat_camera.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
+import _m0 from 'protobufjs/minimal';
 import {
   JonGuiDataVideoChannelHeatAGCModes,
   jonGuiDataVideoChannelHeatAGCModesFromJSON,
@@ -13,7 +13,7 @@ import {
   JonGuiDataVideoChannelHeatFilters,
   jonGuiDataVideoChannelHeatFiltersFromJSON,
   jonGuiDataVideoChannelHeatFiltersToJSON,
-} from "./jon_shared_data_types";
+} from './jon_shared_data_types';
 
 export interface Root {
   focus?: Focus | undefined;
@@ -41,14 +41,11 @@ export interface Root {
   disableDde?: DisableDDE | undefined;
 }
 
-export interface HaltAll {
-}
+export interface HaltAll {}
 
-export interface EnableDDE {
-}
+export interface EnableDDE {}
 
-export interface DisableDDE {
-}
+export interface DisableDDE {}
 
 export interface SetValue {
   value: number;
@@ -63,29 +60,21 @@ export interface Move {
   speed: number;
 }
 
-export interface ZoomIn {
-}
+export interface ZoomIn {}
 
-export interface ZoomOut {
-}
+export interface ZoomOut {}
 
-export interface ZoomStop {
-}
+export interface ZoomStop {}
 
-export interface FocusIn {
-}
+export interface FocusIn {}
 
-export interface FocusOut {
-}
+export interface FocusOut {}
 
-export interface FocusStop {
-}
+export interface FocusStop {}
 
-export interface Calibrate {
-}
+export interface Calibrate {}
 
-export interface GetPos {
-}
+export interface GetPos {}
 
 export interface Focus {
   setValue?: SetValue | undefined;
@@ -106,11 +95,9 @@ export interface SetZoomTableValue {
   value: number;
 }
 
-export interface NextZoomTablePos {
-}
+export interface NextZoomTablePos {}
 
-export interface PrevZoomTablePos {
-}
+export interface PrevZoomTablePos {}
 
 export interface SetAGC {
   value: JonGuiDataVideoChannelHeatAGCModes;
@@ -128,20 +115,15 @@ export interface SetRecording {
   value: boolean;
 }
 
-export interface Start {
-}
+export interface Start {}
 
-export interface Stop {
-}
+export interface Stop {}
 
-export interface Halt {
-}
+export interface Halt {}
 
-export interface Photo {
-}
+export interface Photo {}
 
-export interface GetMeteo {
-}
+export interface GetMeteo {}
 
 export interface SyncZoomToHeatCamera {
   value: boolean;
@@ -533,65 +515,31 @@ export const Root = {
   },
   fromPartial<I extends Exact<DeepPartial<Root>, I>>(object: I): Root {
     const message = createBaseRoot();
-    message.focus = (object.focus !== undefined && object.focus !== null) ? Focus.fromPartial(object.focus) : undefined;
-    message.zoom = (object.zoom !== undefined && object.zoom !== null) ? Zoom.fromPartial(object.zoom) : undefined;
-    message.setAgc = (object.setAgc !== undefined && object.setAgc !== null)
-      ? SetAGC.fromPartial(object.setAgc)
-      : undefined;
-    message.setFilter = (object.setFilter !== undefined && object.setFilter !== null)
-      ? SetFilters.fromPartial(object.setFilter)
-      : undefined;
-    message.setAutoFocus = (object.setAutoFocus !== undefined && object.setAutoFocus !== null)
-      ? SetAutoFocus.fromPartial(object.setAutoFocus)
-      : undefined;
-    message.setRecording = (object.setRecording !== undefined && object.setRecording !== null)
-      ? SetRecording.fromPartial(object.setRecording)
-      : undefined;
-    message.start = (object.start !== undefined && object.start !== null) ? Start.fromPartial(object.start) : undefined;
-    message.stop = (object.stop !== undefined && object.stop !== null) ? Stop.fromPartial(object.stop) : undefined;
-    message.photo = (object.photo !== undefined && object.photo !== null) ? Photo.fromPartial(object.photo) : undefined;
-    message.syncZoom = (object.syncZoom !== undefined && object.syncZoom !== null)
-      ? SyncZoomToHeatCamera.fromPartial(object.syncZoom)
-      : undefined;
-    message.getPos = (object.getPos !== undefined && object.getPos !== null)
-      ? GetPos.fromPartial(object.getPos)
-      : undefined;
-    message.zoomIn = (object.zoomIn !== undefined && object.zoomIn !== null)
-      ? ZoomIn.fromPartial(object.zoomIn)
-      : undefined;
-    message.zoomOut = (object.zoomOut !== undefined && object.zoomOut !== null)
-      ? ZoomOut.fromPartial(object.zoomOut)
-      : undefined;
-    message.zoomStop = (object.zoomStop !== undefined && object.zoomStop !== null)
-      ? ZoomStop.fromPartial(object.zoomStop)
-      : undefined;
-    message.focusIn = (object.focusIn !== undefined && object.focusIn !== null)
-      ? FocusIn.fromPartial(object.focusIn)
-      : undefined;
-    message.focusOut = (object.focusOut !== undefined && object.focusOut !== null)
-      ? FocusOut.fromPartial(object.focusOut)
-      : undefined;
-    message.focusStop = (object.focusStop !== undefined && object.focusStop !== null)
-      ? FocusStop.fromPartial(object.focusStop)
-      : undefined;
-    message.calibrate = (object.calibrate !== undefined && object.calibrate !== null)
-      ? Calibrate.fromPartial(object.calibrate)
-      : undefined;
-    message.haltAll = (object.haltAll !== undefined && object.haltAll !== null)
-      ? HaltAll.fromPartial(object.haltAll)
-      : undefined;
-    message.getMeteo = (object.getMeteo !== undefined && object.getMeteo !== null)
-      ? GetMeteo.fromPartial(object.getMeteo)
-      : undefined;
-    message.setDdeLevel = (object.setDdeLevel !== undefined && object.setDdeLevel !== null)
-      ? SetDDELevel.fromPartial(object.setDdeLevel)
-      : undefined;
-    message.enableDde = (object.enableDde !== undefined && object.enableDde !== null)
-      ? EnableDDE.fromPartial(object.enableDde)
-      : undefined;
-    message.disableDde = (object.disableDde !== undefined && object.disableDde !== null)
-      ? DisableDDE.fromPartial(object.disableDde)
-      : undefined;
+    message.focus = object.focus !== undefined && object.focus !== null ? Focus.fromPartial(object.focus) : undefined;
+    message.zoom = object.zoom !== undefined && object.zoom !== null ? Zoom.fromPartial(object.zoom) : undefined;
+    message.setAgc = object.setAgc !== undefined && object.setAgc !== null ? SetAGC.fromPartial(object.setAgc) : undefined;
+    message.setFilter = object.setFilter !== undefined && object.setFilter !== null ? SetFilters.fromPartial(object.setFilter) : undefined;
+    message.setAutoFocus =
+      object.setAutoFocus !== undefined && object.setAutoFocus !== null ? SetAutoFocus.fromPartial(object.setAutoFocus) : undefined;
+    message.setRecording =
+      object.setRecording !== undefined && object.setRecording !== null ? SetRecording.fromPartial(object.setRecording) : undefined;
+    message.start = object.start !== undefined && object.start !== null ? Start.fromPartial(object.start) : undefined;
+    message.stop = object.stop !== undefined && object.stop !== null ? Stop.fromPartial(object.stop) : undefined;
+    message.photo = object.photo !== undefined && object.photo !== null ? Photo.fromPartial(object.photo) : undefined;
+    message.syncZoom = object.syncZoom !== undefined && object.syncZoom !== null ? SyncZoomToHeatCamera.fromPartial(object.syncZoom) : undefined;
+    message.getPos = object.getPos !== undefined && object.getPos !== null ? GetPos.fromPartial(object.getPos) : undefined;
+    message.zoomIn = object.zoomIn !== undefined && object.zoomIn !== null ? ZoomIn.fromPartial(object.zoomIn) : undefined;
+    message.zoomOut = object.zoomOut !== undefined && object.zoomOut !== null ? ZoomOut.fromPartial(object.zoomOut) : undefined;
+    message.zoomStop = object.zoomStop !== undefined && object.zoomStop !== null ? ZoomStop.fromPartial(object.zoomStop) : undefined;
+    message.focusIn = object.focusIn !== undefined && object.focusIn !== null ? FocusIn.fromPartial(object.focusIn) : undefined;
+    message.focusOut = object.focusOut !== undefined && object.focusOut !== null ? FocusOut.fromPartial(object.focusOut) : undefined;
+    message.focusStop = object.focusStop !== undefined && object.focusStop !== null ? FocusStop.fromPartial(object.focusStop) : undefined;
+    message.calibrate = object.calibrate !== undefined && object.calibrate !== null ? Calibrate.fromPartial(object.calibrate) : undefined;
+    message.haltAll = object.haltAll !== undefined && object.haltAll !== null ? HaltAll.fromPartial(object.haltAll) : undefined;
+    message.getMeteo = object.getMeteo !== undefined && object.getMeteo !== null ? GetMeteo.fromPartial(object.getMeteo) : undefined;
+    message.setDdeLevel = object.setDdeLevel !== undefined && object.setDdeLevel !== null ? SetDDELevel.fromPartial(object.setDdeLevel) : undefined;
+    message.enableDde = object.enableDde !== undefined && object.enableDde !== null ? EnableDDE.fromPartial(object.enableDde) : undefined;
+    message.disableDde = object.disableDde !== undefined && object.disableDde !== null ? DisableDDE.fromPartial(object.disableDde) : undefined;
     return message;
   },
 };
@@ -1339,11 +1287,9 @@ export const Focus = {
   },
   fromPartial<I extends Exact<DeepPartial<Focus>, I>>(object: I): Focus {
     const message = createBaseFocus();
-    message.setValue = (object.setValue !== undefined && object.setValue !== null)
-      ? SetValue.fromPartial(object.setValue)
-      : undefined;
-    message.move = (object.move !== undefined && object.move !== null) ? Move.fromPartial(object.move) : undefined;
-    message.halt = (object.halt !== undefined && object.halt !== null) ? Halt.fromPartial(object.halt) : undefined;
+    message.setValue = object.setValue !== undefined && object.setValue !== null ? SetValue.fromPartial(object.setValue) : undefined;
+    message.move = object.move !== undefined && object.move !== null ? Move.fromPartial(object.move) : undefined;
+    message.halt = object.halt !== undefined && object.halt !== null ? Halt.fromPartial(object.halt) : undefined;
     return message;
   },
 };
@@ -1443,9 +1389,7 @@ export const Zoom = {
   fromJSON(object: any): Zoom {
     return {
       setValue: isSet(object.setValue) ? SetValue.fromJSON(object.setValue) : undefined,
-      setZoomTableValue: isSet(object.setZoomTableValue)
-        ? SetZoomTableValue.fromJSON(object.setZoomTableValue)
-        : undefined,
+      setZoomTableValue: isSet(object.setZoomTableValue) ? SetZoomTableValue.fromJSON(object.setZoomTableValue) : undefined,
       move: isSet(object.move) ? Move.fromJSON(object.move) : undefined,
       halt: isSet(object.halt) ? Halt.fromJSON(object.halt) : undefined,
       nextZoomTablePos: isSet(object.nextZoomTablePos) ? NextZoomTablePos.fromJSON(object.nextZoomTablePos) : undefined,
@@ -1481,20 +1425,17 @@ export const Zoom = {
   },
   fromPartial<I extends Exact<DeepPartial<Zoom>, I>>(object: I): Zoom {
     const message = createBaseZoom();
-    message.setValue = (object.setValue !== undefined && object.setValue !== null)
-      ? SetValue.fromPartial(object.setValue)
-      : undefined;
-    message.setZoomTableValue = (object.setZoomTableValue !== undefined && object.setZoomTableValue !== null)
-      ? SetZoomTableValue.fromPartial(object.setZoomTableValue)
-      : undefined;
-    message.move = (object.move !== undefined && object.move !== null) ? Move.fromPartial(object.move) : undefined;
-    message.halt = (object.halt !== undefined && object.halt !== null) ? Halt.fromPartial(object.halt) : undefined;
-    message.nextZoomTablePos = (object.nextZoomTablePos !== undefined && object.nextZoomTablePos !== null)
-      ? NextZoomTablePos.fromPartial(object.nextZoomTablePos)
-      : undefined;
-    message.prevZoomTablePos = (object.prevZoomTablePos !== undefined && object.prevZoomTablePos !== null)
-      ? PrevZoomTablePos.fromPartial(object.prevZoomTablePos)
-      : undefined;
+    message.setValue = object.setValue !== undefined && object.setValue !== null ? SetValue.fromPartial(object.setValue) : undefined;
+    message.setZoomTableValue =
+      object.setZoomTableValue !== undefined && object.setZoomTableValue !== null
+        ? SetZoomTableValue.fromPartial(object.setZoomTableValue)
+        : undefined;
+    message.move = object.move !== undefined && object.move !== null ? Move.fromPartial(object.move) : undefined;
+    message.halt = object.halt !== undefined && object.halt !== null ? Halt.fromPartial(object.halt) : undefined;
+    message.nextZoomTablePos =
+      object.nextZoomTablePos !== undefined && object.nextZoomTablePos !== null ? NextZoomTablePos.fromPartial(object.nextZoomTablePos) : undefined;
+    message.prevZoomTablePos =
+      object.prevZoomTablePos !== undefined && object.prevZoomTablePos !== null ? PrevZoomTablePos.fromPartial(object.prevZoomTablePos) : undefined;
     return message;
   },
 };
@@ -2144,15 +2085,18 @@ export const SyncZoomToHeatCamera = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

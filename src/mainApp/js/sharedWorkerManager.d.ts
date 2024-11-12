@@ -6,24 +6,24 @@ export as namespace VSocketProxy;
  * Interface representing the structure of messages received from the worker.
  */
 export interface WorkerMessage {
-    type: 'info' | 'error' | string;
-    message?: string;
-    error?: string;
+  type: 'info' | 'error' | string;
+  message?: string;
+  error?: string;
 }
 
 /**
  * Interface for the MessagePort of a SharedWorker.
  */
 export interface MessagePort {
-    onmessage: (event: MessageEvent) => void;
-    start: () => void;
+  onmessage: (event: MessageEvent) => void;
+  start: () => void;
 }
 
 /**
  * Interface for the event received in the message event handler.
  */
 export interface MessageEvent {
-    data: WorkerMessage;
+  data: WorkerMessage;
 }
 
 /**

@@ -19,6 +19,8 @@ export const useBroadcast = () => {
       try {
         const binaryData: Uint8Array = new Uint8Array(event.data);
         const deserializedData: JonGUIState = JonGUIState.decode(binaryData);
+        console.log('deserializedData', deserializedData);
+
         if (deserializedData.gps) {
           console.log('deserializedData.gps', deserializedData.gps);
 

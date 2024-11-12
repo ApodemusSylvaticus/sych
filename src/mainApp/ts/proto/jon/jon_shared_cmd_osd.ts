@@ -5,12 +5,8 @@
 // source: jon_shared_cmd_osd.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import {
-  JonGuiDataVideoChannel,
-  jonGuiDataVideoChannelFromJSON,
-  jonGuiDataVideoChannelToJSON,
-} from "./jon_shared_data_types";
+import _m0 from 'protobufjs/minimal';
+import { JonGuiDataVideoChannel, jonGuiDataVideoChannelFromJSON, jonGuiDataVideoChannelToJSON } from './jon_shared_data_types';
 
 export interface Root {
   showDefaultScreen?: ShowDefaultScreen | undefined;
@@ -21,17 +17,13 @@ export interface Root {
   stopTrack?: StopTrack | undefined;
 }
 
-export interface ShowDefaultScreen {
-}
+export interface ShowDefaultScreen {}
 
-export interface ShowLRFMeasureScreen {
-}
+export interface ShowLRFMeasureScreen {}
 
-export interface ShowLRFResultScreen {
-}
+export interface ShowLRFResultScreen {}
 
-export interface ShowLRFResultSimplifiedScreen {
-}
+export interface ShowLRFResultSimplifiedScreen {}
 
 export interface StartTrackNDC {
   channel: JonGuiDataVideoChannel;
@@ -39,8 +31,7 @@ export interface StartTrackNDC {
   y: number;
 }
 
-export interface StopTrack {
-}
+export interface StopTrack {}
 
 function createBaseRoot(): Root {
   return {
@@ -136,15 +127,9 @@ export const Root = {
 
   fromJSON(object: any): Root {
     return {
-      showDefaultScreen: isSet(object.showDefaultScreen)
-        ? ShowDefaultScreen.fromJSON(object.showDefaultScreen)
-        : undefined,
-      showLrfMeasureScreen: isSet(object.showLrfMeasureScreen)
-        ? ShowLRFMeasureScreen.fromJSON(object.showLrfMeasureScreen)
-        : undefined,
-      showLrfResultScreen: isSet(object.showLrfResultScreen)
-        ? ShowLRFResultScreen.fromJSON(object.showLrfResultScreen)
-        : undefined,
+      showDefaultScreen: isSet(object.showDefaultScreen) ? ShowDefaultScreen.fromJSON(object.showDefaultScreen) : undefined,
+      showLrfMeasureScreen: isSet(object.showLrfMeasureScreen) ? ShowLRFMeasureScreen.fromJSON(object.showLrfMeasureScreen) : undefined,
+      showLrfResultScreen: isSet(object.showLrfResultScreen) ? ShowLRFResultScreen.fromJSON(object.showLrfResultScreen) : undefined,
       showLrfResultSimplifiedScreen: isSet(object.showLrfResultSimplifiedScreen)
         ? ShowLRFResultSimplifiedScreen.fromJSON(object.showLrfResultSimplifiedScreen)
         : undefined,
@@ -181,25 +166,25 @@ export const Root = {
   },
   fromPartial<I extends Exact<DeepPartial<Root>, I>>(object: I): Root {
     const message = createBaseRoot();
-    message.showDefaultScreen = (object.showDefaultScreen !== undefined && object.showDefaultScreen !== null)
-      ? ShowDefaultScreen.fromPartial(object.showDefaultScreen)
-      : undefined;
-    message.showLrfMeasureScreen = (object.showLrfMeasureScreen !== undefined && object.showLrfMeasureScreen !== null)
-      ? ShowLRFMeasureScreen.fromPartial(object.showLrfMeasureScreen)
-      : undefined;
-    message.showLrfResultScreen = (object.showLrfResultScreen !== undefined && object.showLrfResultScreen !== null)
-      ? ShowLRFResultScreen.fromPartial(object.showLrfResultScreen)
-      : undefined;
+    message.showDefaultScreen =
+      object.showDefaultScreen !== undefined && object.showDefaultScreen !== null
+        ? ShowDefaultScreen.fromPartial(object.showDefaultScreen)
+        : undefined;
+    message.showLrfMeasureScreen =
+      object.showLrfMeasureScreen !== undefined && object.showLrfMeasureScreen !== null
+        ? ShowLRFMeasureScreen.fromPartial(object.showLrfMeasureScreen)
+        : undefined;
+    message.showLrfResultScreen =
+      object.showLrfResultScreen !== undefined && object.showLrfResultScreen !== null
+        ? ShowLRFResultScreen.fromPartial(object.showLrfResultScreen)
+        : undefined;
     message.showLrfResultSimplifiedScreen =
-      (object.showLrfResultSimplifiedScreen !== undefined && object.showLrfResultSimplifiedScreen !== null)
+      object.showLrfResultSimplifiedScreen !== undefined && object.showLrfResultSimplifiedScreen !== null
         ? ShowLRFResultSimplifiedScreen.fromPartial(object.showLrfResultSimplifiedScreen)
         : undefined;
-    message.startTrackNdc = (object.startTrackNdc !== undefined && object.startTrackNdc !== null)
-      ? StartTrackNDC.fromPartial(object.startTrackNdc)
-      : undefined;
-    message.stopTrack = (object.stopTrack !== undefined && object.stopTrack !== null)
-      ? StopTrack.fromPartial(object.stopTrack)
-      : undefined;
+    message.startTrackNdc =
+      object.startTrackNdc !== undefined && object.startTrackNdc !== null ? StartTrackNDC.fromPartial(object.startTrackNdc) : undefined;
+    message.stopTrack = object.stopTrack !== undefined && object.stopTrack !== null ? StopTrack.fromPartial(object.stopTrack) : undefined;
     return message;
   },
 };
@@ -510,15 +495,18 @@ export const StopTrack = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

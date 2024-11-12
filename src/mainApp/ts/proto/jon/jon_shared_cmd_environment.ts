@@ -5,7 +5,7 @@
 // source: jon_shared_cmd_environment.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
+import _m0 from 'protobufjs/minimal';
 import {
   JonGuiDataEnvironmentGroundCondition,
   jonGuiDataEnvironmentGroundConditionFromJSON,
@@ -31,7 +31,7 @@ import {
   JonGuiDataEnvironmentWeatherCondition,
   jonGuiDataEnvironmentWeatherConditionFromJSON,
   jonGuiDataEnvironmentWeatherConditionToJSON,
-} from "./jon_shared_data_types";
+} from './jon_shared_data_types';
 
 export interface Root {
   setWeatherCondition?: SetWeatherCondition | undefined;
@@ -192,28 +192,14 @@ export const Root = {
 
   fromJSON(object: any): Root {
     return {
-      setWeatherCondition: isSet(object.setWeatherCondition)
-        ? SetWeatherCondition.fromJSON(object.setWeatherCondition)
-        : undefined,
-      setLightingCondition: isSet(object.setLightingCondition)
-        ? SetLightingCondition.fromJSON(object.setLightingCondition)
-        : undefined,
-      setPrecipitationType: isSet(object.setPrecipitationType)
-        ? SetPrecipitationType.fromJSON(object.setPrecipitationType)
-        : undefined,
-      setGroundCondition: isSet(object.setGroundCondition)
-        ? SetGroundCondition.fromJSON(object.setGroundCondition)
-        : undefined,
-      setOpticalVisibility: isSet(object.setOpticalVisibility)
-        ? SetOpticalVisibility.fromJSON(object.setOpticalVisibility)
-        : undefined,
-      setThermalCondition: isSet(object.setThermalCondition)
-        ? SetThermalCondition.fromJSON(object.setThermalCondition)
-        : undefined,
+      setWeatherCondition: isSet(object.setWeatherCondition) ? SetWeatherCondition.fromJSON(object.setWeatherCondition) : undefined,
+      setLightingCondition: isSet(object.setLightingCondition) ? SetLightingCondition.fromJSON(object.setLightingCondition) : undefined,
+      setPrecipitationType: isSet(object.setPrecipitationType) ? SetPrecipitationType.fromJSON(object.setPrecipitationType) : undefined,
+      setGroundCondition: isSet(object.setGroundCondition) ? SetGroundCondition.fromJSON(object.setGroundCondition) : undefined,
+      setOpticalVisibility: isSet(object.setOpticalVisibility) ? SetOpticalVisibility.fromJSON(object.setOpticalVisibility) : undefined,
+      setThermalCondition: isSet(object.setThermalCondition) ? SetThermalCondition.fromJSON(object.setThermalCondition) : undefined,
       setNetworkStatus: isSet(object.setNetworkStatus) ? SetNetworkStatus.fromJSON(object.setNetworkStatus) : undefined,
-      setLightSourceCondition: isSet(object.setLightSourceCondition)
-        ? SetLightSourceCondition.fromJSON(object.setLightSourceCondition)
-        : undefined,
+      setLightSourceCondition: isSet(object.setLightSourceCondition) ? SetLightSourceCondition.fromJSON(object.setLightSourceCondition) : undefined,
     };
   },
 
@@ -251,29 +237,34 @@ export const Root = {
   },
   fromPartial<I extends Exact<DeepPartial<Root>, I>>(object: I): Root {
     const message = createBaseRoot();
-    message.setWeatherCondition = (object.setWeatherCondition !== undefined && object.setWeatherCondition !== null)
-      ? SetWeatherCondition.fromPartial(object.setWeatherCondition)
-      : undefined;
-    message.setLightingCondition = (object.setLightingCondition !== undefined && object.setLightingCondition !== null)
-      ? SetLightingCondition.fromPartial(object.setLightingCondition)
-      : undefined;
-    message.setPrecipitationType = (object.setPrecipitationType !== undefined && object.setPrecipitationType !== null)
-      ? SetPrecipitationType.fromPartial(object.setPrecipitationType)
-      : undefined;
-    message.setGroundCondition = (object.setGroundCondition !== undefined && object.setGroundCondition !== null)
-      ? SetGroundCondition.fromPartial(object.setGroundCondition)
-      : undefined;
-    message.setOpticalVisibility = (object.setOpticalVisibility !== undefined && object.setOpticalVisibility !== null)
-      ? SetOpticalVisibility.fromPartial(object.setOpticalVisibility)
-      : undefined;
-    message.setThermalCondition = (object.setThermalCondition !== undefined && object.setThermalCondition !== null)
-      ? SetThermalCondition.fromPartial(object.setThermalCondition)
-      : undefined;
-    message.setNetworkStatus = (object.setNetworkStatus !== undefined && object.setNetworkStatus !== null)
-      ? SetNetworkStatus.fromPartial(object.setNetworkStatus)
-      : undefined;
+    message.setWeatherCondition =
+      object.setWeatherCondition !== undefined && object.setWeatherCondition !== null
+        ? SetWeatherCondition.fromPartial(object.setWeatherCondition)
+        : undefined;
+    message.setLightingCondition =
+      object.setLightingCondition !== undefined && object.setLightingCondition !== null
+        ? SetLightingCondition.fromPartial(object.setLightingCondition)
+        : undefined;
+    message.setPrecipitationType =
+      object.setPrecipitationType !== undefined && object.setPrecipitationType !== null
+        ? SetPrecipitationType.fromPartial(object.setPrecipitationType)
+        : undefined;
+    message.setGroundCondition =
+      object.setGroundCondition !== undefined && object.setGroundCondition !== null
+        ? SetGroundCondition.fromPartial(object.setGroundCondition)
+        : undefined;
+    message.setOpticalVisibility =
+      object.setOpticalVisibility !== undefined && object.setOpticalVisibility !== null
+        ? SetOpticalVisibility.fromPartial(object.setOpticalVisibility)
+        : undefined;
+    message.setThermalCondition =
+      object.setThermalCondition !== undefined && object.setThermalCondition !== null
+        ? SetThermalCondition.fromPartial(object.setThermalCondition)
+        : undefined;
+    message.setNetworkStatus =
+      object.setNetworkStatus !== undefined && object.setNetworkStatus !== null ? SetNetworkStatus.fromPartial(object.setNetworkStatus) : undefined;
     message.setLightSourceCondition =
-      (object.setLightSourceCondition !== undefined && object.setLightSourceCondition !== null)
+      object.setLightSourceCondition !== undefined && object.setLightSourceCondition !== null
         ? SetLightSourceCondition.fromPartial(object.setLightSourceCondition)
         : undefined;
     return message;
@@ -738,15 +729,18 @@ export const SetLightSourceCondition = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

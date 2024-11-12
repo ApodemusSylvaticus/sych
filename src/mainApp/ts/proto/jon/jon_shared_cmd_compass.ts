@@ -5,7 +5,7 @@
 // source: jon_shared_cmd_compass.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
+import _m0 from 'protobufjs/minimal';
 
 export interface Root {
   start?: Start | undefined;
@@ -22,29 +22,21 @@ export interface Root {
   getMeteo?: GetMeteo | undefined;
 }
 
-export interface Start {
-}
+export interface Start {}
 
-export interface Stop {
-}
+export interface Stop {}
 
-export interface Next {
-}
+export interface Next {}
 
-export interface GetMeteo {
-}
+export interface GetMeteo {}
 
-export interface CalibrateStartLong {
-}
+export interface CalibrateStartLong {}
 
-export interface CalibrateStartShort {
-}
+export interface CalibrateStartShort {}
 
-export interface CalibrateNext {
-}
+export interface CalibrateNext {}
 
-export interface CalibrateCencel {
-}
+export interface CalibrateCencel {}
 
 export interface SetRefreshRate {
   /** milliseconds */
@@ -230,24 +222,12 @@ export const Root = {
       start: isSet(object.start) ? Start.fromJSON(object.start) : undefined,
       stop: isSet(object.stop) ? Stop.fromJSON(object.stop) : undefined,
       refreshRate: isSet(object.refreshRate) ? SetRefreshRate.fromJSON(object.refreshRate) : undefined,
-      setMagneticDeclination: isSet(object.setMagneticDeclination)
-        ? SetMagneticDeclination.fromJSON(object.setMagneticDeclination)
-        : undefined,
-      setOffsetAngleAzimuth: isSet(object.setOffsetAngleAzimuth)
-        ? SetOffsetAngleAzimuth.fromJSON(object.setOffsetAngleAzimuth)
-        : undefined,
-      setOffsetAngleElevation: isSet(object.setOffsetAngleElevation)
-        ? SetOffsetAngleElevation.fromJSON(object.setOffsetAngleElevation)
-        : undefined,
-      setUseRotaryPosition: isSet(object.setUseRotaryPosition)
-        ? SetUseRotaryPosition.fromJSON(object.setUseRotaryPosition)
-        : undefined,
-      startCalibrateLong: isSet(object.startCalibrateLong)
-        ? CalibrateStartLong.fromJSON(object.startCalibrateLong)
-        : undefined,
-      startCalibrateShort: isSet(object.startCalibrateShort)
-        ? CalibrateStartShort.fromJSON(object.startCalibrateShort)
-        : undefined,
+      setMagneticDeclination: isSet(object.setMagneticDeclination) ? SetMagneticDeclination.fromJSON(object.setMagneticDeclination) : undefined,
+      setOffsetAngleAzimuth: isSet(object.setOffsetAngleAzimuth) ? SetOffsetAngleAzimuth.fromJSON(object.setOffsetAngleAzimuth) : undefined,
+      setOffsetAngleElevation: isSet(object.setOffsetAngleElevation) ? SetOffsetAngleElevation.fromJSON(object.setOffsetAngleElevation) : undefined,
+      setUseRotaryPosition: isSet(object.setUseRotaryPosition) ? SetUseRotaryPosition.fromJSON(object.setUseRotaryPosition) : undefined,
+      startCalibrateLong: isSet(object.startCalibrateLong) ? CalibrateStartLong.fromJSON(object.startCalibrateLong) : undefined,
+      startCalibrateShort: isSet(object.startCalibrateShort) ? CalibrateStartShort.fromJSON(object.startCalibrateShort) : undefined,
       calibrateNext: isSet(object.calibrateNext) ? CalibrateNext.fromJSON(object.calibrateNext) : undefined,
       calibrateCencel: isSet(object.calibrateCencel) ? CalibrateCencel.fromJSON(object.calibrateCencel) : undefined,
       getMeteo: isSet(object.getMeteo) ? GetMeteo.fromJSON(object.getMeteo) : undefined,
@@ -300,41 +280,39 @@ export const Root = {
   },
   fromPartial<I extends Exact<DeepPartial<Root>, I>>(object: I): Root {
     const message = createBaseRoot();
-    message.start = (object.start !== undefined && object.start !== null) ? Start.fromPartial(object.start) : undefined;
-    message.stop = (object.stop !== undefined && object.stop !== null) ? Stop.fromPartial(object.stop) : undefined;
-    message.refreshRate = (object.refreshRate !== undefined && object.refreshRate !== null)
-      ? SetRefreshRate.fromPartial(object.refreshRate)
-      : undefined;
+    message.start = object.start !== undefined && object.start !== null ? Start.fromPartial(object.start) : undefined;
+    message.stop = object.stop !== undefined && object.stop !== null ? Stop.fromPartial(object.stop) : undefined;
+    message.refreshRate =
+      object.refreshRate !== undefined && object.refreshRate !== null ? SetRefreshRate.fromPartial(object.refreshRate) : undefined;
     message.setMagneticDeclination =
-      (object.setMagneticDeclination !== undefined && object.setMagneticDeclination !== null)
+      object.setMagneticDeclination !== undefined && object.setMagneticDeclination !== null
         ? SetMagneticDeclination.fromPartial(object.setMagneticDeclination)
         : undefined;
     message.setOffsetAngleAzimuth =
-      (object.setOffsetAngleAzimuth !== undefined && object.setOffsetAngleAzimuth !== null)
+      object.setOffsetAngleAzimuth !== undefined && object.setOffsetAngleAzimuth !== null
         ? SetOffsetAngleAzimuth.fromPartial(object.setOffsetAngleAzimuth)
         : undefined;
     message.setOffsetAngleElevation =
-      (object.setOffsetAngleElevation !== undefined && object.setOffsetAngleElevation !== null)
+      object.setOffsetAngleElevation !== undefined && object.setOffsetAngleElevation !== null
         ? SetOffsetAngleElevation.fromPartial(object.setOffsetAngleElevation)
         : undefined;
-    message.setUseRotaryPosition = (object.setUseRotaryPosition !== undefined && object.setUseRotaryPosition !== null)
-      ? SetUseRotaryPosition.fromPartial(object.setUseRotaryPosition)
-      : undefined;
-    message.startCalibrateLong = (object.startCalibrateLong !== undefined && object.startCalibrateLong !== null)
-      ? CalibrateStartLong.fromPartial(object.startCalibrateLong)
-      : undefined;
-    message.startCalibrateShort = (object.startCalibrateShort !== undefined && object.startCalibrateShort !== null)
-      ? CalibrateStartShort.fromPartial(object.startCalibrateShort)
-      : undefined;
-    message.calibrateNext = (object.calibrateNext !== undefined && object.calibrateNext !== null)
-      ? CalibrateNext.fromPartial(object.calibrateNext)
-      : undefined;
-    message.calibrateCencel = (object.calibrateCencel !== undefined && object.calibrateCencel !== null)
-      ? CalibrateCencel.fromPartial(object.calibrateCencel)
-      : undefined;
-    message.getMeteo = (object.getMeteo !== undefined && object.getMeteo !== null)
-      ? GetMeteo.fromPartial(object.getMeteo)
-      : undefined;
+    message.setUseRotaryPosition =
+      object.setUseRotaryPosition !== undefined && object.setUseRotaryPosition !== null
+        ? SetUseRotaryPosition.fromPartial(object.setUseRotaryPosition)
+        : undefined;
+    message.startCalibrateLong =
+      object.startCalibrateLong !== undefined && object.startCalibrateLong !== null
+        ? CalibrateStartLong.fromPartial(object.startCalibrateLong)
+        : undefined;
+    message.startCalibrateShort =
+      object.startCalibrateShort !== undefined && object.startCalibrateShort !== null
+        ? CalibrateStartShort.fromPartial(object.startCalibrateShort)
+        : undefined;
+    message.calibrateNext =
+      object.calibrateNext !== undefined && object.calibrateNext !== null ? CalibrateNext.fromPartial(object.calibrateNext) : undefined;
+    message.calibrateCencel =
+      object.calibrateCencel !== undefined && object.calibrateCencel !== null ? CalibrateCencel.fromPartial(object.calibrateCencel) : undefined;
+    message.getMeteo = object.getMeteo !== undefined && object.getMeteo !== null ? GetMeteo.fromPartial(object.getMeteo) : undefined;
     return message;
   },
 };
@@ -970,15 +948,18 @@ export const SetUseRotaryPosition = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

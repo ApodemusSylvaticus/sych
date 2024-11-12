@@ -5,4 +5,4 @@
 
 /* eslint-disable */
 
-export * from "./jon_shared_cmd_day_camera";
+export * from './jon_shared_cmd_day_camera';

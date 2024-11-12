@@ -4,10 +4,11 @@ export const CardContainer = styled.div`
   display: flex;
   border-radius: 8px;
   border: 1px solid rgb(${(props) => props.theme.colors.primary});
-  padding: 24px 4px 12px;
+  padding: 2.4rem 0.6rem 1.2rem;
   flex-direction: column;
   gap: 12px;
   position: relative;
+  flex-grow: 1;
 `;
 
 export const CardName = styled.span`

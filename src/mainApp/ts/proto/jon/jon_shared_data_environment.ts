@@ -5,7 +5,7 @@
 // source: jon_shared_data_environment.proto
 
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
+import _m0 from 'protobufjs/minimal';
 import {
   JonGuiDataEnvironmentGroundCondition,
   jonGuiDataEnvironmentGroundConditionFromJSON,
@@ -31,7 +31,7 @@ import {
   JonGuiDataEnvironmentWeatherCondition,
   jonGuiDataEnvironmentWeatherConditionFromJSON,
   jonGuiDataEnvironmentWeatherConditionToJSON,
-} from "./jon_shared_data_types";
+} from './jon_shared_data_types';
 
 export interface JonGuiDataEnvironment {
   weatherCondition: JonGuiDataEnvironmentWeatherCondition;
@@ -160,28 +160,14 @@ export const JonGuiDataEnvironment = {
 
   fromJSON(object: any): JonGuiDataEnvironment {
     return {
-      weatherCondition: isSet(object.weatherCondition)
-        ? jonGuiDataEnvironmentWeatherConditionFromJSON(object.weatherCondition)
-        : 0,
-      lightingCondition: isSet(object.lightingCondition)
-        ? jonGuiDataEnvironmentLightingConditionFromJSON(object.lightingCondition)
-        : 0,
-      precipitationType: isSet(object.precipitationType)
-        ? jonGuiDataEnvironmentPrecipitationTypeFromJSON(object.precipitationType)
-        : 0,
-      groundCondition: isSet(object.groundCondition)
-        ? jonGuiDataEnvironmentGroundConditionFromJSON(object.groundCondition)
-        : 0,
-      opticalVisibility: isSet(object.opticalVisibility)
-        ? jonGuiDataEnvironmentOpticalVisibilityFromJSON(object.opticalVisibility)
-        : 0,
-      thermalCondition: isSet(object.thermalCondition)
-        ? jonGuiDataEnvironmentThermalConditionFromJSON(object.thermalCondition)
-        : 0,
+      weatherCondition: isSet(object.weatherCondition) ? jonGuiDataEnvironmentWeatherConditionFromJSON(object.weatherCondition) : 0,
+      lightingCondition: isSet(object.lightingCondition) ? jonGuiDataEnvironmentLightingConditionFromJSON(object.lightingCondition) : 0,
+      precipitationType: isSet(object.precipitationType) ? jonGuiDataEnvironmentPrecipitationTypeFromJSON(object.precipitationType) : 0,
+      groundCondition: isSet(object.groundCondition) ? jonGuiDataEnvironmentGroundConditionFromJSON(object.groundCondition) : 0,
+      opticalVisibility: isSet(object.opticalVisibility) ? jonGuiDataEnvironmentOpticalVisibilityFromJSON(object.opticalVisibility) : 0,
+      thermalCondition: isSet(object.thermalCondition) ? jonGuiDataEnvironmentThermalConditionFromJSON(object.thermalCondition) : 0,
       networkStatus: isSet(object.networkStatus) ? jonGuiDataEnvironmentNetworkStatusFromJSON(object.networkStatus) : 0,
-      lightSourceCondition: isSet(object.lightSourceCondition)
-        ? jonGuiDataEnvironmentLightSourceFromJSON(object.lightSourceCondition)
-        : 0,
+      lightSourceCondition: isSet(object.lightSourceCondition) ? jonGuiDataEnvironmentLightSourceFromJSON(object.lightSourceCondition) : 0,
     };
   },
 
@@ -233,15 +219,18 @@ export const JonGuiDataEnvironment = {
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

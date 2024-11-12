@@ -10,8 +10,6 @@
   font-size: 10px;
 }
 
-
-
 div#menu.open .og-inner {
   opacity: 0;
 }
@@ -26,14 +24,14 @@ div#menu.open .og-inner {
   position: absolute;
   bottom: 0;
   right: 1.6rem;
-  color: rgba(255,255,255, 0.7);
+  color: rgba(255, 255, 255, 0.7);
   border-radius: 8px;
   font-size: 1.2rem;
   opacity: var(--conditional-opacity);
   transition: opacity 0.3s ease;
 }
 
-.og-button-icon{
+.og-button-icon {
   width: 100%;
   height: 100%;
   display: flex;
@@ -41,9 +39,6 @@ div#menu.open .og-inner {
   justify-content: center;
   opacity: var(--conditional-opacity);
   transition: all 0.3s ease;
-
-
-
 }
 
 .og-map-button {
@@ -61,7 +56,8 @@ div#menu.open .og-inner {
     background-color: rgb(36, 36, 36);
   }
 
-  &:active, &:focus {
+  &:active,
+  &:focus {
     transform: scale(1.1);
   }
 }
@@ -103,8 +99,7 @@ div#menu.open .og-inner {
   background-color: rgb(27, 84, 69);
 }
 
-
-.og-coordinates{
+.og-coordinates {
   cursor: pointer;
   position: absolute;
   background: rgb(18, 18, 18);
@@ -120,22 +115,22 @@ div#menu.open .og-inner {
   transition: opacity 0.3s ease;
 }
 
-.og-lon-side{
+.og-lon-side {
   margin-left: 1.2rem;
 }
 
-.og-height{
+.og-height {
   margin-left: 1.2rem;
 }
 
-.og-scale-container{
+.og-scale-container {
   position: absolute;
   bottom: 2rem;
   right: 45%;
   display: flex;
   flex-direction: column;
   text-align: center;
-  color: rgb(255,255,255);
+  color: rgb(255, 255, 255);
   font-size: 1.4rem;
 }
 
@@ -145,16 +140,13 @@ div#menu.open .og-inner {
   border-right: 1px solid #fff;
   height: 0.7rem;
   position: relative;
-
 }
 
-.og-compass-button{
+.og-compass-button {
   position: absolute;
   bottom: 114px;
   right: 16px;
 }
-
-
 
 @media screen and (max-width: 500px) {
   :root {
@@ -170,9 +162,7 @@ div#menu.open .og-inner {
     align-items: center;
   }
 
-  .og-scale-ruler{
+  .og-scale-ruler {
     width: 100px;
   }
 }
-
-

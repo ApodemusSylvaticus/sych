@@ -91,7 +91,7 @@ interface LabelProps {
 
 export const Label = styled.label<LabelProps>`
   position: absolute;
-  left: 0;
+  left: 1px;
   top: 50%;
   transform: translateY(-50%);
   padding: 0 1.4rem;
